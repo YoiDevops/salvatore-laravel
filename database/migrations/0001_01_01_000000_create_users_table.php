@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        // Tabla de usuarios combinada (Laravel + Colegio)
-        Schema::create('usuario', function (Blueprint $table) {
-            $table->increments('id_usuario');
-            $table->string('usuario', 30)->unique();
+        // Tabla de userss combinada (Laravel + Colegio)
+        Schema::create('users', function (Blueprint $table) {
+            $table->increments('id_users');
+            $table->string('users', 30)->unique();
             $table->string('correo', 100)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 255);
@@ -33,7 +33,7 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
         });
 
-        // Tabla: sessions (adaptada a id_usuario)
+        // Tabla: sessions (adaptada a id_users)
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->unsignedInteger('user_id')->nullable()->index();
@@ -42,7 +42,7 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
 
-            $table->foreign('user_id')->references('id_usuario')->on('usuario')->onDelete('cascade');
+            $table->foreign('user_id')->references('id_users')->on('users')->onDelete('cascade');
         });
 
         Schema::enableForeignKeyConstraints();
@@ -57,7 +57,7 @@ return new class extends Migration
 
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('usuario');
+        Schema::dropIfExists('users');
 
         Schema::enableForeignKeyConstraints();
     }
