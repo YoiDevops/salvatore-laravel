@@ -23,7 +23,11 @@ return new class extends Migration
         Schema::create('team_members', function (Blueprint $table) {
             $table->id();
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            
+            // Relación corregida hacia users(id_users)
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id_users')->on('users')->cascadeOnDelete();
+
             $table->string('role');
             $table->timestamps();
 
@@ -36,7 +40,11 @@ return new class extends Migration
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->string('email');
             $table->string('role');
-            $table->foreignId('invited_by')->constrained('users')->cascadeOnDelete();
+            
+            // Relación corregida hacia users(id_users)
+            $table->unsignedInteger('invited_by');
+            $table->foreign('invited_by')->references('id_users')->on('users')->cascadeOnDelete();
+
             $table->timestamp('expires_at')->nullable();
             $table->timestamp('accepted_at')->nullable();
             $table->timestamps();

@@ -1,3 +1,4 @@
 npm install
 composer install
 npm run build (por si no sirve manifest.json
+php artisan migrate:fresh

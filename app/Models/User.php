@@ -43,6 +43,17 @@ class User extends Authenticatable implements PasskeyUser
     use HasFactory, HasTeams, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
 
     /**
+     * Definición de la clave primaria personalizada
+     */
+    protected $primaryKey = 'id_users';
+/**
+     * Accesador para que Jetstream lea el ID correctamente
+     */
+    public function getIdAttribute()
+    {
+        return $this->attributes['id_users'] ?? $this->id_users;
+    }
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>

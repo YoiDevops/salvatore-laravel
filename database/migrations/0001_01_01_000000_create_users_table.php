@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        // Tabla de userss combinada (Laravel + Colegio)
+            // Tabla de userss combinada (Laravel + Colegio)
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id_users');
-            $table->string('users', 30)->unique();
-            $table->string('correo', 100)->unique();
+            $table->string('name', 30)->unique();
+            $table->string('email', 100)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 255);
             $table->string('nom_rol', 25)->nullable();
