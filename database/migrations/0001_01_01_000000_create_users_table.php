@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-            // Tabla de userss combinada (Laravel + Colegio)
+        // Tabla de usuarios (Campos nativos + Campos del Colegio)
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id_users');
             $table->string('name', 30)->unique();
@@ -33,7 +33,7 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
         });
 
-        // Tabla: sessions (adaptada a id_users)
+        // Tabla: sessions (vinculada a id_users)
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->unsignedInteger('user_id')->nullable()->index();
@@ -41,7 +41,6 @@ return new class extends Migration
             $table->text('user_agent')->nullable();
             $table->longText('payload');
             $table->integer('last_activity')->index();
-
             $table->foreign('user_id')->references('id_users')->on('users')->onDelete('cascade');
         });
 
@@ -54,11 +53,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::disableForeignKeyConstraints();
-
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('users');
-
         Schema::enableForeignKeyConstraints();
     }
 };
