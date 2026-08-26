@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('correo_profesor', 100)->nullable();
             $table->string('direccion_residencia', 150)->nullable();
             $table->date('fecha_ingreso_colegio')->nullable();
+            $table->string('tipo_contra', 50)->nullable();
             $table->enum('estado_profesor', ["Activo","Inactivo","Licencia"])->nullable();
         });
 

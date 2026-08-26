@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nombre_grado', 25);
             $table->unsignedTinyInteger('edad_minima')->nullable();
             $table->unsignedTinyInteger('edad_maxima')->nullable();
+            $table->string('ano_lectivo', 20)->nullable();
         });
 
         Schema::enableForeignKeyConstraints();
