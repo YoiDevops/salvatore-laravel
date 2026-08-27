@@ -50,9 +50,6 @@ class GradoController extends Controller
 
         $validated = $request->validate([
             'nombre_grado' => 'required|string|max:25',
-            'edad_minima' => 'nullable|integer|min:0|max:255',
-            'edad_maxima' => 'nullable|integer|min:0|max:255',
-            'ano_lectivo' => 'nullable|string|max:20', // <-- Agregado
         ]);
 
         $grado->update($validated);

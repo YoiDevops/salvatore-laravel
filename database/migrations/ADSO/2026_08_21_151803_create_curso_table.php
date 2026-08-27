@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('nombre_curso', 15);
             $table->string('cupo_maximo', 10);
             $table->string('jornada', 10)->nullable();
+            $table->string('ano_lectivo', 20)->nullable();
         });
 
         Schema::enableForeignKeyConstraints();

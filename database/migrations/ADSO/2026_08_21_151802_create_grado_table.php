@@ -16,9 +16,6 @@ return new class extends Migration
         Schema::create('grado', function (Blueprint $table) {
             $table->increments('id_grado');
             $table->string('nombre_grado', 25);
-            $table->unsignedTinyInteger('edad_minima')->nullable();
-            $table->unsignedTinyInteger('edad_maxima')->nullable();
-            $table->string('ano_lectivo', 20)->nullable();
         });
 
         Schema::enableForeignKeyConstraints();

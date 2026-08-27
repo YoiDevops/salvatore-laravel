@@ -61,6 +61,7 @@ class CursoController extends Controller
             'nombre_curso' => 'required|string|max:15',
             'cupo_maximo' => 'required|string|max:10',
             'jornada' => 'nullable|string|max:10',
+            'ano_lectivo' => 'nullable|string|max:20',
         ]);
 
         $curso->update($validated);

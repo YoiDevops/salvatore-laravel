@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Middleware\EnsureTeamMembership;
-use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\AcudienteController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\AsignaturaController;
@@ -18,9 +15,16 @@ use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\SedeController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\EnsureTeamMembership;
+use Illuminate\Support\Facades\Route;
 
+// Ruta pública inicial
 Route::view('/', 'welcome')->name('home');
 
+// Carga de rutas de configuración generales
+require __DIR__.'/settings.php';
+
+// Rutas autenticadas asociadas a un equipo
 Route::prefix('{current_team}')
     ->middleware(['auth', 'verified', EnsureTeamMembership::class])
     ->group(function () {
@@ -40,9 +44,7 @@ Route::prefix('{current_team}')
         Route::resource('instituciones', InstitucionController::class);
         Route::resource('sedes', SedeController::class);
         Route::resource('roles', RolController::class);
-        
+
         Route::resource('usuarios', UserController::class)->except(['create', 'store']);
         Route::put('usuarios/{id}/password', [UserController::class, 'updatePassword'])->name('usuarios.updatePassword');
     });
-
-require __DIR__.'/settings.php';

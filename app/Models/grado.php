@@ -14,9 +14,6 @@ class Grado extends Model
 
     protected $fillable = [
         'nombre_grado',
-        'edad_minima',
-        'edad_maxima',
-        'ano_lectivo', 
     ];
 
     public function cursos()

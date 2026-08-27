@@ -18,6 +18,7 @@ class Curso extends Model
         'nombre_curso',
         'cupo_maximo',
         'jornada',
+        'ano_lectivo', 
     ];
 
     public function sede()

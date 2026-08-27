@@ -1,5 +1,6 @@
 <?php
 
+
 namespace Tests\Feature\Settings;
 
 use App\Models\User;
@@ -23,6 +24,7 @@ class SecurityTest extends TestCase
             'confirm' => true,
             'confirmPassword' => true,
         ]);
+
         Features::passkeys([
             'confirmPassword' => true,
         ]);
@@ -64,7 +66,7 @@ class SecurityTest extends TestCase
             ->withSession(['auth.password_confirmed_at' => time()])
             ->get(route('security.edit'))
             ->assertOk()
-            ->assertSee('Update password')
+            ->assertSee('Actualizar contraseña')
             ->assertDontSee('Manage your passkeys for passwordless sign-in')
             ->assertDontSee('Add a passkey to sign in without a password')
             ->assertDontSee('Two-factor authentication');
@@ -109,7 +111,9 @@ class SecurityTest extends TestCase
 
         $response->assertHasNoErrors();
 
-        $this->assertTrue(Hash::check('new-password', $user->refresh()->password));
+        $this->assertTrue(
+            Hash::check('new-password', $user->refresh()->password)
+        );
     }
 
     public function test_correct_password_must_be_provided_to_update_password(): void
