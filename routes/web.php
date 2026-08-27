@@ -31,12 +31,12 @@ Route::prefix('{current_team}')
         Route::resource('acudientes', AcudienteController::class);
         Route::resource('areas', AreaController::class);
         Route::resource('asignaturas', AsignaturaController::class);
-        Route::resource('caracterizaciones', CaracterizacionDiscapacidadController::class);
+        Route::resource('caracterizaciones', Caracterizacion_discapacidadController::class);
         Route::resource('grados', GradoController::class);
         Route::resource('cursos', CursoController::class);
-        Route::resource('escalas', EscalaValoracionController::class);
+        Route::resource('escalas', Escala_valoracionController::class);
         Route::resource('periodos', PeriodoController::class);
-        Route::resource('indicadores', IndicadorLogroController::class);
+        Route::resource('indicadores', Indicador_logroController::class);
         Route::resource('estudiantes', EstudianteController::class);
         Route::resource('profesores', ProfesorController::class);
         Route::resource('instituciones', InstitucionController::class);
