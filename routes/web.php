@@ -3,7 +3,6 @@
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
 
-// Importación de todos los controladores del sistema académico
 use App\Http\Controllers\AcudienteController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\AsignaturaController;
@@ -27,23 +26,21 @@ Route::prefix('{current_team}')
     ->group(function () {
         Route::view('dashboard', 'dashboard')->name('dashboard');
 
-        // --- RUTAS MÓDULOS ACADÉMICOS (PROTEGIDAS) ---
         Route::resource('acudientes', AcudienteController::class);
         Route::resource('areas', AreaController::class);
         Route::resource('asignaturas', AsignaturaController::class);
-        Route::resource('caracterizaciones', Caracterizacion_discapacidadController::class);
+        Route::resource('caracterizaciones', CaracterizacionDiscapacidadController::class);
         Route::resource('grados', GradoController::class);
         Route::resource('cursos', CursoController::class);
-        Route::resource('escalas', Escala_valoracionController::class);
+        Route::resource('escalas', EscalaValoracionController::class);
         Route::resource('periodos', PeriodoController::class);
-        Route::resource('indicadores', Indicador_logroController::class);
+        Route::resource('indicadores', IndicadorLogroController::class);
         Route::resource('estudiantes', EstudianteController::class);
         Route::resource('profesores', ProfesorController::class);
         Route::resource('instituciones', InstitucionController::class);
         Route::resource('sedes', SedeController::class);
         Route::resource('roles', RolController::class);
         
-        // Usuarios (sin create/store ya que se registran vía Auth/Roles)
         Route::resource('usuarios', UserController::class)->except(['create', 'store']);
         Route::put('usuarios/{id}/password', [UserController::class, 'updatePassword'])->name('usuarios.updatePassword');
     });
