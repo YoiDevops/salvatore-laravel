@@ -45,7 +45,7 @@ trait ProfileValidationRules
             'max:255',
             $userId === null
                 ? Rule::unique(User::class)
-                : Rule::unique(User::class)->ignore($userId),
+                : Rule::unique(User::class)->ignore($userId, 'id_users'),
         ];
     }
 }
