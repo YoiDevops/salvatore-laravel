@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-use Laravel\Fortify\Contracts\PasskeyUser;
-use Laravel\Passkeys\Models\Passkey;
-use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Passkeys\Contracts\PasskeyUser;
+use Laravel\Passkeys\Passkey;
+use Laravel\Passkeys\PasskeyAuthenticatable;
 
 #[Fillable(['name', 'email', 'password', 'nom_rol', 'estado', 'current_team_id'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
@@ -28,6 +28,11 @@ class User extends Authenticatable implements PasskeyUser
     public $incrementing = true;
     protected $keyType = 'int';
 
+    public function getAuthIdentifierName(): string
+    {
+        return 'id_users';
+    }
+
     public function getIdAttribute()
     {
         return $this->attributes['id_users'] ?? $this->id_users;
@@ -36,6 +41,14 @@ class User extends Authenticatable implements PasskeyUser
     public function getKey()
     {
         return $this->attributes['id_users'] ?? parent::getKey();
+    }
+
+    /**
+     * Relación con las passkeys cumpliendo la clave personalizada id_users.
+     */
+    public function passkeys(): HasMany
+    {
+        return $this->hasMany(Passkey::class, 'id_users', 'id_users');
     }
 
     protected function casts(): array
@@ -65,12 +78,4 @@ class User extends Authenticatable implements PasskeyUser
     {
         return $this->hasOne(Profesor::class, 'id_usuario', 'id_users');
     }
-
-/**
- * Relación de passkeys con tipo de retorno explícito para cumplir con el contrato de Fortify.
- */
-public function passkeys(): HasMany
-{
-    return $this->hasMany(Passkey::class, 'user_id', 'id_users');
-}
 }
