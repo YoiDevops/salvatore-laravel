@@ -9,14 +9,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-/**
- * @extends Factory<User>
- */
+
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
     protected static ?string $password;
 
     /**
@@ -31,6 +26,8 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            'nom_rol' => 'Estudiante',
+            'estado' => 'activo',
             'remember_token' => Str::random(10),
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
@@ -38,9 +35,7 @@ class UserFactory extends Factory
         ];
     }
 
-    /**
-     * Configure the model factory.
-     */
+
     public function configure(): static
     {
         return $this->afterCreating(function ($user) {
@@ -56,9 +51,30 @@ class UserFactory extends Factory
         });
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
+
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'nom_rol' => 'Administrador',
+        ]);
+    }
+
+
+    public function profesor(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'nom_rol' => 'Profesor',
+        ]);
+    }
+
+
+    public function estudiante(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'nom_rol' => 'Estudiante',
+        ]);
+    }
+
     public function unverified(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -66,9 +82,6 @@ class UserFactory extends Factory
         ]);
     }
 
-    /**
-     * Indicate that the model has two-factor authentication configured.
-     */
     public function withTwoFactor(): static
     {
         return $this->state(fn (array $attributes) => [

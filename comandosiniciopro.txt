@@ -6,3 +6,5 @@ php artisan migrate --path=database/migrations/ADSO
 php artisan test
 php artisan route:clear
 php artisan config:clear
+
+@vite('resources/css/style.css')
