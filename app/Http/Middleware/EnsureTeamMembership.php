@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Enums\TeamRole;
 use App\Models\Team;
-use App\Models\User;
+use App\Models\Usuarios\User;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

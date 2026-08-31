@@ -24,6 +24,25 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        $this->loadMigrationsFrom($this->migrationPaths());
+    }
+
+    /**
+     * Get the migration directories used by the application.
+     *
+     * @return array<int, string>
+     */
+    protected function migrationPaths(): array
+    {
+        return array_values(array_unique([
+            database_path('migrations'),
+            database_path('migrations/Academico'),
+            database_path('migrations/Estudiante'),
+            database_path('migrations/Evaluacion'),
+            database_path('migrations/Institucional'),
+            database_path('migrations/Profesor'),
+            database_path('migrations/Usuarios'),
+        ]));
     }
 
     /**

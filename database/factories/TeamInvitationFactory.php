@@ -5,7 +5,7 @@ namespace Database\Factories;
 use App\Enums\TeamRole;
 use App\Models\Team;
 use App\Models\TeamInvitation;
-use App\Models\User;
+use App\Models\Usuarios\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

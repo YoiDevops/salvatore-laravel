@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Enums\TeamPermission;
 use App\Models\Team;
-use App\Models\User;
+use App\Models\Usuarios\User;
 
 class TeamPolicy
 {

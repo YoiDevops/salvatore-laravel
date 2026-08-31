@@ -1,20 +1,20 @@
 <?php
 
-use App\Http\Controllers\AcudienteController;
-use App\Http\Controllers\AreaController;
-use App\Http\Controllers\AsignaturaController;
-use App\Http\Controllers\CaracterizacionDiscapacidadController;
-use App\Http\Controllers\CursoController;
-use App\Http\Controllers\EscalaValoracionController;
-use App\Http\Controllers\EstudianteController;
-use App\Http\Controllers\GradoController;
-use App\Http\Controllers\IndicadorLogroController;
-use App\Http\Controllers\InstitucionController;
-use App\Http\Controllers\PeriodoController;
-use App\Http\Controllers\ProfesorController;
-use App\Http\Controllers\RolController;
-use App\Http\Controllers\SedeController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Academico\AreaController;
+use App\Http\Controllers\Academico\AsignaturaController;
+use App\Http\Controllers\Academico\CursoController;
+use App\Http\Controllers\Academico\GradoController;
+use App\Http\Controllers\estudiante\AcudienteController;
+use App\Http\Controllers\estudiante\CaracterizacionDiscapacidadController;
+use App\Http\Controllers\estudiante\EstudianteController;
+use App\Http\Controllers\Evaluacion\EscalaValoracionController;
+use App\Http\Controllers\Evaluacion\IndicadorLogroController;
+use App\Http\Controllers\Evaluacion\PeriodoController;
+use App\Http\Controllers\Institucional\InstitucionController;
+use App\Http\Controllers\Institucional\SedeController;
+use App\Http\Controllers\profesor\ProfesorController;
+use App\Http\Controllers\Usuarios\RolController;
+use App\Http\Controllers\Usuarios\UserController;
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
 
