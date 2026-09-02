@@ -6,7 +6,7 @@
         <h2 class="text-2xl font-bold text-gray-800">Listado de Cursos</h2>
         <p class="text-sm text-gray-600">Gestión de cursos y grupos institucionales.</p>
     </div>
-    <a href="{{ route('cursos.create', request()->route('current_team')) }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg shadow">
+    <a href="{{ route('cursos.create', ) }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg shadow">
         + Registrar Curso
     </a>
 </div>
@@ -28,9 +28,9 @@
                 <td class="p-4">{{ $curso->grado->nombre_grado ?? 'N/A' }}</td>
                 <td class="p-4">{{ $curso->profesorDirector->nombres_profesor ?? 'Sin asignar' }} {{ $curso->profesorDirector->apellidos_profesor ?? '' }}</td>
                 <td class="p-4 space-x-2 flex items-center">
-                    <a href="{{ route('cursos.show', [request()->route('current_team'), $curso->id_curso ?? $curso->id]) }}" class="text-blue-600 hover:text-blue-900 font-medium">Ver</a>
-                    <a href="{{ route('cursos.edit', [request()->route('current_team'), $curso->id_curso ?? $curso->id]) }}" class="text-yellow-600 hover:text-yellow-900 font-medium">Editar</a>
-                    <form action="{{ route('cursos.destroy', [request()->route('current_team'), $curso->id_curso ?? $curso->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este curso?');" class="inline">
+                    <a href="{{ route('cursos.show', [$curso->id_curso ?? $curso->id]) }}" class="text-blue-600 hover:text-blue-900 font-medium">Ver</a>
+                    <a href="{{ route('cursos.edit', [$curso->id_curso ?? $curso->id]) }}" class="text-yellow-600 hover:text-yellow-900 font-medium">Editar</a>
+                    <form action="{{ route('cursos.destroy', [$curso->id_curso ?? $curso->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este curso?');" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="text-red-600 hover:text-red-900 font-medium">Eliminar</button>

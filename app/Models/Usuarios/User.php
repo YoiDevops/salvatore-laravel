@@ -2,7 +2,6 @@
 
 namespace App\Models\Usuarios;
 
-use App\Concerns\HasTeams;
 use App\Models\Estudiante\Estudiante;
 use App\Models\Profesor\Profesor;
 use Database\Factories\UserFactory;
@@ -18,12 +17,12 @@ use Laravel\Passkeys\Contracts\PasskeyUser;
 use Laravel\Passkeys\Passkey;
 use Laravel\Passkeys\PasskeyAuthenticatable;
 
-#[Fillable(['name', 'email', 'password', 'nom_rol', 'estado', 'current_team_id'])]
+#[Fillable(['name', 'email', 'password', 'nom_rol', 'estado'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements PasskeyUser
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, HasTeams, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
+    use HasFactory, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
 
     protected $table = 'users';
     protected $primaryKey = 'id_users';

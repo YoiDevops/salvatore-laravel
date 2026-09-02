@@ -17,12 +17,12 @@
             </div>
             
             <div class="hidden md:flex space-x-6 text-sm font-medium">
-                <a href="{{ route('estudiantes.index', request()->route('current_team')) }}" class="hover:text-indigo-200 transition">Estudiantes</a>
-                <a href="{{ route('profesores.index', request()->route('current_team')) }}" class="hover:text-indigo-200 transition">Profesores</a>
-                <a href="{{ route('cursos.index', request()->route('current_team')) }}" class="hover:text-indigo-200 transition">Cursos</a>
-                <a href="{{ route('acudientes.index', request()->route('current_team')) }}" class="hover:text-indigo-200 transition">Acudientes</a>
-                <a href="{{ route('grados.index', request()->route('current_team')) }}" class="hover:text-indigo-200 transition">Grados</a>
-                <a href="{{ route('areas.index', request()->route('current_team')) }}" class="hover:text-indigo-200 transition">Áreas</a>
+                <a href="{{ route('estudiantes.index', ) }}" class="hover:text-indigo-200 transition">Estudiantes</a>
+                <a href="{{ route('profesores.index', ) }}" class="hover:text-indigo-200 transition">Profesores</a>
+                <a href="{{ route('cursos.index', ) }}" class="hover:text-indigo-200 transition">Cursos</a>
+                <a href="{{ route('acudientes.index', ) }}" class="hover:text-indigo-200 transition">Acudientes</a>
+                <a href="{{ route('grados.index', ) }}" class="hover:text-indigo-200 transition">Grados</a>
+                <a href="{{ route('areas.index', ) }}" class="hover:text-indigo-200 transition">Áreas</a>
             </div>
         </div>
     </nav>

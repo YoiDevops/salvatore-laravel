@@ -41,10 +41,9 @@
                 </flux:tooltip>
             </flux:navbar>
 
-            <x-desktop-user-menu :showTeam="false" />
+            <x-desktop-user-menu />
 
             <div class="max-lg:hidden">
-                <livewire:team-switcher />
             </div>
         </flux:header>
 
@@ -55,7 +54,6 @@
                 <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
             </flux:sidebar.header>
 
-            <livewire:team-switcher />
 
             <flux:sidebar.nav>
                 <flux:sidebar.group :heading="__('Platform')">
@@ -78,8 +76,6 @@
         </flux:sidebar>
 
         {{ $slot }}
-
-        <livewire:create-team-modal />
 
         @persist('toast')
             <flux:toast.group>

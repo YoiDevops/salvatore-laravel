@@ -1,0 +1,191 @@
+header{
+      background-image:
+        linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.3)),
+        url('../img/aula.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.img_pauta{
+    width: 200px;
+    height: auto;
+ 
+}
+
+.text_pauta{
+    display: block;
+    color: white;
+    font-size: 44px;
+    margin-top: 10px;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    margin-left: 210px;
+    position: absolute;
+    top: 50px;
+}
+
+
+
+
+.contenido{
+    width: 90%;
+    max-width: 1400px;
+    margin: 40px auto;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.salir{
+    align-self: flex-end;
+    color: #c49a00;
+    font-size: 30px;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.salir:hover{
+    color: #2f2d2d;
+    transform: scale(1.2);
+}
+.dashboard{
+    width: 95%;
+}
+
+
+.dashboard h2{
+    text-align: center;
+    font-size: 2.2rem;
+    color: #222;
+    margin-bottom: 40px;
+    position: relative;
+}
+.dashboard h2::after{
+    content: "";
+    width: 200px;
+    height: 4px;
+    background: #c49a00;
+    display: block;
+    margin: 10px auto;
+    border-radius: 5px;
+}
+
+.subtitulo-dashboard{
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.dashboard-cards{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-card{
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 5px 20px rgba(0,0,0,.1);
+    transition: all .3s ease;
+}
+
+.dashboard-card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,.2);
+}
+
+.dashboard-card i{
+    font-size: 55px;
+    color: #c49a00;
+    margin-bottom: 15px;
+}
+
+.dashboard-card h3{
+    margin-bottom: 10px;
+    color: #0b3b65;
+}
+
+.dashboard-card p{
+    color: #666;
+}
+
+
+/*pie pagina*/
+.pie-pagina {
+    background-color: #1e1e1e;
+    padding: 40px 20px 20px;
+    text-align: center;
+}
+
+.redes-sociales {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+/* los iconos de redes ahora estan dentro de <a> */
+.redes-sociales a {
+    width: 45px;
+    height: 45px;
+    border: 2px solid #d9aa00;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #d9aa00;
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.redes-sociales a:hover {
+    background-color: #d9aa00;
+    color: #111;
+}
+
+.informacion-contacto {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.contacto {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contacto i {
+    color: #d9aa00;
+    font-size: 18px;
+}
+
+.contacto span {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.pie-copyright {
+    border-top: 1px solid #333;
+    padding-top: 18px;
+    margin-top: 10px;
+}
+
+.pie-copyright p {
+    color: #555;
+    font-size: 12px;
+}

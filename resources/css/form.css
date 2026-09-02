@@ -1,0 +1,452 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    padding: 0; 
+    margin: 0; 
+    box-sizing: border-box; 
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+body{
+    background: #ececec; 
+    font-family: "Roboto", sans-serif;
+}
+header {
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.3)), url('../img/fondo3.jpeg');
+    background-size: cover;
+    background-position: center;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.img_pauta {
+    display: none;
+}
+
+.text_pauta {
+    color: #ffffff;
+    font-size: clamp(24px, 4vw, 42px);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    max-width: 80%;
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 0;
+}
+
+.menu{
+   width: 100%;
+   background: #fff; 
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   height: 60px;
+   padding: 0 40px;
+   box-shadow: 0 4px 15px rgba(0,0,0,.05);
+}
+
+.menu ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 40px; 
+}
+
+.menu ul li{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.menu ul li a{
+    color: #555; 
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.menu ul li a i{
+    color: #d9aa00; 
+    font-size: 18px;
+}
+
+.menu ul li a:hover{  
+    color: #d9aa00; 
+}
+
+.buscar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.buscar .dato {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+    color: #555;
+    transition: border-color 0.3s;
+}
+
+.buscar .dato:focus {
+    border-color: #d9aa00;
+}
+
+.buscar .btn_buscar {
+    background: #d9aa00;
+    border: none;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.buscar .btn_buscar:hover {
+    background: #c49a00;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.contenido {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: #ececec;
+    padding: 50px 20px;
+}
+
+.seccion {
+    width: 100%;
+    max-width: 800px;
+    background: #fff;
+    padding: 45px;
+    border-radius: 8px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.10);
+}
+
+.seccion h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #222;
+    font-size: 24px;
+    font-weight: 500;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #d9aa00;
+}
+
+.tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.tabla-usuarios {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    text-align: left;
+}
+
+.tabla-usuarios th {
+    background: #1e1e1e;
+    color: #fff;
+    padding: 14px;
+    font-weight: 500;
+    border: 1px solid #3a3a3a;
+}
+
+.tabla-usuarios td {
+    padding: 12px 14px;
+    border: 1px solid #ccc;
+    color: #555;
+    transition: 0.3s;
+}
+
+.tabla-usuarios tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.tabla-usuarios tr:hover td {
+    background: #fff9e6;
+}
+
+.tabla-usuarios input[type="radio"] {
+    accent-color: #d9aa00;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+/*pie pagina*/
+.pie-pagina {
+    background-color: #1e1e1e;
+    padding: 40px 20px 20px;
+    text-align: center;
+}
+
+.redes-sociales {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+/* los iconos de redes ahora estan dentro de <a> */
+.redes-sociales a {
+    width: 45px;
+    height: 45px;
+    border: 2px solid #d9aa00;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #d9aa00;
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.redes-sociales a:hover {
+    background-color: #d9aa00;
+    color: #111;
+}
+
+.informacion-contacto {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.contacto {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contacto i {
+    color: #d9aa00;
+    font-size: 18px;
+}
+
+.contacto span {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.pie-copyright {
+    border-top: 1px solid #333;
+    padding-top: 18px;
+    margin-top: 10px;
+}
+
+.pie-copyright p {
+    color: #555;
+    font-size: 12px;
+}
+
+
+
+@media (max-width: 768px) {
+    header {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .layout {
+        flex-direction: column;
+    }
+
+    .menu {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .menu ul {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .buscar {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .buscar .dato {
+        width: 70%;
+    }
+
+    footer .contenedor-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .titulo_footer2 {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .redes_sociales {
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .info p {
+        text-align: center;
+    }
+    
+    .info {
+        display: block;
+        width: 100%;
+    }
+    
+    footer div {
+        display: block;
+        margin-left: 0;
+    }
+}
+
+.form-basico {
+    max-width: 420px; 
+    margin: 50px auto;
+    padding: 45px; 
+    box-sizing: border-box;
+    background-color: #fff; 
+    font-family: 'Roboto', sans-serif;
+    text-align: left; 
+    border-radius: 8px; 
+    box-shadow: 0 15px 40px rgba(0,0,0,.20); 
+}
+
+.titulo {
+    display: block;
+    text-align: center;
+    box-sizing: border-box;
+    color: #222;
+    font-size: 22px;
+    font-weight: bold;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #d9aa00; 
+    margin-bottom: 30px;
+}
+
+.form-basico label {
+    display: block; 
+    box-sizing: border-box;
+    color: #555;
+    font-weight: 500;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+    margin-bottom: 8px;
+}
+
+.entrada {
+    margin-bottom: 20px; 
+}
+
+.entrada input, .entrada select, .entrada textarea {
+    color: #5f5f5f;
+    width: 100%; 
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc; 
+    outline: none;
+    font-size: 15px;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+.entrada input:focus, .entrada select:focus, .entrada textarea:focus {
+    border-color: #d9aa00; 
+}
+
+.entrada input[type=checkbox] {
+   width: auto;
+   margin-top: 5px;
+   margin-left: 0;
+}
+
+.entrada a{
+    color: #d9aa00;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.boton {
+  width: 100%;
+}
+
+.form-basico .boton input[type=button], 
+.form-basico .boton input[type=submit] {
+    width: 100%;
+    background: #d9aa00; 
+    border-radius: 5px;
+    color: #ffffff;
+    padding: 13px;
+    border: 0;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.form-basico .boton input[type=button]:hover, 
+.form-basico .boton input[type=submit]:hover {
+    background: #c49a00; 
+}
+
+.enlaces-login{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.enlaces-login a{
+    color: #555;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.enlaces-login a:hover{
+    color: #d9aa00;
+}
