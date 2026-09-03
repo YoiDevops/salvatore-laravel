@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
-new #[Layout('layouts.auth')] class extends Component {
+new #[Layout('layouts.auth-banner')] class extends Component {
     public string $usuario = '';
     public string $password = '';
 

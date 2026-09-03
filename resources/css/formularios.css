@@ -16,7 +16,7 @@ body{
 
     background:
     linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.45)),
-    url("../img/fondo2.jpg");
+    url("/images/fondo2.jpg");
 
     background-size:cover;
     background-position:center;
@@ -154,7 +154,7 @@ body{
     border-color:#d9aa00;
 
 }
-.boton input{
+.boton button{
 
     width:100%;
 
@@ -170,11 +170,13 @@ body{
 
     font-weight:bold;
 
+    color:#fff;
+
     transition:.3s;
 
 }
 
-.boton input:hover{
+.boton button:hover{
 
     background:#c49a00;
 
