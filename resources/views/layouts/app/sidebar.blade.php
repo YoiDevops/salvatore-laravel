@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
 
-                    @if (auth()->user()?->nom_rol === 'Administrador')
+                    @if (strtolower(trim((string) auth()->user()?->nom_rol)) === 'administrador')
                         <flux:sidebar.item icon="shield-check" :href="route('dashboardAdmin')" :current="request()->routeIs('dashboardAdmin')" wire:navigate>
                             {{ __('Panel de Administración') }}
                         </flux:sidebar.item>

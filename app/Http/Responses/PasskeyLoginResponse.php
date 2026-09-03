@@ -11,7 +11,7 @@ class PasskeyLoginResponse implements PasskeyLoginResponseContract
 {
     public function toResponse($request): Response
     {
-        $redirect = $request->user()?->nom_rol === 'Administrador'
+        $redirect = strtolower(trim((string) $request->user()?->nom_rol)) === 'administrador'
             ? route('dashboardAdmin')
             : Fortify::redirects('login');
 

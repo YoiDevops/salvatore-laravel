@@ -17,8 +17,10 @@ class EnsureUserHasRole
     public function handle(Request $request, Closure $next, string ...$roles): Response
     {
         $user = $request->user();
+        $rol = $user ? strtolower(trim((string) $user->nom_rol)) : null;
+        $rolesPermitidos = array_map('strtolower', $roles);
 
-        if (! $user || ! in_array($user->nom_rol, $roles, true)) {
+        if (! $rol || ! in_array($rol, $rolesPermitidos, true)) {
             abort(403, 'No tienes permiso para acceder a esta sección.');
         }
 

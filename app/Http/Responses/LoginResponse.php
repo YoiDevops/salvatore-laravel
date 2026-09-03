@@ -11,7 +11,7 @@ class LoginResponse implements LoginResponseContract
 {
     public function toResponse($request): Response
     {
-        $home = $request->user()?->nom_rol === 'Administrador'
+        $home = strtolower(trim((string) $request->user()?->nom_rol)) === 'administrador'
             ? route('dashboardAdmin')
             : Fortify::redirects('login');
 
