@@ -11,8 +11,12 @@ class TwoFactorLoginResponse implements TwoFactorLoginResponseContract
 {
     public function toResponse($request): Response
     {
+        $home = $request->user()?->nom_rol === 'Administrador'
+            ? route('dashboardAdmin')
+            : Fortify::redirects('login');
+
         return $request->wantsJson()
             ? new JsonResponse(['two_factor' => false], 200)
-            : redirect()->intended(Fortify::redirects('login'));
+            : redirect()->intended($home);
     }
 }

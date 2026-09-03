@@ -1,117 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/dashboard.css">
-    <title>Dashboard Admin</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-  <!--Encabezado del sitio-->
-    <header>
-    <img class="img_pauta" src="../img/logoSv.png" alt="logo">
-        <h1 class="text_pauta">Formamos personas íntegras, críticas y comprometidas con su comunidad y el desarrollo del país.</h1>
-    </header>
+<x-layouts::app :title="__('Panel de Administración')">
+    <div class="flex h-full w-full flex-1 flex-col gap-6">
+        <div>
+            <flux:heading size="xl">Panel de Administración</flux:heading>
+            <flux:subheading>
+                Bienvenido al sistema de administración de la Institución Salvatore.
+            </flux:subheading>
+        </div>
 
+        <div class="grid auto-rows-min gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            @php
+                $tarjetas = [
+                    ['icon' => 'users', 'title' => 'Gestionar Usuarios', 'desc' => 'Administrar los usuarios registrados en la plataforma.', 'route' => 'usuarios.index'],
+                    ['icon' => 'shield-check', 'title' => 'Gestionar Roles', 'desc' => 'Configurar los roles y permisos del sistema.', 'route' => 'roles.index'],
+                    ['icon' => 'identification', 'title' => 'Gestionar Profesores', 'desc' => 'Administrar usuarios con rol de profesor y su información.', 'route' => 'profesores.index'],
+                    ['icon' => 'academic-cap', 'title' => 'Gestionar Estudiantes', 'desc' => 'Gestionar usuarios con rol de estudiante y su información.', 'route' => 'estudiantes.index'],
+                    ['icon' => 'rectangle-stack', 'title' => 'Gestionar Cursos', 'desc' => 'Gestionar los cursos disponibles.', 'route' => 'cursos.index'],
+                    ['icon' => 'book-open', 'title' => 'Gestionar Grados', 'desc' => 'Gestionar los grados disponibles.', 'route' => 'grados.index'],
+                    ['icon' => 'book-open', 'title' => 'Gestionar Asignaturas', 'desc' => 'Gestionar las asignaturas y quién las dicta.', 'route' => 'asignaturas.index'],
+                    ['icon' => 'clipboard-document-list', 'title' => 'Escalas de Valoración', 'desc' => 'Crear las escalas de valoración (números y letras) según lo establecido.', 'route' => 'escalas.index'],
+                ];
+            @endphp
 
- <div class="contenido">
-     <a href="../index.php" class="salir">
-        <i class="fa-solid fa-right-from-bracket"></i>
-    </a>
-    <div class="dashboard">
-    <h2>Panel de Administración</h2>
-    <p class="subtitulo-dashboard">
-        Bienvenido al sistema de administración de Institucion salvatore.
-    </p>
-    <div class="dashboard-cards">
-        <a href="./usuarios/usuarios.php" class="dashboard-card">
-            <i class="fa-solid fa-users"></i>
-            <h3>Gestionar Usuarios</h3>
-            <p>Administrar usuarios registrados en la plataforma.</p>
-        </a>
-        <a href="roles/roles.php" class="dashboard-card">
-              <i class="fa-solid fa-pen-to-square"></i>
-            <h3>Gestionar Roles</h3>
-            <p>Configurar permisos y perfiles del sistema.</p>
-        </a>
-
-        <a href="../profesor/profesor.php" class="dashboard-card">
-              <i class="fa-solid fa-chalkboard-user"></i>
-            <h3>Gestionar Profesores</h3>
-            <p>administrar usuarios con rol de profesor registrados y informacion adicional .</p>
-        </a>
-
-        <a href="../estudiante/estudiante.php" class="dashboard-card">
-             <i class="fa-solid fa-user-graduate"></i>
-            <h3>Gestionar Estudiantes </h3>
-            <p>gestiona usuarios con rol de estudiante registrados y su informacion.</p>
-        </a>
-
-        <a href="cursos/cursos.php" class="dashboard-card">
-             <i class="fa-solid fa-school"></i>
-            <h3>Gestionar cursos</h3>
-            <p>gestiona los cursos disponibles.</p>
-        </a>
-
-        <a href="cursos/cursos.php" class="dashboard-card">
-             <i class="fa-solid fa-school"></i>
-            <h3>Gestionar grados</h3>
-            <p>gestiona los grados disponibles.</p>
-        </a>
-        <a href="asignatura/asignatura.php" class="dashboard-card">
-             <i class="fa-solid fa-book"></i>
-            <h3>Gestiona Asignaturas</h3>
-            <p>gestiona las asignaturas y quien las dicta.</p>
-        </a>
-
-        <a href="roles/roles.php" class="dashboard-card">
-              <i class="fa-solid fa-pen-to-square"></i>
-            <h3>asignacion academica</h3>
-            <p>asigna los profesores a un grado en especifico.</p>
-        </a>
-
-        <a href="roles/roles.php" class="dashboard-card">
-              <i class="fa-solid fa-clipboard"></i>
-            <h3>escalas de valoracion</h3>
-            <p>Crea las escalas de valoracion numeros y letras segun lo establecido.</p>
-        </a>
+            @foreach ($tarjetas as $tarjeta)
+                @if (Route::has($tarjeta['route']))
+                    <a
+                        href="{{ route($tarjeta['route']) }}"
+                        wire:navigate
+                        class="group flex flex-col gap-2 rounded-xl border border-neutral-200 p-5 transition hover:border-neutral-300 hover:shadow-sm dark:border-neutral-700 dark:hover:border-neutral-600"
+                    >
+                        <flux:icon :name="$tarjeta['icon']" class="size-6 text-zinc-500 dark:text-zinc-400" />
+                        <flux:heading size="lg">{{ $tarjeta['title'] }}</flux:heading>
+                        <flux:text class="text-zinc-500 dark:text-zinc-400">{{ $tarjeta['desc'] }}</flux:text>
+                    </a>
+                @endif
+            @endforeach
+        </div>
     </div>
-</div>
-</div>
-  
- 
-<!--pie de pagina-->
-    <footer>
-            <br><br>
-     
-    <!--seccion de informacion-->
-     <footer id="contacto" class="pie-pagina">
-
-        <div class="redes-sociales">
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-twitter"></i></a>
-            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-        </div>
-
-        <div class="informacion-contacto">
-            <div class="contacto">
-                <i class="fa-regular fa-envelope"></i>
-                <span>colegio@salvatore.edu.co</span>
-            </div>
-            <div class="contacto">
-                <i class="fa-solid fa-phone"></i>
-                <span>(601) 742 5893</span>
-            </div>
-            <div class="contacto">
-                <i class="fa-solid fa-location-dot"></i>
-                <span>Bogotá, Colombia</span>
-            </div>
-        </div>
-
-        <div class="pie-copyright">
-            <p><i class="fa-regular fa-copyright"></i> 2026 - Institución Educativa Salvatore</p>
-        </div>
-    </footer>
-</body>
-</html>
+</x-layouts::app>

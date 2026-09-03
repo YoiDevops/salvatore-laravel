@@ -27,6 +27,10 @@ require __DIR__.'/settings.php';
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
+    Route::view('administrador/dashboard', 'administrador.dashboardAdmin')
+        ->middleware('role:Administrador')
+        ->name('dashboardAdmin');
+
     Route::resource('acudientes', AcudienteController::class);
     Route::resource('areas', AreaController::class);
     Route::resource('asignaturas', AsignaturaController::class);
