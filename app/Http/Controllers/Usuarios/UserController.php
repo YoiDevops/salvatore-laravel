@@ -1,68 +1,91 @@
 <?php
-
 namespace App\Http\Controllers\Usuarios;
 
 use App\Http\Controllers\Controller;
-use App\Models\Usuarios\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = User::all();
-        return view('usuarios.index', compact('usuarios'));
+        $query = User::query();
+
+        if ($search = $request->input('search')) {
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+        }
+
+        $usuarios = $query->paginate(10);
+
+        return view('administrador.usuarios.index', compact('usuarios'));
     }
 
-    public function show(string $id)
+    public function create()
     {
-        $usuario = User::with('estudiante', 'profesor')->findOrFail($id);
-        return view('usuarios.show', compact('usuario'));
+        return view('administrador.usuarios.create');
     }
 
-    public function edit(string $id)
+    public function store(Request $request)
     {
-        $usuario = User::findOrFail($id);
-        return view('usuarios.edit', compact('usuario'));
-    }
-
-    public function update(Request $request, string $id)
-    {
-        $usuario = User::findOrFail($id);
-
-        $validated = $request->validate([
-            'name' => 'required|string|max:30|unique:users,name,' . $id . ',id_users',
-            'email' => 'required|email|max:100|unique:users,email,' . $id . ',id_users',
-            'nom_rol' => 'nullable|string|max:25',
-            'estado' => 'required|in:Activo,Inactivo',
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+            'role' => 'required|string',
+            'status' => 'required|string',
         ]);
 
-        $usuario->update($validated);
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+            'status' => $request->status,
+        ]);
 
-        return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado correctamente.');
+        return redirect()->route('usuarios.index')->with('success', 'Usuario creado exitosamente.');
     }
 
-    public function updatePassword(Request $request, string $id)
+    public function edit($id)
+    {
+        $usuario = User::findOrFail($id);
+        return view('administrador.usuarios.edit', compact('usuario'));
+    }
+
+    public function update(Request $request, $id)
     {
         $usuario = User::findOrFail($id);
 
-        $validated = $request->validate([
-            'password' => 'required|string|min:8|confirmed',
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id . ',id_users',
+            'role' => 'required|string',
+            'status' => 'required|string',
         ]);
 
-        $usuario->update([
-            'password' => Hash::make($validated['password']),
-        ]);
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+            'status' => $request->status,
+        ];
 
-        return redirect()->route('usuarios.index')->with('success', 'Contraseña actualizada correctamente.');
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $usuario->update($data);
+
+        return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado exitosamente.');
     }
 
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $usuario = User::findOrFail($id);
         $usuario->delete();
 
-        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado correctamente.');
+        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado exitosamente.');
     }
 }

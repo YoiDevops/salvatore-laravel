@@ -45,7 +45,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('instituciones', InstitucionController::class);
     Route::resource('sedes', SedeController::class);
     Route::resource('roles', RolController::class);
-
-    Route::resource('usuarios', UserController::class)->except(['create', 'store']);
+    
+    // CRUD completo de usuarios (incluyendo create y store)
+    Route::resource('usuarios', UserController::class);
     Route::put('usuarios/{id}/password', [UserController::class, 'updatePassword'])->name('usuarios.updatePassword');
 });

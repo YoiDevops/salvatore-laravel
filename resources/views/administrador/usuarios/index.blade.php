@@ -1,185 +1,65 @@
-<?php
-require '../conexion.php';
+<x-layouts::app.sidebar title="Gestión de Usuarios">
+    <flux:main>
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h1 class="text-2xl font-bold text-zinc-800 dark:text-zinc-100">Gestión de Usuarios</h1>
+                <p class="text-sm text-zinc-500">Administración de cuentas registradas en la plataforma.</p>
+            </div>
+            <flux:button variant="primary" icon="plus" href="{{ route('usuarios.create') }}">
+                Agregar Usuario
+            </flux:button>
+        </div>
 
-$valor = '';
+        <div class="bg-white dark:bg-zinc-900 rounded-lg shadow p-4 border border-zinc-200 dark:border-zinc-800">
+            <form method="GET" action="{{ route('usuarios.index') }}" class="mb-4 flex gap-2">
+                <flux:input type="text" name="search" placeholder="Buscar por correo o usuario..." value="{{ request('search') }}" class="max-w-md" />
+                <flux:button type="submit" variant="filled">Buscar</flux:button>
+            </form>
 
-if (!empty($_POST['dato'])) {
-    $valor = trim($_POST['dato']);
-    $stmt = $mysqli->prepare(
-        "SELECT * FROM usuario WHERE usuario LIKE ? OR correo LIKE ?"
-    );
-    $buscar = "%$valor%";
-    $stmt->bind_param("ss", $buscar, $buscar);
-    $stmt->execute();
-    $resultado_usuarios = $stmt->get_result();
-} else {
-    $resultado_usuarios = $mysqli->query("SELECT * FROM usuario ORDER BY usuario ASC");
-}
-?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/form.css">
-    <title>Administrar usuarios</title>
-    <link rel="shortcut icon" href="../../img/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-<header>
-    <img class="img_pauta" src="../../img/logo.png" alt="Logo AutoShop">
-    <h1 class="text_pauta">GESTION DE USUARIOS </h1>
-</header>
-
-<div class="menu">
-    <ul>
-        <li><a href="../dashboard.php"><i class="fa-solid fa-boxes-stacked"></i> INICIO</a></li>
-        <li><a href="agregar.php" class="btn-agregar"><i class="fa-solid fa-circle-plus"></i> AGREGAR USUARIO</a></li>
-        <li><a href="#" class="btn-editar" onclick="return editarUsuarioSeleccionado();"><i class="fa-solid fa-pen-to-square"></i> ACTUALIZAR USUARIO</a></li>
-        <li><a href="#" class="btn-eliminar" onclick="return eliminarUsuarioSeleccionado();"><i class="fa-solid fa-trash"></i> BORRAR USUARIO</a></li>
-    </ul>
-
-    <form method="POST" action="" class="buscar">
-        <input type="text" name="dato" id="buscarCategoria" class="dato" placeholder="Buscar usuario..."
-        value="<?php echo isset($_POST['dato']) ? htmlspecialchars($_POST['dato']) : ''; ?>">
-        <button type="submit" class="btn_buscar">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-    </form>
-</div>
-
-<div class="contenido">
-    <section class="seccion" style="max-width: 1000px; width: 90%;"> 
-        <h2>Administrar usuarios</h2>
-        
-        <div class="boxers">
-            <div class="tabla-contenedor"> <!-- Añadida esta clase de tu CSS para controlar el desborde -->
-                <table class="tabla-usuarios">
-                    <thead>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-zinc-600 dark:text-zinc-300">
+                    <thead class="bg-zinc-100 dark:bg-zinc-800 uppercase text-xs">
                         <tr>
-                            <th>Seleccionar</th>
-                            <th>Correo</th>
-                            <th>Password</th>
-                            <th>Rol</th>
-                            <th>Estado</th>
+                            <th class="p-3">Seleccionar</th>
+                            <th class="p-3">Nombre</th>
+                            <th class="p-3">Correo</th>
+                            <th class="p-3">Rol</th>
+                            <th class="p-3">Estado</th>
+                            <th class="p-3 text-right">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php if ($resultado_usuarios && $resultado_usuarios->num_rows > 0) { ?>
-                        <?php while ($row_user = $resultado_usuarios->fetch_assoc()) { ?>
-                            <tr>
-                                <td>
-                                    <input type="checkbox"
-                                           class="usuario-check"
-                                           value="<?php echo $row_user['id_usuario']; ?>"
-                                           onchange="seleccionarUsuario(this)">
+                        @forelse($usuarios as $usuario)
+                            <tr class="border-b border-zinc-200 dark:border-zinc-800">
+                                <td class="p-3"><input type="checkbox" name="selected[]" value="{{ $usuario->id_users }}"></td>
+                                <td class="p-3">{{ $usuario->name ?? 'N/D' }}</td>
+                                <td class="p-3">{{ $usuario->email }}</td>
+                                <td class="p-3">{{ $usuario->role }}</td>
+                                <td class="p-3">
+                                    <span class="px-2 py-1 text-xs rounded {{ $usuario->status == 'Activo' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-700' }}">
+                                        {{ $usuario->status ?? 'Activo' }}
+                                    </span>
                                 </td>
-                                <td><?php echo htmlspecialchars($row_user['usuario']); ?></td>
-                                <td><?php echo htmlspecialchars($row_user['correo']); ?></td>
-                                <td><?php echo htmlspecialchars($row_user['password']); ?></td>
-                                <td><?php echo htmlspecialchars($row_user['id_rol']); ?></td>
-                                <td><?php echo htmlspecialchars($row_user['estado']); ?></td>
+                                <td class="p-3 text-right space-x-2">
+                                    <flux:button size="sm" href="{{ route('usuarios.edit', $usuario->id_users) }}">Editar</flux:button>
+                                    <form action="{{ route('usuarios.destroy', $usuario->id_users) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <flux:button size="sm" variant="danger" type="submit" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</flux:button>
+                                    </form>
+                                </td>
                             </tr>
-                        <?php } ?>
-                    <?php } else { ?>
-                        <tr>
-                            <td colspan="6" style="text-align: center;">No hay usuarios registrados.</td>
-                        </tr>
-                    <?php } ?>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="p-4 text-center text-zinc-500">No hay usuarios registrados.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
-        </div>
-    </section>
-</div>
-
-<form id="formEditarUsuario" method="get" action="editar.php">
-    <input type="hidden" name="id" id="idUsuarioEditar">
-</form>
-
-<form id="formEliminarUsuario" method="get" action="eliminar.php" onsubmit="return confirmarEliminar();">
-    <input type="hidden" name="id" id="idUsuarioEliminar">
-</form>
-
-<script>
-function seleccionarUsuario(checkbox) {
-    const checks = document.querySelectorAll('.usuario-check');
-    const seleccionados = [...checks].filter(c => c.checked);
-
-    if (seleccionados.length > 1) {
-        checkbox.checked = false;
-        alert('Solo puedes seleccionar un usuario a la vez.');
-        return;
-    }
-
-    document.getElementById('idUsuarioEditar').value = seleccionados.length ? seleccionados[0].value : '';
-    document.getElementById('idUsuarioEliminar').value = seleccionados.length ? seleccionados[0].value : '';
-}
-
-function editarUsuarioSeleccionado() {
-    const id = document.getElementById('idUsuarioEditar').value;
-    if (!id) {
-        alert('Por favor selecciona un usuario para actualizar.');
-        return false;
-    }
-    document.getElementById('formEditarUsuario').submit();
-    return false;
-}
-
-function eliminarUsuarioSeleccionado() {
-    const id = document.getElementById('idUsuarioEliminar').value;
-    if (!id) {
-        alert('Por favor selecciona un usuario para borrar.');
-        return false;
-    }
-    document.getElementById('formEliminarUsuario').submit();
-    return false;
-}
-
-function confirmarEliminar() {
-    const id = document.getElementById('idUsuarioEliminar').value;
-    if (!id) {
-        alert('Por favor selecciona un usuario para borrar.');
-        return false;
-    }
-    return confirm('¿Seguro que deseas eliminar este usuario?');
-}
-</script>
-
-<!--pie de pagina-->
-    <footer>
-            <br><br>
-     
-    <!--seccion de informacion-->
-     <footer id="contacto" class="pie-pagina">
-
-        <div class="redes-sociales">
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-twitter"></i></a>
-            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-        </div>
-
-        <div class="informacion-contacto">
-            <div class="contacto">
-                <i class="fa-regular fa-envelope"></i>
-                <span>colegio@salvatore.edu.co</span>
-            </div>
-            <div class="contacto">
-                <i class="fa-solid fa-phone"></i>
-                <span>(601) 742 5893</span>
-            </div>
-            <div class="contacto">
-                <i class="fa-solid fa-location-dot"></i>
-                <span>Bogotá, Colombia</span>
+            <div class="mt-4">
+                {{ $usuarios->links() }}
             </div>
         </div>
-
-        <div class="pie-copyright">
-            <p><i class="fa-regular fa-copyright"></i> 2026 - Institución Educativa Salvatore</p>
-        </div>
-    </footer>
-
-</body>
-</html>
+    </flux:main>
+</x-layouts::app.sidebar>
