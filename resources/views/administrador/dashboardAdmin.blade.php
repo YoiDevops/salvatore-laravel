@@ -10,7 +10,8 @@
         <div class="grid auto-rows-min gap-4 sm:grid-cols-2 lg:grid-cols-3">
             @php
                 $tarjetas = [
-                    ['icon' => 'users', 'title' => 'Gestionar Usuarios', 'desc' => 'Administrar los usuarios registrados en la plataforma.', 'route' => 'usuarios.index'],
+                    // Ruta modificada de 'usuarios.index' a 'index'
+                    ['icon' => 'users', 'title' => 'Gestionar Usuarios', 'desc' => 'Administrar los usuarios registrados en la plataforma.', 'route' => 'index'],
                     ['icon' => 'shield-check', 'title' => 'Gestionar Roles', 'desc' => 'Configurar los roles y permisos del sistema.', 'route' => 'roles.index'],
                     ['icon' => 'identification', 'title' => 'Gestionar Profesores', 'desc' => 'Administrar usuarios con rol de profesor y su información.', 'route' => 'profesores.index'],
                     ['icon' => 'academic-cap', 'title' => 'Gestionar Estudiantes', 'desc' => 'Gestionar usuarios con rol de estudiante y su información.', 'route' => 'estudiantes.index'],
