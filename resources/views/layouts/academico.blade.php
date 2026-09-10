@@ -14,6 +14,8 @@
             </flux:callout>
         @endif
 
-        @yield('content')
+        <div class="academic-shell">
+            @yield('content')
+        </div>
     </flux:main>
 </x-layouts::app.sidebar>

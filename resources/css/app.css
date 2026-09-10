@@ -56,6 +56,193 @@
 }
 
 @layer components {
+    .academic-shell {
+        color: #27313a;
+    }
+
+    .academic-table-wrap {
+        background-color: #ffffff;
+        border-color: #d8dee8;
+    }
+
+    .academic-table thead {
+        background-color: #eef1f5;
+        color: #46535e;
+    }
+
+    .academic-table tbody {
+        color: #53606b;
+    }
+
+    .academic-table tbody tr {
+        border-color: #d8dee8;
+    }
+
+    .academic-table tbody tr:nth-child(even) {
+        background-color: #fafbfc;
+    }
+
+    .academic-table tbody tr:hover {
+        background-color: #f3f5f7;
+    }
+
+    .academic-shell .text-gray-900,
+    .academic-shell .text-gray-800,
+    .academic-shell .text-gray-700 {
+        color: #27313a !important;
+    }
+
+    .academic-shell .text-gray-600,
+    .academic-shell .text-gray-500 {
+        color: #66717b !important;
+    }
+
+    .academic-shell .text-indigo-600,
+    .academic-shell .text-indigo-700,
+    .academic-shell .text-blue-600,
+    .academic-shell .text-yellow-600 {
+        color: #8a681b !important;
+    }
+
+    .academic-shell .text-red-600 {
+        color: #b34747 !important;
+    }
+
+    .academic-shell .bg-white {
+        background-color: #ffffff !important;
+    }
+
+    .academic-shell .bg-gray-50,
+    .academic-shell .bg-gray-100,
+    .academic-shell .bg-gray-200 {
+        background-color: #f3f5f7 !important;
+    }
+
+    .academic-shell .border-gray-200,
+    .academic-shell .border-gray-300 {
+        border-color: #d8dee8 !important;
+    }
+
+    .academic-shell .hover\:bg-gray-50:hover {
+        background-color: #f3f5f7 !important;
+    }
+
+    .academic-shell .bg-indigo-600,
+    .academic-shell .bg-indigo-700 {
+        background-color: #27313a !important;
+    }
+
+    .academic-shell .hover\:bg-indigo-700:hover {
+        background-color: #20282e !important;
+    }
+
+    .academic-shell input,
+    .academic-shell textarea,
+    .academic-shell select {
+        color: #27313a;
+        background-color: #ffffff;
+        border-color: #c8d0d7;
+    }
+
+    .academic-shell input::placeholder,
+    .academic-shell textarea::placeholder {
+        color: #7b8791;
+    }
+
+    .dark .academic-shell {
+        color: #edf1f4;
+    }
+
+    .dark .academic-table-wrap {
+        background-color: #20282e;
+        border-color: #46535e;
+    }
+
+    .dark .academic-table thead {
+        background-color: #2b353d;
+        color: #e0bd5e;
+    }
+
+    .dark .academic-table tbody {
+        color: #d4dde3;
+    }
+
+    .dark .academic-table tbody tr {
+        border-color: #46535e;
+    }
+
+    .dark .academic-table tbody tr:nth-child(even) {
+        background-color: #252f36;
+    }
+
+    .dark .academic-table tbody tr:hover {
+        background-color: #344049;
+    }
+
+    .dark .academic-shell .text-gray-900,
+    .dark .academic-shell .text-gray-800,
+    .dark .academic-shell .text-gray-700 {
+        color: #edf1f4 !important;
+    }
+
+    .dark .academic-shell .text-gray-600,
+    .dark .academic-shell .text-gray-500 {
+        color: #b8c2ca !important;
+    }
+
+    .dark .academic-shell .text-indigo-600,
+    .dark .academic-shell .text-indigo-700,
+    .dark .academic-shell .text-blue-600,
+    .dark .academic-shell .text-yellow-600 {
+        color: #e0bd5e !important;
+    }
+
+    .dark .academic-shell .text-red-600 {
+        color: #f19a9a !important;
+    }
+
+    .dark .academic-shell .bg-white {
+        background-color: #20282e !important;
+    }
+
+    .dark .academic-shell .bg-gray-50,
+    .dark .academic-shell .bg-gray-100,
+    .dark .academic-shell .bg-gray-200 {
+        background-color: #2b353d !important;
+    }
+
+    .dark .academic-shell .border-gray-200,
+    .dark .academic-shell .border-gray-300 {
+        border-color: #46535e !important;
+    }
+
+    .dark .academic-shell .hover\:bg-gray-50:hover {
+        background-color: #344049 !important;
+    }
+
+    .dark .academic-shell .bg-indigo-600,
+    .dark .academic-shell .bg-indigo-700 {
+        background-color: #c49a35 !important;
+        color: #20282e !important;
+    }
+
+    .dark .academic-shell .hover\:bg-indigo-700:hover {
+        background-color: #e0bd5e !important;
+    }
+
+    .dark .academic-shell input,
+    .dark .academic-shell textarea,
+    .dark .academic-shell select {
+        color: #edf1f4;
+        background-color: #20282e;
+        border-color: #53616c;
+    }
+
+    .dark .academic-shell input::placeholder,
+    .dark .academic-shell textarea::placeholder {
+        color: #aeb9c1;
+    }
+
     .institution-sidebar {
         background-color: #ffffff !important;
         color: #27313a !important;
