@@ -1,0 +1,1 @@
+@php($title='Editar escala') @php($resource='escalas') @php($item=$escala) @php($method='PUT') @php($action=route('escalas.update',$escala->getKey())) @php($fields=[['nombre_desempeno','Desempeño','text',true],['nota_minima','Nota mínima','number',true],['nota_maxima','Nota máxima','number',true],['definicion_escala','Definición','text',false]]) @include('crud.form')

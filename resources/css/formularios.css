@@ -1,9 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
-
 /* Clases específicas para tu vista de login y formularios (sin romper Flux) */
 .banner-login {
     min-height: 100vh;
-    background: linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.45)), url("/images/fondo2.jpg");
+    background: linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.45)), url("/images/fondo.jpg");
     background-size: cover;
     background-position: center;
     display: flex;

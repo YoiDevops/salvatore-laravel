@@ -17,7 +17,7 @@ use Laravel\Passkeys\Contracts\PasskeyUser;
 use Laravel\Passkeys\Passkey;
 use Laravel\Passkeys\PasskeyAuthenticatable;
 
-#[Fillable(['name', 'email', 'password', 'nom_rol', 'estado'])]
+#[Fillable(['name', 'email', 'password', 'nom_rol', 'estado', 'role', 'status'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements PasskeyUser
 {
@@ -26,6 +26,9 @@ class User extends Authenticatable implements PasskeyUser
 
     protected $table = 'users';
     protected $primaryKey = 'id_users';
+    protected $fillable = [
+        'name', 'email', 'password', 'nom_rol', 'estado', 'role', 'status',
+    ];
     public $incrementing = true;
     protected $keyType = 'int';
 

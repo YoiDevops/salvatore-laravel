@@ -1,0 +1,1 @@
+@php($title='Detalle de sede') @php($resource='sedes') @php($item=$sede) @php($columns=[['nombre_sede','Nombre'],['nit','NIT'],['direccion_sede','Dirección'],['telefono_sede','Teléfono']]) @include('crud.show')

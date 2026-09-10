@@ -9,6 +9,13 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+:root {
+    --school-navy: #27313a;
+    --school-navy-dark: #20282e;
+    --school-gold: #c49a35;
+    --school-gold-dark: #9a761f;
+}
+
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
@@ -24,15 +31,15 @@
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
 
-    --color-accent: var(--color-neutral-800);
-    --color-accent-content: var(--color-neutral-800);
+    --color-accent: var(--school-navy);
+    --color-accent-content: var(--school-navy);
     --color-accent-foreground: var(--color-white);
 }
 
 @layer theme {
     .dark {
-        --color-accent: var(--color-white);
-        --color-accent-content: var(--color-white);
+        --color-accent: #d8b85c;
+        --color-accent-content: #d8b85c;
         --color-accent-foreground: var(--color-neutral-800);
     }
 }
@@ -45,6 +52,63 @@
     ::backdrop,
     ::file-selector-button {
         border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+@layer components {
+    .institution-sidebar {
+        background-color: #ffffff !important;
+        color: #27313a !important;
+    }
+
+    .dark .institution-sidebar {
+        background-color: #27313a !important;
+        color: #ffffff !important;
+    }
+
+    .institution-sidebar [data-flux-sidebar-item] {
+        color: #53606b !important;
+    }
+
+    .institution-sidebar [data-flux-sidebar-item]:hover,
+    .institution-sidebar [data-flux-sidebar-item][data-active] {
+        color: #27313a !important;
+        background-color: #f3f5f7 !important;
+    }
+
+    .dark .institution-sidebar [data-flux-sidebar-item] {
+        color: #e8edf2 !important;
+    }
+
+    .dark .institution-sidebar [data-flux-sidebar-item]:hover,
+    .dark .institution-sidebar [data-flux-sidebar-item][data-active] {
+        color: #ffffff !important;
+        background-color: rgba(196, 154, 53, 0.18) !important;
+    }
+
+    .institution-sidebar [data-flux-sidebar-group] > div > div {
+        color: #6b7680 !important;
+    }
+
+    .dark .institution-sidebar [data-flux-sidebar-group] > div > div {
+        color: #c8d0d7 !important;
+    }
+
+    .institution-sidebar [data-flux-sidebar-brand] {
+        color: #27313a !important;
+    }
+
+    .institution-sidebar [data-flux-sidebar-brand] > div:last-of-type {
+        color: #27313a !important;
+        overflow: visible;
+        text-overflow: clip;
+        white-space: normal;
+        line-height: 1.2;
+    }
+
+    .dark .institution-sidebar [data-flux-sidebar-brand],
+    .dark .institution-sidebar [data-flux-sidebar-brand] > div:last-of-type {
+        color: #ffffff !important;
     }
 }
 

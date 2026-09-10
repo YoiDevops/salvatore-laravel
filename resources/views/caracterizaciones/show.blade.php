@@ -1,0 +1,1 @@
+@php($title='Detalle de caracterización') @php($resource='caracterizaciones') @php($item=$caracterizacion) @php($columns=[['tipo_discapacidad','Tipo'],['diagnostico','Diagnóstico'],['grado_discapacidad','Grado'],['permanencia','Permanencia'],['grado_atencion','Atención']]) @include('crud.show')

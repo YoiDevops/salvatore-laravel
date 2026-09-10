@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasFactory, Notifiable, TwoFactorAuthenticatable;
 
     protected $table = 'users';
     protected $primaryKey = 'id_users';
@@ -19,12 +22,32 @@ class User extends Authenticatable
         'password',
         'role',
         'status',
+        'nom_rol',
+        'estado',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+    public function getIdAttribute(): mixed
+    {
+        return $this->getKey();
+    }
+
+    public function passkeys(): HasMany
+    {
+        return $this->hasMany(Passkey::class, 'id_users', 'id_users');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
 
     public function initials(): string
     {

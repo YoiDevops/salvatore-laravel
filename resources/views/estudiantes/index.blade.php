@@ -1,0 +1,1 @@
+@php($title='Estudiantes') @php($resource='estudiantes') @php($items=$estudiantes) @php($columns=[['documento_identidad','Documento'],['nombres_estudiante','Nombres'],['apellidos_estudiante','Apellidos'],['estado_estudiante','Estado']]) @include('crud.index')

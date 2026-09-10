@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Academico\Curso;
 use App\Models\Academico\Grado;
 use App\Models\Institucional\Sede;
+use App\Models\Profesor\Profesor;
 use Illuminate\Http\Request;
 
 class CursoController extends Controller
@@ -20,7 +21,8 @@ class CursoController extends Controller
     {
         $sedes = Sede::all();
         $grados = Grado::all();
-        return view('cursos.create', compact('sedes', 'grados'));
+        $profesores = Profesor::all();
+        return view('cursos.create', compact('sedes', 'grados', 'profesores'));
     }
 
     public function store(Request $request)
@@ -49,7 +51,8 @@ class CursoController extends Controller
         $curso = Curso::findOrFail($id);
         $sedes = Sede::all();
         $grados = Grado::all();
-        return view('cursos.edit', compact('curso', 'sedes', 'grados'));
+        $profesores = Profesor::all();
+        return view('cursos.edit', compact('curso', 'sedes', 'grados', 'profesores'));
     }
 
     public function update(Request $request, string $id)

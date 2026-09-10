@@ -1,0 +1,1 @@
+@php($title='Nueva sede') @php($resource='sedes') @php($item=null) @php($method=null) @php($action=route('sedes.store')) @php($fields=[['nit','NIT institución','text',true],['nombre_sede','Nombre','text',true],['direccion_sede','Dirección','text',false],['telefono_sede','Teléfono','text',false]]) @include('crud.form')

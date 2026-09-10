@@ -1,0 +1,1 @@
+@php($title='Detalle de estudiante') @php($resource='estudiantes') @php($item=$estudiante) @php($columns=[['documento_identidad','Documento'],['nombres_estudiante','Nombres'],['apellidos_estudiante','Apellidos'],['fecha_nacimiento','Nacimiento'],['genero','Género'],['estado_estudiante','Estado']]) @include('crud.show')

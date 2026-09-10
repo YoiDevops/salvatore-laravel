@@ -2,7 +2,6 @@
 
 namespace App\Models\Evaluacion;
 
-use App\Models\Evaluacion\IndicadorLogro;
 use Illuminate\Database\Eloquent\Model;
 
 class EscalaValoracion extends Model

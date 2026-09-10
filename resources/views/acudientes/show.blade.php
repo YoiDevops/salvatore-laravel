@@ -10,7 +10,7 @@
     <h3 class="text-xl font-bold text-indigo-700">{{ $acudiente->nombres_acudiente }} {{ $acudiente->apellidos_acudiente }}</h3>
     <p><strong>Documento:</strong> {{ $acudiente->tipo_documento }} {{ $acudiente->documento_identidad }}</p>
     <p><strong>Teléfono:</strong> {{ $acudiente->telefono_acudiente ?? 'N/A' }}</p>
-    <p><strong>Parentesco:</strong> {{ $acudiente->parentesco ?? 'N/A' }}</p>
+    <p><strong>Parentesco:</strong> {{ $acudiente->parentesco_estudiante ?? 'N/A' }}</p>
     <p><strong>Ocupación:</strong> {{ $acudiente->ocupacion ?? 'N/A' }}</p>
     <p><strong>Dirección:</strong> {{ $acudiente->direccion_residencia ?? 'N/A' }}</p>
 </div>

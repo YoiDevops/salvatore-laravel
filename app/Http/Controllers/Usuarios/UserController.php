@@ -13,8 +13,10 @@ class UserController extends Controller
         $query = User::query();
 
         if ($search = $request->input('search')) {
-            $query->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+            });
         }
 
         $usuarios = $query->paginate(10);
@@ -25,6 +27,11 @@ class UserController extends Controller
     public function create()
     {
         return view('administrador.usuarios.create');
+    }
+    public function show($id)
+    {
+        $usuario = User::findOrFail($id);
+        return view('administrador.usuarios.show', compact('usuario'));
     }
 
     public function store(Request $request)
@@ -39,8 +46,6 @@ class UserController extends Controller
 
         User::create([
             'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
             'role' => $request->role,
             'status' => $request->status,
         ]);

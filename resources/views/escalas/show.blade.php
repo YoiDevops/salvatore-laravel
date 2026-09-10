@@ -1,0 +1,1 @@
+@php($title='Detalle de escala') @php($resource='escalas') @php($item=$escala) @php($columns=[['nombre_desempeno','Desempeño'],['nota_minima','Mínima'],['nota_maxima','Máxima'],['definicion_escala','Definición']]) @include('crud.show')

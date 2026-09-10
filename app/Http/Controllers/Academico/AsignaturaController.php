@@ -12,7 +12,8 @@ class AsignaturaController extends Controller
     public function index()
     {
         $asignaturas = Asignatura::with('area')->get();
-        return view('asignaturas.index', compact('asignaturas'));
+        $areas = Area::all();
+        return view('asignaturas.index', compact('asignaturas', 'areas'));
     }
 
     public function create()

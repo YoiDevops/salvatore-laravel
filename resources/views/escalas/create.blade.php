@@ -1,0 +1,1 @@
+@php($title='Nueva escala') @php($resource='escalas') @php($item=null) @php($method=null) @php($action=route('escalas.store')) @php($fields=[['nombre_desempeno','Desempeño','text',true],['nota_minima','Nota mínima','number',true],['nota_maxima','Nota máxima','number',true],['definicion_escala','Definición','text',false]]) @include('crud.form')

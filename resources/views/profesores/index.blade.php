@@ -27,7 +27,7 @@
             <tr class="hover:bg-gray-50">
                 <td class="p-4 font-medium text-gray-900">
                     <span class="text-xs font-bold text-gray-500 uppercase">{{ $profesor->tipo_documento }}:</span> 
-                    {{ $profesor->documento_identidad }}
+                    {{ $profesor->documento_profesor }}
                 </td>
                 <td class="p-4">{{ $profesor->nombres_profesor }} {{ $profesor->apellidos_profesor }}</td>
                 <td class="p-4">{{ $profesor->especialidad ?? 'General' }}</td>

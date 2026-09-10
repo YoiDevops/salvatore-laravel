@@ -1,0 +1,1 @@
+@php($title='Instituciones') @php($resource='instituciones') @php($items=$instituciones) @php($columns=[['nit','NIT'],['nombre_institucion','Nombre'],['direccion_principal','Dirección']]) @include('crud.index')

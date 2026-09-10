@@ -16,7 +16,7 @@
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Porcentaje / Peso (%) *</label>
-            <input type="number" name="porcentaje" min="1" max="100" value="{{ old('porcentaje', $periodo->porcentaje) }}" required class="w-full border-gray-300 rounded-md border p-2">
+            <input type="number" name="porcentaje_periodo" min="1" max="100" value="{{ old('porcentaje_periodo', $periodo->porcentaje_periodo) }}" required class="w-full border-gray-300 rounded-md border p-2">
         </div>
     </div>
 

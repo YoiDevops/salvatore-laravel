@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
@@ -19,8 +20,6 @@ new #[Layout('layouts.auth-banner')] class extends Component {
 
         $usernameColumn = Schema::hasColumn('users', 'usuario') ? 'usuario' : 'name';
         $emailColumn = Schema::hasColumn('users', 'correo') ? 'correo' : 'email';
-        $roleColumn = Schema::hasColumn('users', 'id_rol') ? 'id_rol' : 'nom_rol';
-
         $user = User::where($usernameColumn, $this->usuario)
             ->orWhere($emailColumn, $this->usuario)
             ->first();
@@ -30,8 +29,8 @@ new #[Layout('layouts.auth-banner')] class extends Component {
             return;
         }
 
-        // Validar estado (tu regla vieja)
-        if ($user->estado !== 'Activo') {
+        $status = $user->status ?? $user->estado;
+        if ($status !== null && $status !== 'Activo') {
             $this->addError('usuario', 'El usuario se encuentra inactivo.');
             return;
         }
@@ -40,18 +39,35 @@ new #[Layout('layouts.auth-banner')] class extends Component {
             ? $emailColumn
             : $usernameColumn;
 
-        if (! Auth::attempt([$loginColumn => $this->usuario, 'password' => $this->password])) {
+        $password = $user->getRawOriginal('password');
+        $validPassword = false;
+
+        try {
+            $validPassword = Hash::check($this->password, $password);
+        } catch (RuntimeException) {
+            // Permite migrar credenciales antiguas al formato Bcrypt al iniciar sesión.
+            $validPassword = password_verify($this->password, $password)
+                || hash_equals((string) $password, $this->password);
+
+            if ($validPassword) {
+                $user->forceFill(['password' => Hash::make($this->password)])->save();
+            }
+        }
+
+        if (! $validPassword) {
             $this->addError('usuario', 'Las credenciales no coinciden con nuestros registros.');
             return;
         }
 
+        Auth::login($user);
+
         request()->session()->regenerate();
 
-        $role = $user->{$roleColumn};
-        $this->redirect(match ((int) $role) {
-            1 => '/admin/dashboard',
-            2 => '/profesor/dashboard',
-            3 => '/estudiante/dashboard',
+        $role = strtolower(trim((string) ($user->role ?? $user->nom_rol)));
+        $this->redirect(match ($role) {
+            'administrador', 'admin', '1' => '/administrador/dashboard',
+            'profesor', '2' => '/profesor/dashboard',
+            'estudiante', '3' => '/estudiante/dashboard',
             default => '/',
         }, navigate: true);
     }

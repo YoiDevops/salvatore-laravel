@@ -1,0 +1,1 @@
+@php($title='Detalle de indicador') @php($resource='indicadores') @php($item=$indicador) @php($columns=[['codigo_logro','Código'],['descripcion_logro','Descripción'],['tipo_logro','Tipo']]) @include('crud.show')

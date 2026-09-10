@@ -36,7 +36,7 @@
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Parentesco</label>
-            <select name="parentesco" class="w-full border-gray-300 rounded-md border p-2 bg-white">
+            <select name="parentesco_estudiante" class="w-full border-gray-300 rounded-md border p-2 bg-white">
                 <option value="Padre">Padre</option>
                 <option value="Madre">Madre</option>
                 <option value="Tío/a">Tío/a</option>

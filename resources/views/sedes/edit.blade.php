@@ -1,0 +1,1 @@
+@php($title='Editar sede') @php($resource='sedes') @php($item=$sede) @php($method='PUT') @php($action=route('sedes.update',$sede->getKey())) @php($fields=[['nit','NIT institución','text',true],['nombre_sede','Nombre','text',true],['direccion_sede','Dirección','text',false],['telefono_sede','Teléfono','text',false]]) @include('crud.form')

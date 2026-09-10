@@ -24,7 +24,7 @@
             @forelse($periodos as $periodo)
             <tr class="hover:bg-gray-50">
                 <td class="p-4 font-bold text-gray-800">{{ $periodo->nombre_periodo }}</td>
-                <td class="p-4 font-semibold text-indigo-600">{{ $periodo->porcentaje ?? 25 }}%</td>
+                <td class="p-4 font-semibold text-indigo-600">{{ $periodo->porcentaje_periodo ?? 25 }}%</td>
                 <td class="p-4 space-x-2 flex items-center">
                     <a href="{{ route('periodos.edit', [$periodo->id_periodo ?? $periodo->id]) }}" class="text-yellow-600 hover:text-yellow-900 font-medium">Editar</a>
                     <form action="{{ route('periodos.destroy', [$periodo->id_periodo ?? $periodo->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este periodo?');" class="inline">

@@ -36,9 +36,9 @@
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Parentesco</label>
-            <select name="parentesco" class="w-full border-gray-300 rounded-md border p-2 bg-white">
+            <select name="parentesco_estudiante" class="w-full border-gray-300 rounded-md border p-2 bg-white">
                 @foreach(['Padre', 'Madre', 'Tío/a', 'Abuelo/a', 'Tutor Legal', 'Otro'] as $par)
-                    <option value="{{ $par }}" {{ old('parentesco', $acudiente->parentesco) == $par ? 'selected' : '' }}>{{ $par }}</option>
+                    <option value="{{ $par }}" {{ old('parentesco_estudiante', $acudiente->parentesco_estudiante) == $par ? 'selected' : '' }}>{{ $par }}</option>
                 @endforeach
             </select>
         </div>

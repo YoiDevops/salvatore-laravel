@@ -1,0 +1,1 @@
+@php($title='Editar rol') @php($resource='roles') @php($item=$rol) @php($method='PUT') @php($action=route('roles.update',$rol->getKey())) @php($fields=[['nombre_rol','Nombre','text',true]]) @include('crud.form')

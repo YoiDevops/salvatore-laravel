@@ -1,0 +1,1 @@
+@php($title='Caracterizaciones') @php($resource='caracterizaciones') @php($items=$caracterizaciones) @php($columns=[['tipo_discapacidad','Tipo'],['grado_discapacidad','Grado'],['permanencia','Permanencia']]) @include('crud.index')

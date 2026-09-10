@@ -20,7 +20,7 @@
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Documento de Identidad *</label>
-            <input type="text" name="documento_identidad" value="{{ old('documento_identidad', $profesor->documento_identidad) }}" required class="w-full border-gray-300 rounded-md border p-2">
+            <input type="text" name="documento_profesor" value="{{ old('documento_profesor', $profesor->documento_profesor) }}" required class="w-full border-gray-300 rounded-md border p-2">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Nombres *</label>

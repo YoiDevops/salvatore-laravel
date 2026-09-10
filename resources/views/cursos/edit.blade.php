@@ -25,16 +25,21 @@
             </select>
         </div>
         <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Director de Grupo</label>
-            <select name="id_profesor_director" class="w-full border-gray-300 rounded-md border p-2 bg-white">
-                <option value="">Ninguno</option>
-                @foreach($profesores as $profesor)
-                    <option value="{{ $profesor->id_profesor }}" {{ old('id_profesor_director', $curso->id_profesor_director) == $profesor->id_profesor ? 'selected' : '' }}>
-                        {{ $profesor->nombres_profesor }} {{ $profesor->apellidos_profesor }}
-                    </option>
-                @endforeach
-            </select>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Sede *</label>
+                <select name="id_sede" required class="w-full border-gray-300 rounded-md border p-2 bg-white">
+                    @foreach($sedes as $sede)
+                        <option value="{{ $sede->id_sede }}" {{ old('id_sede', $curso->id_sede) == $sede->id_sede ? 'selected' : '' }}>{{ $sede->nombre_sede }}</option>
+                    @endforeach
+                </select>
         </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Cupo máximo *</label>
+                <input type="number" name="cupo_maximo" min="1" value="{{ old('cupo_maximo', $curso->cupo_maximo) }}" required class="w-full border-gray-300 rounded-md border p-2">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Jornada</label>
+                <input type="text" name="jornada" value="{{ old('jornada', $curso->jornada) }}" class="w-full border-gray-300 rounded-md border p-2">
+            </div>
     </div>
 
     <div class="flex justify-end space-x-3 pt-4 border-t">
