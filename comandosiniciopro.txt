@@ -8,3 +8,7 @@ php artisan route:clear
 php artisan config:clear
 
 @vite('resources/css/style.css')
+
+//comado para compartir base de datos y automatizar registro a laravale
+composer require orangehill/iseed
+ permite descargar aplicativo que comvierte codigo a laravel 

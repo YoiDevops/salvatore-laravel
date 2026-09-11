@@ -1,0 +1,48 @@
+# 🚀 MANUAL DE CONTROL DE BASE DE DATOS Y GIT
+
+Antes de ejecutar cualquier comando de Laravel, siempre debes descargar los últimos cambios del repositorio ejecutando en tu terminal:
+git pull
+
+---
+
+## 🆕 1. CONFIGURACIÓN INICIAL (AL EMPEZAR EL PROYECTO)
+
+Si vas a empezar a trabajar en el proyecto por primera vez, o si necesitas reiniciar tu base de datos por completo para tenerla exactamente limpia e idéntica a la del repositorio, sigue estos pasos:
+
+1. **Crear y rellenar la base de datos desde cero:**
+   Ejecuta el siguiente comando en tu terminal:
+   php artisan migrate:fresh --seed
+
+⚠️ **ADVERTENCIA CRUCIAL:** Este comando ejecuta un "REINICIO TOTAL". Borra absolutamente todas las tablas de tu base de datos local y las vuelve a crear vacías antes de inyectar los datos base. **SÓLO USAR AL INICIO DEL PROYECTO o si estás seguro de que no te importa perder los datos que hayas registrado a mano en tu computadora.**
+
+---
+
+## 🔄 2. ACTUALIZACIÓN DE DATOS (SI YA TIENES REGISTROS QUE NO QUIERES PERDER)
+
+Si ya estás trabajando en el proyecto, tienes tus propios registros locales guardados y **solo quieres traer las nuevas tablas, columnas o datos** que subió un compañero sin que se borre lo tuyo, sigue estos pasos:
+
+1. **Actualizar solo la estructura (Migraciones nuevas):**
+   Para agregar nuevas tablas o columnas al sistema sin tocar ni borrar tus datos actuales, ejecuta:
+   php artisan migrate
+
+2 primero si no existe un seeder debarias crearlo con el siguiente comando 
+ php artisan iseed users cambiando el users por el nombre  de la tabla que hayas creado datos y vayas agregar se creara un archivo en database seaders
+
+
+3. **Importar solo los nuevos registros específicos (Inyección de datos):**
+   Para meter los nuevos datos a tu base de datos sin borrar nada de lo que tú ya creaste, ejecuta el seeder apuntando directamente a la clase que los contiene:
+   php artisan db:seed --class=RolTableSeeder
+
+
+*(Nota: Si se subieron datos de otras tablas, cambia "RolTableSeeder" por el nombre del archivo correspondiente, por ejemplo: "UsersTableSeeder")*
+
+---
+4 luego en el archivo guardado en la carpeta de seeders buscas el databaseseeder.php  en la parte de la funcion de bajo de los this agregarias esto
+       $this->call(RolTableSeeder::class);
+        si agregaste user deberias cambiar rol por el users o el nombre de tu tabla teniendo la primera SIEMPRE EN MAYUSCULA 
+
+## 🛠️ RESUMEN RÁPIDO DE COMANDOS:
+* `git pull` ➡️ Trae los últimos archivos de código y migraciones del equipo.
+* `php artisan migrate:fresh --seed` ➡️ **REINICIO TOTAL.** Borra todo, crea todo y mete los datos base.
+* `php artisan migrate` ➡️ **ACTUALIZACIÓN.** Solo agrega los cambios de estructura sin borrar datos.
+* `php artisan db:seed --class=NombreSeeder` ➡️ **INYECCIÓN.** Mete registros de un archivo específico sin borrar nada.
