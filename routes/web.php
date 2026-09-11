@@ -30,21 +30,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware('role:Administrador')
         ->name('dashboardAdmin');
 
-    Route::resource('acudientes', AcudienteController::class);
-    Route::resource('areas', AreaController::class);
-    Route::resource('asignaturas', AsignaturaController::class);
-    Route::resource('caracterizaciones', CaracterizacionDiscapacidadController::class);
-    Route::resource('grados', GradoController::class);
-    Route::resource('cursos', CursoController::class);
-    Route::resource('escalas', EscalaValoracionController::class);
-    Route::resource('periodos', PeriodoController::class);
-    Route::resource('indicadores', IndicadorLogroController::class);
-    Route::resource('estudiantes', EstudianteController::class);
-    Route::resource('profesores', ProfesorController::class);
-    Route::resource('sedes', SedeController::class);
-    Route::resource('roles', RolController::class);
-    
-    // CRUD completo de usuarios (incluyendo create y store)
-    Route::resource('usuarios', UserController::class);
-    Route::put('usuarios/{id}/password', [UserController::class, 'updatePassword'])->name('usuarios.updatePassword');
+    Route::middleware('role:Administrador')->group(function () {
+        Route::resource('acudientes', AcudienteController::class);
+        Route::resource('areas', AreaController::class);
+        Route::resource('asignaturas', AsignaturaController::class);
+        Route::resource('caracterizaciones', CaracterizacionDiscapacidadController::class);
+        Route::resource('grados', GradoController::class);
+        Route::resource('cursos', CursoController::class);
+        Route::resource('escalas', EscalaValoracionController::class);
+        Route::resource('periodos', PeriodoController::class);
+        Route::resource('indicadores', IndicadorLogroController::class);
+        Route::resource('estudiantes', EstudianteController::class);
+        Route::resource('profesores', ProfesorController::class);
+        Route::resource('sedes', SedeController::class);
+        Route::resource('roles', RolController::class);
+
+        Route::resource('usuarios', UserController::class);
+        Route::put('usuarios/{id}/password', [UserController::class, 'updatePassword'])->name('usuarios.updatePassword');
+    });
 });
