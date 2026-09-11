@@ -10,7 +10,6 @@ use App\Http\Controllers\estudiante\EstudianteController;
 use App\Http\Controllers\Evaluacion\EscalaValoracionController;
 use App\Http\Controllers\Evaluacion\IndicadorLogroController;
 use App\Http\Controllers\Evaluacion\PeriodoController;
-use App\Http\Controllers\Institucional\InstitucionController;
 use App\Http\Controllers\Institucional\SedeController;
 use App\Http\Controllers\profesor\ProfesorController;
 use App\Http\Controllers\Usuarios\RolController;
@@ -42,7 +41,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('indicadores', IndicadorLogroController::class);
     Route::resource('estudiantes', EstudianteController::class);
     Route::resource('profesores', ProfesorController::class);
-    Route::resource('instituciones', InstitucionController::class);
     Route::resource('sedes', SedeController::class);
     Route::resource('roles', RolController::class);
     

@@ -16,7 +16,7 @@
                         Inicio
                     </flux:sidebar.item>
 
-                    @if (strtolower(trim((string) (auth()->user()?->role ?? auth()->user()?->nom_rol))) === 'administrador')
+                    @if (strtolower((string) auth()->user()?->effective_role) === 'administrador')
                         <flux:sidebar.item icon="shield-check" :href="route('dashboardAdmin')" :current="request()->routeIs('dashboardAdmin')" wire:navigate>
                             Panel administrativo
                         </flux:sidebar.item>
@@ -54,12 +54,11 @@
                     @endforeach
                 </flux:sidebar.group>
 
-                @if (strtolower(trim((string) (auth()->user()?->role ?? auth()->user()?->nom_rol))) === 'administrador')
+                @if (strtolower((string) auth()->user()?->effective_role) === 'administrador')
                     <flux:sidebar.group heading="ADMINISTRACION" class="grid text-[#c7d0df]">
                         @foreach([
                             ['usuarios.index', 'Usuarios'],
                             ['roles.index', 'Roles'],
-                            ['instituciones.index', 'Instituciones'],
                             ['sedes.index', 'Sedes'],
                         ] as [$routeName, $label])
                             @if (Route::has($routeName))

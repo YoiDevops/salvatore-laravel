@@ -12,8 +12,9 @@
                 <flux:input label="Contraseña (dejar en blanco para no cambiar)" type="password" name="password" />
 
                 <flux:select label="Rol" name="role" required>
-                    <option value="Administrador" {{ old('role', $usuario->role) == 'Administrador' ? 'selected' : '' }}>Administrador</option>
-                    <option value="Usuario" {{ old('role', $usuario->role) == 'Usuario' ? 'selected' : '' }}>Usuario</option>
+                    @foreach($roles as $rol)
+                        <option value="{{ $rol->nombre_rol }}" {{ old('role', $usuario->role ?? $usuario->nom_rol) == $rol->nombre_rol ? 'selected' : '' }}>{{ $rol->nombre_rol }}</option>
+                    @endforeach
                 </flux:select>
 
                 <flux:select label="Estado" name="status" required>

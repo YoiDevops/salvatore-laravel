@@ -22,7 +22,7 @@ class RolController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nombre_rol' => 'required|in:Administrador,Profesor,Estudiante',
+            'nombre_rol' => 'required|string|max:80',
         ]);
 
         Rol::create($validated);
@@ -47,7 +47,7 @@ class RolController extends Controller
         $rol = Rol::findOrFail($id);
 
         $validated = $request->validate([
-            'nombre_rol' => 'required|in:Administrador,Profesor,Estudiante',
+            'nombre_rol' => 'required|string|max:80',
         ]);
 
         $rol->update($validated);

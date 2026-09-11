@@ -17,7 +17,7 @@ class EnsureUserHasRole
     public function handle(Request $request, Closure $next, string ...$roles): Response
     {
         $user = $request->user();
-        $rol = $user ? strtolower(trim((string) $user->nom_rol)) : null;
+        $rol = $user ? strtolower($user->effective_role) : null;
         $rolesPermitidos = array_map('strtolower', $roles);
 
         if (! $rol || ! in_array($rol, $rolesPermitidos, true)) {

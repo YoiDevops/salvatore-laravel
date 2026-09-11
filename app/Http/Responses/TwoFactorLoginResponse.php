@@ -11,7 +11,7 @@ class TwoFactorLoginResponse implements TwoFactorLoginResponseContract
 {
     public function toResponse($request): Response
     {
-        $home = strtolower(trim((string) $request->user()?->nom_rol)) === 'administrador'
+        $home = strtolower((string) $request->user()?->effective_role) === 'administrador'
             ? route('dashboardAdmin')
             : Fortify::redirects('login');
 

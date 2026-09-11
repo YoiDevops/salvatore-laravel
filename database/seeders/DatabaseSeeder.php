@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Usuarios\Rol;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,6 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Rol::firstOrCreate(['nombre_rol' => 'Invitado']);
+
         // 1. Crear Administrador principal de prueba
         User::factory()->admin()->create([
             'name' => 'Administrador Sistema',

@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Usuarios;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Usuarios\Rol;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,7 +27,9 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('administrador.usuarios.create');
+        $roles = Rol::orderBy('nombre_rol')->get();
+
+        return view('administrador.usuarios.create', compact('roles'));
     }
     public function show($id)
     {
@@ -46,6 +49,8 @@ class UserController extends Controller
 
         User::create([
             'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
             'role' => $request->role,
             'status' => $request->status,
         ]);
@@ -56,7 +61,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $usuario = User::findOrFail($id);
-        return view('administrador.usuarios.edit', compact('usuario'));
+        $roles = Rol::orderBy('nombre_rol')->get();
+
+        return view('administrador.usuarios.edit', compact('usuario', 'roles'));
     }
 
     public function update(Request $request, $id)

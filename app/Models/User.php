@@ -62,4 +62,14 @@ class User extends Authenticatable
 
         return strtoupper($initials);
     }
+
+    public function getEffectiveRoleAttribute(): string
+    {
+        $legacyRole = trim((string) $this->getRawOriginal('nom_rol'));
+        $currentRole = trim((string) $this->getRawOriginal('role'));
+
+        return $legacyRole !== '' && ($currentRole === '' || strtolower($currentRole) === 'usuario')
+            ? $legacyRole
+            : ($currentRole !== '' ? $currentRole : $legacyRole);
+    }
 }

@@ -19,7 +19,7 @@
             </div></section>
 
             <section class="rounded-2xl border border-[#e6d6a8] bg-[#fffaf0] p-6 dark:border-[#665322] dark:bg-[#2e2714]"><div class="flex size-10 items-center justify-center rounded-xl bg-white text-[#9a761f] shadow-sm dark:bg-[#443a1c] dark:text-[#d8b85c]"><flux:icon name="sparkles" class="size-5" /></div><h2 class="mt-5 font-semibold text-[#5d4611] dark:text-[#f0d98b]">Organización institucional</h2><p class="mt-2 text-sm leading-6 text-[#7e6b3b] dark:text-[#d8c78d]">Mantén actualizados los datos del colegio, sus sedes y los permisos de acceso.</p><div class="mt-6 space-y-2">
-                @foreach([['Usuarios','usuarios.index'],['Roles','roles.index'],['Instituciones','instituciones.index'],['Sedes','sedes.index']] as [$label,$routeName])
+                @foreach([['Usuarios','usuarios.index'],['Roles','roles.index'],['Sedes','sedes.index']] as [$label,$routeName])
                     @if(Route::has($routeName))<a href="{{ route($routeName) }}" wire:navigate class="flex items-center justify-between border-b border-[#e6d6a8] py-2 text-sm font-medium text-[#8a681b] last:border-0 dark:border-[#665322] dark:text-[#d8b85c]"><span>{{ $label }}</span><flux:icon name="arrow-up-right" class="size-4" /></a>@endif
                 @endforeach
             </div></section>

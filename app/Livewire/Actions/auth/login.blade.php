@@ -63,9 +63,9 @@ new #[Layout('layouts.auth-banner')] class extends Component {
 
         request()->session()->regenerate();
 
-        $role = strtolower(trim((string) ($user->role ?? $user->nom_rol)));
+        $role = strtolower($user->effective_role);
         $this->redirect(match ($role) {
-            'administrador', 'admin', '1' => '/administrador/dashboard',
+            'administrador' => '/administrador/dashboard',
             'profesor', '2' => '/profesor/dashboard',
             'estudiante', '3' => '/estudiante/dashboard',
             default => '/',
