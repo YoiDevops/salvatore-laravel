@@ -1,1 +1,16 @@
-@php($title='Editar rol') @php($resource='roles') @php($item=$rol) @php($method='PUT') @php($action=route('roles.update',$rol->getKey())) @php($fields=[['nombre_rol','Nombre','text',true]]) @include('crud.form')
+@php
+    $title    = 'Editar rol';
+    $resource = 'roles';
+    $item     = $rol;
+    $method   = 'PUT';
+    $action   = route('roles.update', $rol->getKey());
+
+    $fields = [
+        ['nombre_rol','Nombre del rol','select',true,[
+            'Administrador'=>'Administrador','Profesor'=>'Profesor','Estudiante'=>'Estudiante',
+            'Administrativo'=>'Administrativo','Invitado'=>'Invitado',
+        ]],
+    ];
+@endphp
+
+@include('crud.form')
