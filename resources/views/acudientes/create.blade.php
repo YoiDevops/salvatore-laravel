@@ -1,63 +1,27 @@
-@extends('layouts.academico')
+@php
+    $title    = 'Nuevo acudiente';
+    $resource = 'acudientes';
+    $item     = null;
+    $method   = null;
+    $action   = route('acudientes.store');
 
-@section('content')
-<div class="mb-6 flex justify-between items-center">
-    <h2 class="text-2xl font-bold text-gray-800">Registrar Acudiente</h2>
-    <a href="{{ route('acudientes.index', ) }}" class="text-gray-600 hover:text-gray-900">← Volver</a>
-</div>
+    $fields = [
+        ['tipo_documento','Tipo de documento','select',true,['CC'=>'CC','TI'=>'TI','CE'=>'CE','PASAPORTE'=>'Pasaporte','PEP'=>'PEP','PPT'=>'PPT']],
+        ['documento_identidad','Documento','text',true],
+        ['nombres_acudiente','Nombres','text',true],
+        ['apellidos_acudiente','Apellidos','text',true],
+        ['fecha_nacimiento','Fecha de nacimiento','date',false],
+        ['genero','Género','select',true,['Masculino'=>'Masculino','Femenino'=>'Femenino','Otro'=>'Otro']],
+        ['parentesco_estudiante','Parentesco con el estudiante','select',true,[
+            'Padre'=>'Padre','Madre'=>'Madre','Tío/a'=>'Tío/a','Abuelo/a'=>'Abuelo/a',
+            'Hermano/a'=>'Hermano/a','Tutor legal'=>'Tutor legal','Otro'=>'Otro',
+        ]],
+        ['telefono_acudiente','Teléfono','text',false],
+        ['correo_acudiente','Correo','email',false],
+        ['direccion_residencia','Dirección de residencia','text',false],
+        ['lugar_trabajo','Lugar de trabajo','text',false],
+        ['ocupacion','Ocupación','text',false],
+    ];
+@endphp
 
-<form action="{{ route('acudientes.store', ) }}" method="POST" class="bg-white p-6 rounded-lg shadow space-y-6">
-    @csrf
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Tipo Documento *</label>
-            <select name="tipo_documento" required class="w-full border-gray-300 rounded-md border p-2 bg-white">
-                <option value="CC">CC</option>
-                <option value="CE">CE</option>
-                <option value="PASAPORTE">PASAPORTE</option>
-                <option value="PPT">PPT</option>
-            </select>
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Documento de Identidad *</label>
-            <input type="text" name="documento_identidad" required class="w-full border-gray-300 rounded-md border p-2">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Nombres *</label>
-            <input type="text" name="nombres_acudiente" required class="w-full border-gray-300 rounded-md border p-2">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Apellidos *</label>
-            <input type="text" name="apellidos_acudiente" required class="w-full border-gray-300 rounded-md border p-2">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
-            <input type="text" name="telefono_acudiente" class="w-full border-gray-300 rounded-md border p-2">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Parentesco</label>
-            <select name="parentesco_estudiante" class="w-full border-gray-300 rounded-md border p-2 bg-white">
-                <option value="Padre">Padre</option>
-                <option value="Madre">Madre</option>
-                <option value="Tío/a">Tío/a</option>
-                <option value="Abuelo/a">Abuelo/a</option>
-                <option value="Tutor Legal">Tutor Legal</option>
-                <option value="Otro">Otro</option>
-            </select>
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Ocupación</label>
-            <input type="text" name="ocupacion" class="w-full border-gray-300 rounded-md border p-2">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Dirección Residencia</label>
-            <input type="text" name="direccion_residencia" class="w-full border-gray-300 rounded-md border p-2">
-        </div>
-    </div>
-
-    <div class="flex justify-end space-x-3 pt-4 border-t">
-        <a href="{{ route('acudientes.index', ) }}" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg">Cancelar</a>
-        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow hover:bg-indigo-700">Guardar Acudiente</button>
-    </div>
-</form>
-@endsection
+@include('crud.form')

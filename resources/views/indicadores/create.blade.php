@@ -1,1 +1,24 @@
-@php($title='Nuevo indicador') @php($resource='indicadores') @php($item=null) @php($method=null) @php($action=route('indicadores.store')) @php($fields=[['id_asignatura','ID asignatura','number',true],['id_periodo','ID periodo','number',true],['id_escala','ID escala','number',true],['codigo_logro','Código','text',false],['descripcion_logro','Descripción','text',true],['tipo_logro','Tipo','text',false]]) @include('crud.form')
+@php
+    $listaAsignaturas = $asignaturas->pluck('nombre_asignatura', 'id_asignatura');
+    $listaPeriodos    = $periodos->pluck('nombre_periodo', 'id_periodo');
+    $listaEscalas     = $escalas->mapWithKeys(fn($e) => [
+        $e->id_escala => $e->nombre_desempeno.' ('.$e->nota_minima.' - '.$e->nota_maxima.')'
+    ]);
+
+    $title    = 'Nuevo indicador';
+    $resource = 'indicadores';
+    $item     = null;
+    $method   = null;
+    $action   = route('indicadores.store');
+
+    $fields = [
+        ['id_asignatura','Asignatura','select',true,$listaAsignaturas],
+        ['id_periodo','Periodo','select',true,$listaPeriodos],
+        ['id_escala','Escala de valoración','select',true,$listaEscalas],
+        ['codigo_logro','Código','text',false],
+        ['descripcion_logro','Descripción','textarea',true],
+        ['tipo_logro','Tipo','select',false,['Cognitivo'=>'Cognitivo','Procedimental'=>'Procedimental','Actitudinal'=>'Actitudinal']],
+    ];
+@endphp
+
+@include('crud.form')

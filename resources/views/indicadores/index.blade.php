@@ -1,1 +1,14 @@
-@php($title='Indicadores de logro') @php($resource='indicadores') @php($items=$indicadores) @php($columns=[['codigo_logro','Código'],['descripcion_logro','Descripción'],['tipo_logro','Tipo']]) @include('crud.index')
+@php
+    $title    = 'Indicadores de logro';
+    $resource = 'indicadores';
+    $items    = $indicadores;
+    $columns  = [
+        ['codigo_logro','Código'],
+        ['asignatura.nombre_asignatura','Asignatura'],
+        ['periodo.nombre_periodo','Periodo'],
+        ['escalaValoracion.nombre_desempeno','Desempeño'],
+        ['descripcion_logro','Descripción'],
+    ];
+@endphp
+
+@include('crud.index')

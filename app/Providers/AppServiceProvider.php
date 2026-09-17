@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Volt::mount(app_path('Livewire'));
+        Volt::mount(resource_path('views'));
         $this->configureDefaults();
         $this->loadMigrationsFrom($this->migrationPaths());
     }

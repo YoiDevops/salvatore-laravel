@@ -21,6 +21,7 @@ use Livewire\Volt\Volt;
 Volt::route('/login', 'Actions.auth.login')->name('login');
 
 Route::view('/', 'welcome')->name('home');
+Volt::route('/formulario', 'formulario')->name('formulario');
 
 require __DIR__.'/settings.php';
 

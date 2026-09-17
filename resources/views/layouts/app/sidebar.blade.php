@@ -10,64 +10,100 @@
                 <flux:sidebar.collapse class="lg:hidden" />
             </flux:sidebar.header>
 
+            @php($rolActual = strtolower((string) auth()->user()?->effective_role))
+
             <flux:sidebar.nav>
                 <flux:sidebar.group heading="INSTITUCION" class="grid text-[#c7d0df]">
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         Inicio
                     </flux:sidebar.item>
 
-                    @if (strtolower((string) auth()->user()?->effective_role) === 'administrador')
+                    @if ($rolActual === 'administrador')
                         <flux:sidebar.item icon="shield-check" :href="route('dashboardAdmin')" :current="request()->routeIs('dashboardAdmin')" wire:navigate>
                             Panel administrativo
+                        </flux:sidebar.item>
+                    @elseif ($rolActual === 'profesor')
+                        <flux:sidebar.item icon="shield-check" :href="route('profesor.dashboard')" :current="request()->routeIs('profesor.dashboard')" wire:navigate>
+                            Panel del docente
                         </flux:sidebar.item>
                     @endif
                 </flux:sidebar.group>
 
-                <flux:sidebar.group heading="GESTION ACADEMICA" class="grid text-[#c7d0df]">
-                    @foreach([
-                        ['estudiantes.index', 'Estudiantes', 'academic-cap'],
-                        ['profesores.index', 'Profesores', 'user-group'],
-                        ['cursos.index', 'Cursos', 'rectangle-stack'],
-                        ['grados.index', 'Grados', 'bookmark'],
-                        ['asignaturas.index', 'Asignaturas', 'book-open'],
-                        ['acudientes.index', 'Acudientes', 'users'],
-                    ] as [$routeName, $label, $icon])
-                        @if (Route::has($routeName))
-                            <flux:sidebar.item icon="{{ $icon }}" :href="route($routeName)" :current="request()->routeIs($routeName)" wire:navigate>
-                                {{ $label }}
-                            </flux:sidebar.item>
-                        @endif
-                    @endforeach
-                </flux:sidebar.group>
-
-                <flux:sidebar.group heading="EVALUACION" class="grid text-[#c7d0df]">
-                    @foreach([
-                        ['periodos.index', 'Periodos'],
-                        ['indicadores.index', 'Indicadores'],
-                        ['escalas.index', 'Escalas de valoracion'],
-                    ] as [$routeName, $label])
-                        @if (Route::has($routeName))
-                            <flux:sidebar.item icon="clipboard-document-list" :href="route($routeName)" :current="request()->routeIs($routeName)" wire:navigate>
-                                {{ $label }}
-                            </flux:sidebar.item>
-                        @endif
-                    @endforeach
-                </flux:sidebar.group>
-
-                @if (strtolower((string) auth()->user()?->effective_role) === 'administrador')
-                    <flux:sidebar.group heading="ADMINISTRACION" class="grid text-[#c7d0df]">
+                @if ($rolActual === 'profesor')
+                    <flux:sidebar.group heading="MI GESTION ACADEMICA" class="grid text-[#c7d0df]">
                         @foreach([
-                            ['usuarios.index', 'Usuarios'],
-                            ['roles.index', 'Roles'],
-                            ['sedes.index', 'Sedes'],
-                        ] as [$routeName, $label])
+                            ['profesor.estudiantes.index', 'Estudiantes', 'academic-cap'],
+                            ['profesor.cursos.index', 'Cursos', 'rectangle-stack'],
+                            ['profesor.grados.index', 'Grados', 'bookmark'],
+                            ['profesor.asignaturas.index', 'Asignaturas', 'book-open'],
+                        ] as [$routeName, $label, $icon])
                             @if (Route::has($routeName))
-                                <flux:sidebar.item icon="cog-6-tooth" :href="route($routeName)" :current="request()->routeIs($routeName)" wire:navigate>
+                                <flux:sidebar.item icon="{{ $icon }}" :href="route($routeName)" :current="request()->routeIs($routeName.'*')" wire:navigate>
                                     {{ $label }}
                                 </flux:sidebar.item>
                             @endif
                         @endforeach
                     </flux:sidebar.group>
+
+                    <flux:sidebar.group heading="EVALUACION" class="grid text-[#c7d0df]">
+                        @foreach([
+                            ['profesor.indicadores.index', 'Indicadores de logro'],
+                            ['profesor.escalas.index', 'Escalas de valoracion'],
+                        ] as [$routeName, $label])
+                            @if (Route::has($routeName))
+                                <flux:sidebar.item icon="clipboard-document-list" :href="route($routeName)" :current="request()->routeIs($routeName.'*')" wire:navigate>
+                                    {{ $label }}
+                                </flux:sidebar.item>
+                            @endif
+                        @endforeach
+                    </flux:sidebar.group>
+                @else
+                    <flux:sidebar.group heading="GESTION ACADEMICA" class="grid text-[#c7d0df]">
+                        @foreach([
+                            ['estudiantes.index', 'Estudiantes', 'academic-cap'],
+                            ['profesores.index', 'Profesores', 'user-group'],
+                            ['cursos.index', 'Cursos', 'rectangle-stack'],
+                            ['grados.index', 'Grados', 'bookmark'],
+                            ['asignaturas.index', 'Asignaturas', 'book-open'],
+                            ['acudientes.index', 'Acudientes', 'users'],
+                        ] as [$routeName, $label, $icon])
+                            @if (Route::has($routeName))
+                                <flux:sidebar.item icon="{{ $icon }}" :href="route($routeName)" :current="request()->routeIs($routeName)" wire:navigate>
+                                    {{ $label }}
+                                </flux:sidebar.item>
+                            @endif
+                        @endforeach
+                    </flux:sidebar.group>
+
+                    <flux:sidebar.group heading="EVALUACION" class="grid text-[#c7d0df]">
+                        @foreach([
+                            ['periodos.index', 'Periodos'],
+                            ['indicadores.index', 'Indicadores'],
+                            ['escalas.index', 'Escalas de valoracion'],
+                        ] as [$routeName, $label])
+                            @if (Route::has($routeName))
+                                <flux:sidebar.item icon="clipboard-document-list" :href="route($routeName)" :current="request()->routeIs($routeName)" wire:navigate>
+                                    {{ $label }}
+                                </flux:sidebar.item>
+                            @endif
+                        @endforeach
+                    </flux:sidebar.group>
+
+                    @if ($rolActual === 'administrador')
+                        <flux:sidebar.group heading="ADMINISTRACION" class="grid text-[#c7d0df]">
+                            @foreach([
+                                ['usuarios.index', 'Usuarios'],
+                                ['roles.index', 'Roles'],
+                                ['sedes.index', 'Sedes'],
+                            ] as [$routeName, $label])
+                                @if (Route::has($routeName))
+                                    <flux:sidebar.item icon="cog-6-tooth" :href="route($routeName)" :current="request()->routeIs($routeName)" wire:navigate>
+                                        {{ $label }}
+                                    </flux:sidebar.item>
+                                @endif
+                            @endforeach
+                        </flux:sidebar.group>
+                    @endif
                 @endif
             </flux:sidebar.nav>
 

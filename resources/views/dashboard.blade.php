@@ -21,7 +21,13 @@
             </section>
 
             <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                @foreach([
+                @php($esProfesor = strtolower((string) auth()->user()?->effective_role) === 'profesor')
+                @foreach($esProfesor ? [
+                    ['Estudiantes', 'Consulta la información de tus estudiantes.', 'profesor.estudiantes.index', 'academic-cap'],
+                    ['Cursos', 'Revisa los cursos y sus aprendices.', 'profesor.cursos.index', 'rectangle-stack'],
+                    ['Asignaturas', 'Consulta las asignaturas y sus áreas.', 'profesor.asignaturas.index', 'book-open'],
+                    ['Evaluacion', 'Indicadores y escalas de valoracion.', 'profesor.indicadores.index', 'chart-bar'],
+                ] : [
                     ['Estudiantes', 'Gestiona matriculas y datos personales.', 'estudiantes.index', 'academic-cap'],
                     ['Profesores', 'Consulta el equipo docente.', 'profesores.index', 'user-group'],
                     ['Cursos', 'Organiza grados y jornadas.', 'cursos.index', 'rectangle-stack'],
@@ -65,7 +71,7 @@
             <section class="rounded-2xl border border-[#dce8dc] bg-white p-6 shadow-[0_8px_24px_rgba(43,83,50,0.06)] dark:border-zinc-800 dark:bg-zinc-900">
                 <div class="flex items-center justify-between"><div><h2 class="font-semibold">Accesos frecuentes</h2><p class="mt-1 text-sm text-zinc-500">Continúa con las tareas habituales de la institución.</p></div><span class="rounded-full bg-[#f8f1dc] px-3 py-1 text-xs font-medium text-[#8a681b]">Gestión escolar</span></div>
                 <div class="mt-6 grid gap-3 sm:grid-cols-3">
-                    @foreach([['Crear estudiante','estudiantes.create'],['Registrar profesor','profesores.create'],['Ver periodos','periodos.index']] as [$label, $routeName])
+                    @foreach(($esProfesor ?? false) ? [['Ver cursos','profesor.cursos.index'],['Ver estudiantes','profesor.estudiantes.index'],['Ver indicadores','profesor.indicadores.index']] : [['Crear estudiante','estudiantes.create'],['Registrar profesor','profesores.create'],['Ver periodos','periodos.index']] as [$label, $routeName])
                         @if(Route::has($routeName))<a href="{{ route($routeName) }}" wire:navigate class="flex items-center justify-between rounded-xl bg-[#f5f7fa] px-4 py-3 text-sm font-medium text-[#27313a] transition hover:bg-[#eef1f5] dark:bg-zinc-800 dark:text-[#d8b85c]"><span>{{ $label }}</span><flux:icon name="chevron-right" class="size-4" /></a>@endif
                     @endforeach
                 </div>
