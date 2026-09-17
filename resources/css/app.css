@@ -56,6 +56,131 @@
 }
 
 @layer components {
+    .profesor-experience {
+        position: relative;
+        isolation: isolate;
+        min-height: calc(100vh - 2rem);
+        overflow: hidden;
+        padding: 1.25rem 0;
+        background: #f5f6f8;
+    }
+
+    .profesor-page-content {
+        position: relative;
+        z-index: 2;
+        width: min(100% - 2rem, 90rem);
+        margin-inline: auto;
+    }
+
+    .profesor-art {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.68;
+    }
+
+    .profesor-art img {
+        position: absolute;
+        width: clamp(5.5rem, 7.5vw, 10rem);
+        max-height: 10rem;
+        object-fit: contain;
+        opacity: 0.42;
+        filter: blur(1.2px) saturate(0.8) brightness(1.08) drop-shadow(0 8px 12px rgba(39, 49, 58, 0.12));
+        mix-blend-mode: multiply;
+        will-change: transform;
+    }
+
+    .profesor-art-left img:nth-child(1) { top: 6%; left: 1%; }
+    .profesor-art-left img:nth-child(2) { top: 25%; left: 5%; }
+    .profesor-art-left img:nth-child(3) { top: 46%; left: 1%; }
+    .profesor-art-left img:nth-child(4) { top: 67%; left: 5%; }
+    .profesor-art-left img:nth-child(5) { top: 87%; left: 1%; }
+
+    .profesor-art-right img:nth-child(1) { top: 14%; right: 1%; }
+    .profesor-art-right img:nth-child(2) { top: 36%; right: 5%; }
+    .profesor-art-right img:nth-child(3) { top: 59%; right: 1%; }
+    .profesor-art-right img:nth-child(4) { top: 81%; right: 5%; }
+
+    .profesor-art-center img {
+        opacity: 0.58;
+    }
+
+    .profesor-art-left img:nth-child(even),
+    .profesor-art-right img:nth-child(odd) {
+        width: clamp(5rem, 6.5vw, 8.5rem);
+    }
+
+    .profesor-experience .rounded-2xl {
+        border-radius: 1.25rem;
+    }
+
+    .profesor-experience .p-5 {
+        padding: 1.5rem;
+    }
+
+    .profesor-experience .p-6 {
+        padding: 1.75rem;
+    }
+
+    .profesor-experience .gap-4 {
+        gap: 1.25rem;
+    }
+
+    .profesor-experience .gap-5 {
+        gap: 1.5rem;
+    }
+
+    .profesor-experience .text-lg {
+        font-size: 1.2rem;
+    }
+
+    .profesor-experience .profesor-hero {
+        position: relative;
+        min-height: clamp(21rem, 42vw, 34rem);
+        width: 100%;
+        overflow: hidden;
+        border: 1px solid rgba(216, 222, 232, 0.9);
+        border-radius: 1.5rem;
+        box-shadow: 0 14px 34px rgba(16, 33, 59, 0.12);
+    }
+
+    .profesor-experience .profesor-hero img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .profesor-experience .profesor-hero-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        min-height: inherit;
+        max-width: 42rem;
+        flex-direction: column;
+        justify-content: end;
+        padding: clamp(1.5rem, 5vw, 4rem);
+        color: white;
+        background: linear-gradient(90deg, rgba(16, 33, 59, 0.78), rgba(16, 33, 59, 0.08));
+    }
+
+    .dark .profesor-experience {
+        background: #171c20;
+    }
+
+    @media (max-width: 1023px) {
+        .profesor-art {
+            display: none;
+        }
+
+        .profesor-page-content {
+            width: min(100% - 1.5rem, 90rem);
+        }
+    }
+
     .academic-shell {
         color: #27313a;
     }
