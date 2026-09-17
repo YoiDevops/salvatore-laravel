@@ -11,6 +11,7 @@ use App\Http\Controllers\Evaluacion\EscalaValoracionController;
 use App\Http\Controllers\Evaluacion\IndicadorLogroController;
 use App\Http\Controllers\Evaluacion\PeriodoController;
 use App\Http\Controllers\Institucional\SedeController;
+use App\Http\Controllers\profesor\PanelController as ProfesorPanelController;
 use App\Http\Controllers\profesor\ProfesorController;
 use App\Http\Controllers\Usuarios\RolController;
 use App\Http\Controllers\Usuarios\UserController;
@@ -47,5 +48,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resource('usuarios', UserController::class);
         Route::put('usuarios/{id}/password', [UserController::class, 'updatePassword'])->name('usuarios.updatePassword');
+    });
+
+    // Portal del profesor: acceso de solo consulta a la información
+    // académica que necesita un docente (no puede crear, editar ni borrar).
+    Route::middleware('role:Profesor')->prefix('profesor')->name('profesor.')->group(function () {
+        Route::get('dashboard', [ProfesorPanelController::class, 'dashboard'])->name('dashboard');
+
+        Route::get('cursos', [ProfesorPanelController::class, 'cursos'])->name('cursos.index');
+        Route::get('cursos/{curso}', [ProfesorPanelController::class, 'cursoShow'])->name('cursos.show');
+
+        Route::get('estudiantes', [ProfesorPanelController::class, 'estudiantes'])->name('estudiantes.index');
+        Route::get('estudiantes/{estudiante}', [ProfesorPanelController::class, 'estudianteShow'])->name('estudiantes.show');
+
+        Route::get('asignaturas', [ProfesorPanelController::class, 'asignaturas'])->name('asignaturas.index');
+        Route::get('asignaturas/{asignatura}', [ProfesorPanelController::class, 'asignaturaShow'])->name('asignaturas.show');
+
+        Route::get('grados', [ProfesorPanelController::class, 'grados'])->name('grados.index');
+        Route::get('grados/{grado}', [ProfesorPanelController::class, 'gradoShow'])->name('grados.show');
+
+        Route::get('escalas', [ProfesorPanelController::class, 'escalas'])->name('escalas.index');
+        Route::get('escalas/{escala}', [ProfesorPanelController::class, 'escalaShow'])->name('escalas.show');
+
+        Route::get('indicadores', [ProfesorPanelController::class, 'indicadores'])->name('indicadores.index');
+        Route::get('indicadores/{indicador}', [ProfesorPanelController::class, 'indicadorShow'])->name('indicadores.show');
     });
 });
