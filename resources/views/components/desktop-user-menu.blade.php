@@ -1,18 +1,19 @@
-<flux:dropdown position="bottom" align="start">
-    <button type="button" class="group flex w-full items-center rounded-lg p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10" data-test="sidebar-menu-button">
-        <flux:avatar :initials="auth()->user()->initials()" size="sm" />
-        <div class="in-data-flux-sidebar-collapsed-desktop:hidden mx-2 grid flex-1 text-start text-sm leading-tight">
-            <span class="truncate font-medium text-zinc-500 group-hover:text-zinc-800 dark:text-white/80 dark:group-hover:text-white">{{ auth()->user()->name }}</span>
+<flux:dropdown position="bottom" align="end">
+    <button type="button" class="group flex items-center gap-2 rounded-full border border-zinc-200 bg-white/80 p-1.5 shadow-sm transition hover:border-[#d4af54] hover:bg-[#fffaf0] dark:border-zinc-700 dark:bg-zinc-900/80 dark:hover:border-[#d4af54] dark:hover:bg-[#1f2428]" data-test="sidebar-menu-button" aria-label="Perfil de usuario">
+        <span class="flex size-9 items-center justify-center rounded-full bg-[#efe7d3] text-sm font-semibold text-[#7a5a14] ring-1 ring-[#d4af54] dark:bg-[#3d3522] dark:text-[#f4d688]">
+            {{ auth()->user()->initials() }}
+        </span>
+        <div class="hidden sm:grid text-left leading-tight">
+            <span class="truncate text-sm font-medium text-zinc-700 group-hover:text-zinc-900 dark:text-zinc-100 dark:group-hover:text-white">{{ auth()->user()->name }}</span>
         </div>
-        <flux:icon name="chevrons-up-down" variant="micro" class="in-data-flux-sidebar-collapsed-desktop:hidden ms-auto size-4 text-zinc-400 group-hover:text-zinc-800 dark:text-white/80 dark:group-hover:text-white" />
+        <flux:icon name="chevrons-up-down" variant="micro" class="hidden size-4 text-zinc-400 group-hover:text-zinc-700 dark:text-zinc-300 sm:block" />
     </button>
 
     <flux:menu>
         <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-            <flux:avatar
-                :name="auth()->user()->name"
-                :initials="auth()->user()->initials()"
-            />
+            <span class="flex size-10 items-center justify-center rounded-full bg-[#efe7d3] text-xs font-semibold text-[#7a5a14] ring-1 ring-[#d4af54] dark:bg-[#3d3522] dark:text-[#f4d688]">
+                {{ auth()->user()->initials() }}
+            </span>
             <div class="grid flex-1 text-start text-sm leading-tight">
                 <flux:heading class="truncate">{{ auth()->user()->name }}</flux:heading>
                 <flux:text class="truncate">{{ auth()->user()->email }}</flux:text>

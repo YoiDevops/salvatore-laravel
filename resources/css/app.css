@@ -222,6 +222,200 @@
         color: #27313a !important;
     }
 
+    .app-footer {
+        position: relative;
+        width: 100%;
+        border-top: 1px solid rgba(143, 152, 161, 0.28);
+        background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(249,245,234,0.98) 100%);
+        color: #586571;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    .dark .app-footer {
+        background: linear-gradient(180deg, rgba(26,31,35,0.98) 0%, rgba(33,38,42,0.98) 100%);
+        border-top: 1px solid rgba(148,163,184,0.18);
+        color: #dfe7ef;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .app-footer-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 2.5rem 1.5rem 1.5rem;
+        display: grid;
+        grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 1.3fr);
+        gap: 2.5rem;
+    }
+
+    .app-footer-brand {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .app-footer-logo {
+        width: 2.75rem;
+        height: 2.75rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, rgba(196,154,53,0.18), rgba(196,154,53,0.05));
+        color: #b07d1b;
+        border: 1px solid rgba(196,154,53,0.3);
+        box-shadow: 0 10px 24px rgba(196,154,53,0.12);
+        flex-shrink: 0;
+    }
+
+    .dark .app-footer-logo {
+        background: rgba(148, 163, 184, 0.12);
+        border-color: rgba(148, 163, 184, 0.2);
+        color: #d8b85c;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2);
+    }
+
+    .app-footer-logo svg {
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+
+    .app-footer-brand h3,
+    .app-footer-column h3 {
+        margin: 0;
+        font-size: clamp(1.45rem, 1.6vw, 2.1rem);
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+        color: #27313a;
+        font-weight: 700;
+    }
+
+    .dark .app-footer-brand h3,
+    .dark .app-footer-column h3 {
+        color: #f4f6f8;
+    }
+
+    .app-footer-brand p {
+        margin: 0.85rem 0 0;
+        max-width: 28rem;
+        line-height: 1.7;
+        font-size: 0.98rem;
+        color: #586571;
+    }
+
+    .dark .app-footer-brand p,
+    .dark .app-footer-list li,
+    .dark .app-footer-bottom {
+        color: #d7dde3;
+    }
+
+    .app-footer-column {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .app-footer-socials {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        margin-top: 0.15rem;
+    }
+
+    .app-footer-socials a {
+        width: 3.3rem;
+        height: 3.3rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        border: 1.5px solid rgba(196,154,53,0.5);
+        background: rgba(255,255,255,0.5);
+        color: #b07d1b;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        box-shadow: 0 8px 18px rgba(196,154,53,0.08);
+    }
+
+    .dark .app-footer-socials a {
+        background: rgba(255,255,255,0.04);
+        border-color: rgba(148,163,184,0.2);
+        color: #d8b85c;
+        box-shadow: none;
+    }
+
+    .app-footer-socials a:hover {
+        transform: translateY(-2px);
+        border-color: rgba(176,125,27,0.9);
+        box-shadow: 0 10px 22px rgba(176,125,27,0.14);
+    }
+
+    .app-footer-socials svg {
+        width: 1.18rem;
+        height: 1.18rem;
+    }
+
+    .app-footer-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+        font-size: 1rem;
+    }
+
+    .app-footer-list li {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        color: #35414d;
+        font-weight: 500;
+    }
+
+    .app-footer-dot {
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 9999px;
+        display: inline-block;
+        box-shadow: 0 0 0 3px rgba(255,255,255,0.45);
+    }
+
+    .app-footer-dot-sena {
+        background: #b86ad8;
+    }
+
+    .app-footer-dot-edu {
+        background: #3a82f7;
+    }
+
+    .app-footer-dot-tic {
+        background: #3bb982;
+    }
+
+    .app-footer-bottom {
+        border-top: 1px solid rgba(148,163,184,0.18);
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 1rem 1.5rem 1.6rem;
+        text-align: center;
+        color: #687884;
+        font-size: 0.95rem;
+    }
+
+    .dark .app-footer-bottom {
+        border-top-color: rgba(148,163,184,0.14);
+    }
+
+    @media (max-width: 980px) {
+        .app-footer-inner {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .app-footer-brand {
+            align-items: center;
+        }
+    }
+
     .academic-shell .text-gray-600,
     .academic-shell .text-gray-500 {
         color: #66717b !important;
@@ -379,8 +573,13 @@
     }
 
     .dark .institution-sidebar {
+<<<<<<< HEAD
         background-color: #212121 !important;
         color: #151515 !important;
+=======
+        background: linear-gradient(180deg, #20282e 0%, #1a1f23 100%) !important;
+        color: #ffffff !important;
+>>>>>>> a34f59318df4ca1997cfcb0fdc34c43b263c986e
     }
 
     .institution-sidebar [data-flux-sidebar-item] {
@@ -399,8 +598,8 @@
 
     .dark .institution-sidebar [data-flux-sidebar-item]:hover,
     .dark .institution-sidebar [data-flux-sidebar-item][data-active] {
-        color: #ffffff !important;
-        background-color: rgba(196, 154, 53, 0.18) !important;
+        color: #f8ebc4 !important;
+        background-color: rgba(196, 154, 53, 0.15) !important;
     }
 
     .institution-sidebar [data-flux-sidebar-group] > div > div {
@@ -426,6 +625,89 @@
     .dark .institution-sidebar [data-flux-sidebar-brand],
     .dark .institution-sidebar [data-flux-sidebar-brand] > div:last-of-type {
         color: #ffffff !important;
+    }
+
+    .institution-sidebar[data-flux-sidebar-collapsed-desktop][data-flux-sidebar-active] [data-flux-sidebar-brand] {
+        position: static !important;
+        opacity: 1 !important;
+    }
+
+    .institution-sidebar[data-flux-sidebar-collapsed-desktop] [data-flux-sidebar-collapse] {
+        display: none !important;
+        opacity: 0 !important;
+    }
+
+    .institution-sidebar [data-flux-sidebar-collapse] {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 0.75rem;
+        border: 1px solid #d8dee8;
+        background: #ffffff;
+        color: #27313a;
+    }
+
+    .dark .institution-sidebar [data-flux-sidebar-collapse] {
+        border-color: #39434b;
+        background: #2a3138;
+        color: #f3f6f7;
+    }
+
+    .institution-sidebar-expand-toggle {
+        display: none !important;
+        width: 2.5rem;
+        height: 2.5rem;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #39434b;
+        border-radius: 0.75rem;
+        background: #2a3138;
+        color: #f3f6f7;
+    }
+
+    body:has(.institution-sidebar[data-flux-sidebar-collapsed-desktop]) .institution-sidebar-expand-toggle {
+        display: inline-flex !important;
+    }
+
+    .institution-sidebar-expand-toggle:hover {
+        border-color: #d8b85c;
+        color: #f2d98c;
+    }
+
+    .institution-sidebar[data-flux-sidebar-collapsed-desktop] {
+        cursor: default !important;
+    }
+
+    .institution-sidebar-collapsed-nav {
+        display: none;
+    }
+
+    .institution-sidebar[data-flux-sidebar-collapsed-desktop] .institution-sidebar-collapsed-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.25rem;
+    }
+
+    .institution-sidebar-collapsed-nav a,
+    .institution-sidebar-collapsed-nav span {
+        display: flex;
+        width: 2.5rem;
+        height: 2.5rem;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.75rem;
+        color: #e8edf2;
+        transition: background-color 150ms ease, color 150ms ease;
+    }
+
+    .institution-sidebar-collapsed-nav a:hover,
+    .institution-sidebar-collapsed-nav span:hover {
+        background-color: rgba(196, 154, 53, 0.15);
+        color: #f8ebc4;
     }
 }
 
