@@ -28,7 +28,7 @@
                 ['Grados', $stats['grados'].' niveles', 'profesor.grados.index', 'bookmark', 'bg-[#f5eaf2] text-[#985278]'],
             ] as [$title, $description, $routeName, $icon, $color])
                 @if(Route::has($routeName))
-                    <a href="{{ route($routeName) }}" wire:navigate class="group rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] transition hover:-translate-y-0.5 hover:border-[#c49a35] hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
+                    <a href="{{ route($routeName) }}" wire:navigate class="group rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] transition hover:-translate-y-0.5 hover:border-[#c49a35] hover:shadow-lg dark:border-[#2b2b2b] dark:bg-[#2b2b2b]">
                         <div class="flex items-center justify-between">
                             <span class="flex size-11 items-center justify-center rounded-xl {{ $color }}"><flux:icon :name="$icon" class="size-5" /></span>
                             <flux:icon name="arrow-up-right" class="size-4 text-zinc-400 transition group-hover:text-[#9a761f]" />
@@ -41,7 +41,7 @@
         </div>
 
         <div class="grid gap-6 lg:grid-cols-[1.35fr_0.65fr]">
-            <section class="rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-zinc-800 dark:bg-zinc-900">
+            <section class="rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-[#2b2b2b] dark:bg-[#2b2b2b]">
                 <div class="flex items-center justify-between">
                     <div>
                         <h2 class="font-semibold">Mi gestión académica</h2>
@@ -67,8 +67,8 @@
                 </div>
             </section>
 
-            <section class="rounded-2xl border border-[#e6d6a8] bg-[#fffaf0] p-6 dark:border-[#665322] dark:bg-[#2e2714]">
-                <div class="flex size-10 items-center justify-center rounded-xl bg-white text-[#9a761f] shadow-sm dark:bg-[#443a1c] dark:text-[#d8b85c]"><flux:icon name="sparkles" class="size-5" /></div>
+            <section class="rounded-2xl border border-[#e6d6a8] bg-[#fffaf0] p-6 dark:border-[#2b2b2b] dark:bg-[#212121]">
+                <div class="flex size-10 items-center justify-center rounded-xl bg-white text-[#9a761f] shadow-sm dark:bg-[#2b2b2b] dark:text-[#d8b85c]"><flux:icon name="sparkles" class="size-5" /></div>
                 <h2 class="mt-5 font-semibold text-[#5d4611] dark:text-[#f0d98b]">Evaluación</h2>
                 <p class="mt-2 text-sm leading-6 text-[#7e6b3b] dark:text-[#d8c78d]">Consulta las escalas de valoración y los indicadores de logro definidos para tus asignaturas.</p>
                 <div class="mt-6 space-y-2">

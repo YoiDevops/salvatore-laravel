@@ -1,5 +1,6 @@
 <x-layouts::app.sidebar :title="$title ?? null">
     <flux:main>
+        <script>
         @if (strtolower((string) auth()->user()?->effective_role) === 'profesor')
             @php
                 $decoracionesProfesor = [

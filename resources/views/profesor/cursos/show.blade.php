@@ -4,7 +4,7 @@
             <flux:icon name="arrow-left" class="size-4" /> Volver a cursos
         </a>
 
-        <div class="rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-zinc-800 dark:bg-zinc-900">
+        <div class="rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-[#2b2b2b] dark:bg-[#2b2b2b]">
             <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
                 <div>
                     @php($enCurso = ($curso->ano_lectivo ?? null) == date('Y'))
@@ -25,23 +25,23 @@
             </div>
 
             <div class="mt-6 grid gap-4 sm:grid-cols-3">
-                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-zinc-800">
+                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-[#2b2b2b]">
                     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-400">Total estudiantes</p>
                     <p class="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{{ $curso->estudiantes->count() }}</p>
                 </div>
-                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-zinc-800">
+                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-[#2b2b2b]">
                     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-400">Jornada</p>
                     <p class="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{{ $curso->jornada ?? 'N/D' }}</p>
                 </div>
-                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-zinc-800">
+                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-[#2b2b2b]">
                     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-400">Cupo máximo</p>
                     <p class="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{{ $curso->cupo_maximo ?? 'N/D' }}</p>
                 </div>
             </div>
         </div>
 
-        <div class="rounded-2xl border border-[#d8dee8] bg-white shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-zinc-800 dark:bg-zinc-900">
-            <div class="flex items-center justify-between border-b border-zinc-100 p-6 dark:border-zinc-800">
+        <div class="rounded-2xl border border-[#d8dee8] bg-white shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-[#2b2b2b] dark:bg-[#2b2b2b]">
+            <div class="flex items-center justify-between border-b border-zinc-100 p-6 dark:border-[#2b2b2b]">
                 <div>
                     <h3 class="font-semibold text-zinc-900 dark:text-zinc-100">Estudiantes del curso</h3>
                     <p class="mt-1 text-sm text-zinc-500">Listado de estudiantes matriculados.</p>

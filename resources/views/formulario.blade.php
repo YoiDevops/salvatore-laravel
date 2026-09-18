@@ -208,7 +208,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
     }
 }; ?>
 
-<div class="min-h-screen w-full bg-[#F8F9FA] dark:bg-stone-950 text-stone-800 dark:text-stone-100 p-4 sm:p-6 lg:p-8 transition-colors duration-300"
+<div class="relative min-h-screen w-full bg-[#F8F9FA] dark:bg-[#151515] text-stone-800 dark:text-stone-100 p-4 sm:p-6 lg:p-8 transition-colors duration-300"
     x-data="{
         darkMode: document.documentElement.classList.contains('dark'),
         toggleTheme() {
@@ -223,12 +223,13 @@ new #[Layout('layouts.auth.card')] class extends Component {
         }
     }"
 >
+    <x-static-stars />
     <div class="max-w-4xl mx-auto space-y-6">
 
         <!-- CABECERA DE LA PÁGINA -->
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md p-6 rounded-2xl border border-stone-200/80 dark:border-stone-800 shadow-sm">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white/80 dark:bg-[#212121]/80 backdrop-blur-md p-6 rounded-2xl border border-stone-200/80 dark:border-[#2b2b2b] shadow-sm">
             <div class="flex items-center gap-4">
-                <div class="inline-flex items-center justify-center w-12 h-12 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200/60 dark:border-amber-800/40 shadow-xs">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-amber-50 dark:bg-[#2b2b2b] rounded-xl border border-amber-200/60 dark:border-[#2b2b2b] shadow-xs">
                     <svg class="w-7 h-7 text-[#D4A017]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
                     </svg>
@@ -252,7 +253,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
         </div>
 
         @if ($registroCompletado)
-            <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-center shadow-sm dark:border-emerald-900/50 dark:bg-emerald-950/20">
+            <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-center shadow-sm dark:border-[#2b2b2b] dark:bg-[#2b2b2b]">
                 <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
                     <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 12 4 4L19 6"/></svg>
                 </div>
@@ -286,7 +287,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
         </div>
 
         <!-- FORMULARIO PRINCIPAL -->
-        <div class="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/80 dark:border-stone-800 shadow-xl p-6 sm:p-8 transition-colors duration-300">
+        <div class="bg-white dark:bg-[#2b2b2b] rounded-2xl border border-stone-200/80 dark:border-[#2b2b2b] shadow-xl p-6 sm:p-8 transition-colors duration-300">
 
             @if ($pasoActual === 2)
                 <!-- PASO 2: DATOS ACUDIENTE -->

@@ -4,29 +4,29 @@
             <flux:icon name="arrow-left" class="size-4" /> Volver a asignaturas
         </a>
 
-        <div class="rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-zinc-800 dark:bg-zinc-900">
+        <div class="rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-[#2b2b2b] dark:bg-[#2b2b2b]">
             <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#9a761f]">{{ $asignatura->area->nombre_area ?? 'Sin área' }}</p>
             <h2 class="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{{ $asignatura->nombre_asignatura }}</h2>
             <p class="mt-2 text-sm leading-6 text-zinc-500">{{ $asignatura->descripcion ?? 'Sin descripción registrada.' }}</p>
 
             <div class="mt-6 grid gap-4 sm:grid-cols-3">
-                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-zinc-800">
+                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-[#2b2b2b]">
                     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-400">Intensidad horaria</p>
                     <p class="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{{ $asignatura->intensidad_horaria }}h</p>
                 </div>
-                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-zinc-800">
+                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-[#2b2b2b]">
                     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-400">Porcentaje del área</p>
                     <p class="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{{ $asignatura->porcentaje_area ?? 'N/D' }}{{ $asignatura->porcentaje_area ? '%' : '' }}</p>
                 </div>
-                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-zinc-800">
+                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-[#2b2b2b]">
                     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-400">Indicadores</p>
                     <p class="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{{ $asignatura->indicadoresLogro->count() }}</p>
                 </div>
             </div>
         </div>
 
-        <div class="rounded-2xl border border-[#d8dee8] bg-white shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-zinc-800 dark:bg-zinc-900">
-            <div class="border-b border-zinc-100 p-6 dark:border-zinc-800">
+        <div class="rounded-2xl border border-[#d8dee8] bg-white shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-[#2b2b2b] dark:bg-[#2b2b2b]">
+            <div class="border-b border-zinc-100 p-6 dark:border-[#2b2b2b]">
                 <h3 class="font-semibold text-zinc-900 dark:text-zinc-100">Indicadores de logro</h3>
                 <p class="mt-1 text-sm text-zinc-500">Definidos para esta asignatura.</p>
             </div>

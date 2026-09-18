@@ -1,6 +1,6 @@
 <x-layouts::app.sidebar title="Editar Usuario">
     <flux:main>
-        <div class="max-w-xl mx-auto bg-white dark:bg-zinc-900 rounded-lg shadow p-6 border border-zinc-200 dark:border-zinc-800">
+        <div class="max-w-xl mx-auto bg-white dark:bg-[#2b2b2b] rounded-lg shadow p-6 border border-zinc-200 dark:border-[#2b2b2b]">
             <h1 class="text-xl font-bold mb-4 text-zinc-800 dark:text-zinc-100">Editar Usuario</h1>
 
             <form action="{{ route('usuarios.update', $usuario->id_users) }}" method="POST" class="space-y-4">

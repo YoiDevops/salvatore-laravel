@@ -10,7 +10,7 @@
             </flux:button>
         </div>
 
-        <div class="bg-white dark:bg-zinc-900 rounded-lg shadow p-4 border border-zinc-200 dark:border-zinc-800">
+        <div class="bg-white dark:bg-[#2b2b2b] rounded-lg shadow p-4 border border-zinc-200 dark:border-[#2b2b2b]">
             <form method="GET" action="{{ route('usuarios.index') }}" class="mb-4 flex gap-2">
                 <flux:input type="text" name="search" placeholder="Buscar por correo o usuario..." value="{{ request('search') }}" class="max-w-md" />
                 <flux:button type="submit" variant="filled">Buscar</flux:button>
@@ -18,7 +18,7 @@
 
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm text-zinc-600 dark:text-zinc-300">
-                    <thead class="bg-zinc-100 dark:bg-zinc-800 uppercase text-xs">
+                    <thead class="bg-zinc-100 dark:bg-[#2b2b2b] uppercase text-xs">
                         <tr>
                             <th class="p-3">Seleccionar</th>
                             <th class="p-3">Nombre</th>
@@ -30,7 +30,7 @@
                     </thead>
                     <tbody>
                         @forelse($usuarios as $usuario)
-                            <tr class="border-b border-zinc-200 dark:border-zinc-800">
+                            <tr class="border-b border-zinc-200 dark:border-[#2b2b2b]">
                                 <td class="p-3"><input type="checkbox" name="selected[]" value="{{ $usuario->id_users }}"></td>
                                 <td class="p-3">{{ $usuario->name ?? 'N/D' }}</td>
                                 <td class="p-3">{{ $usuario->email }}</td>

@@ -56,6 +56,11 @@
 }
 
 @layer components {
+    .static-stars ~ * {
+        position: relative;
+        z-index: 1;
+    }
+
     .profesor-experience {
         position: relative;
         isolation: isolate;
@@ -374,8 +379,8 @@
     }
 
     .dark .institution-sidebar {
-        background-color: #27313a !important;
-        color: #ffffff !important;
+        background-color: #212121 !important;
+        color: #151515 !important;
     }
 
     .institution-sidebar [data-flux-sidebar-item] {

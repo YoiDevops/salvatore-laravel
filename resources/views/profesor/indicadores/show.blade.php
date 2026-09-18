@@ -4,7 +4,7 @@
             <flux:icon name="arrow-left" class="size-4" /> Volver a indicadores
         </a>
 
-        <div class="rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-zinc-800 dark:bg-zinc-900">
+        <div class="rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-[#2b2b2b] dark:bg-[#2b2b2b]">
             <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#9a761f]">{{ $indicador->codigo_logro ?? 'Sin código' }}</p>
             <h2 class="mt-1 text-xl font-bold text-zinc-900 dark:text-zinc-100">{{ $indicador->descripcion_logro }}</h2>
             @if($indicador->tipo_logro)
@@ -12,15 +12,15 @@
             @endif
 
             <div class="mt-6 grid gap-4 sm:grid-cols-3">
-                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-zinc-800">
+                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-[#2b2b2b]">
                     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-400">Asignatura</p>
                     <p class="mt-1 font-medium text-zinc-800 dark:text-zinc-100">{{ $indicador->asignatura->nombre_asignatura ?? 'N/D' }}</p>
                 </div>
-                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-zinc-800">
+                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-[#2b2b2b]">
                     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-400">Periodo</p>
                     <p class="mt-1 font-medium text-zinc-800 dark:text-zinc-100">{{ $indicador->periodo->nombre_periodo ?? 'N/D' }}</p>
                 </div>
-                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-zinc-800">
+                <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-[#2b2b2b]">
                     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-400">Escala</p>
                     <p class="mt-1 font-medium text-zinc-800 dark:text-zinc-100">{{ $indicador->escalaValoracion->nombre_desempeno ?? 'N/D' }}</p>
                 </div>

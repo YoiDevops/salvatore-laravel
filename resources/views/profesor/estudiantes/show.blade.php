@@ -4,7 +4,7 @@
             <flux:icon name="arrow-left" class="size-4" /> Volver a estudiantes
         </a>
 
-        <div class="rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-zinc-800 dark:bg-zinc-900">
+        <div class="rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-[#2b2b2b] dark:bg-[#2b2b2b]">
             <div class="flex items-center gap-4">
                 <span class="flex size-14 items-center justify-center rounded-2xl bg-[#e8f2e8] text-lg font-bold text-[#2f6f48]">
                     {{ Str::substr($estudiante->nombres_estudiante, 0, 1) }}{{ Str::substr($estudiante->apellidos_estudiante, 0, 1) }}
@@ -27,7 +27,7 @@
                     ['Lugar de nacimiento', $estudiante->lugar_nacimiento ?? 'N/D'],
                     ['EPS', $estudiante->eps ?? 'N/D'],
                 ] as [$label, $value])
-                    <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-zinc-800">
+                    <div class="rounded-xl bg-[#f5f7fa] px-4 py-3 dark:bg-[#2b2b2b]">
                         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-400">{{ $label }}</p>
                         <p class="mt-1 font-medium text-zinc-800 dark:text-zinc-100">{{ $value }}</p>
                     </div>

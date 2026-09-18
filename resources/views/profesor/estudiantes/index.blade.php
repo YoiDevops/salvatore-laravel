@@ -11,10 +11,10 @@
             </div>
         </div>
 
-        <div class="rounded-2xl border border-[#d8dee8] bg-white shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-zinc-800 dark:bg-zinc-900">
+        <div class="rounded-2xl border border-[#d8dee8] bg-white shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-[#2b2b2b] dark:bg-[#2b2b2b]">
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm">
-                    <thead class="bg-zinc-50 dark:bg-zinc-800/60">
+                    <thead class="bg-zinc-50 dark:bg-[#2b2b2b]">
                         <tr>
                             <th class="p-4 text-xs font-semibold uppercase tracking-wide text-zinc-500">Estudiante &amp; documento</th>
                             <th class="p-4 text-xs font-semibold uppercase tracking-wide text-zinc-500">Curso</th>

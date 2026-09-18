@@ -84,39 +84,38 @@
             }
         </script>
     </head>
-    <body class="bg-white dark:bg-[#20282e] text-[#27313a] dark:text-zinc-100 flex flex-col min-h-screen relative overflow-x-hidden transition-colors duration-300">
+    <body class="bg-white dark:bg-[#151515] text-[#27313a] dark:text-zinc-100 flex flex-col min-h-screen relative overflow-x-hidden transition-colors duration-300">
         
         <!-- FONDO ANIMADO: Lluvia de estrellas, iconos y manchas esparcidas -->
         <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
             <!-- Nacen desde el borde superior (esparcidas a lo ancho) -->
-            <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-40 text-4xl" style="top: -10%; left: 5%; animation-duration: 14s; animation-delay: -2s;">★</div>
-            <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-25 text-5xl" style="top: -10%; left: 25%; animation-duration: 19s; animation-delay: -10s;">▲</div>
-            <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-30 text-3xl" style="top: -10%; left: 45%; animation-duration: 15s; animation-delay: -5s;">★</div>
-            <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-20 text-6xl" style="top: -10%; left: 65%; animation-duration: 22s; animation-delay: -12s;">⬤</div>
-            <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-35 text-4xl" style="top: -10%; left: 85%; animation-duration: 17s; animation-delay: -7s;">★</div>
+            <div class="static-star absolute text-[#c49a35] dark:text-white opacity-40 text-4xl" style="top: 10%; left: 5%;">★</div>
+            <div class="lluvia-item text-[#c49a35] dark:text-white opacity-25 text-5xl" style="top: -10%; left: 25%; animation-duration: 19s; animation-delay: -10s;">▲</div>
+            <div class="static-star absolute text-[#c49a35] dark:text-white opacity-30 text-3xl" style="top: 24%; left: 45%;">★</div>
+            <div class="lluvia-item text-[#c49a35] dark:text-white opacity-20 text-6xl" style="top: -10%; left: 65%; animation-duration: 22s; animation-delay: -12s;">⬤</div>
+            <div class="static-star absolute text-[#c49a35] dark:text-white opacity-35 text-4xl" style="top: 12%; left: 85%;">★</div>
             
             <!-- Nacen desde el borde izquierdo (esparcidas a lo largo) -->
-            <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-20 text-3xl" style="top: 15%; left: -10%; animation-duration: 16s; animation-delay: -14s;">■</div>
-            <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-30 text-5xl" style="top: 35%; left: -10%; animation-duration: 20s; animation-delay: -3s;">✚</div>
-            <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-40 text-2xl" style="top: 55%; left: -10%; animation-duration: 13s; animation-delay: -8s;">★</div>
-            <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-25 text-4xl" style="top: 75%; left: -10%; animation-duration: 18s; animation-delay: -15s;">⬢</div>
-            <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-15 text-5xl" style="top: 90%; left: -10%; animation-duration: 24s; animation-delay: -6s;">✦</div>
+            <div class="lluvia-item text-[#c49a35] dark:text-white opacity-20 text-3xl" style="top: 15%; left: -10%; animation-duration: 16s; animation-delay: -14s;">■</div>
+            <div class="lluvia-item text-[#c49a35] dark:text-white opacity-30 text-5xl" style="top: 35%; left: -10%; animation-duration: 20s; animation-delay: -3s;">✚</div>
+            <div class="static-star absolute text-[#c49a35] dark:text-white opacity-40 text-2xl" style="top: 55%; left: 8%;">★</div>
+            <div class="lluvia-item text-[#c49a35] dark:text-white opacity-25 text-4xl" style="top: 75%; left: -10%; animation-duration: 18s; animation-delay: -15s;">⬢</div>
+            <div class="static-star absolute text-[#c49a35] dark:text-white opacity-15 text-5xl" style="top: 90%; left: 14%;">✦</div>
 
             <!-- Estrellas extras para rellenar vacíos -->
-            <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-30 text-2xl" style="top: -10%; left: 15%; animation-duration: 12s; animation-delay: -9s;">★</div>
-            <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-25 text-4xl" style="top: 40%; left: -10%; animation-duration: 21s; animation-delay: -1s;">★</div>
-            <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-35 text-xl" style="top: -10%; left: 75%; animation-duration: 16s; animation-delay: -18s;">★</div>
-            <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-20 text-3xl" style="top: 65%; left: -10%; animation-duration: 19s; animation-delay: -11s;">★</div>
-
-            <!-- Imágenes de pintura (Manchas y manos) -->
-            <img src="{{ asset('images/pintura1.png') }}" class="lluvia-item w-32 opacity-25 dark:opacity-15" style="top: -10%; left: 30%; animation-duration: 25s; animation-delay: -4s;" alt="Mancha decorativa">
-            <img src="{{ asset('images/pintura2.png') }}" class="lluvia-item w-40 opacity-25 dark:opacity-15" style="top: 50%; left: -10%; animation-duration: 28s; animation-delay: -12s;" alt="Mancha decorativa">
-            <img src="{{ asset('images/manos1.png') }}" class="lluvia-item w-28 opacity-30 dark:opacity-20" style="top: -10%; left: 70%; animation-duration: 22s; animation-delay: -8s;" alt="Manos pintadas">
-            <img src="{{ asset('images/manos2.png') }}" class="lluvia-item w-36 opacity-30 dark:opacity-20" style="top: 20%; left: -10%; animation-duration: 26s; animation-delay: -16s;" alt="Manos pintadas"> 
+            <div class="static-star absolute text-[#c49a35] dark:text-white opacity-30 text-2xl" style="top: 8%; left: 15%;">★</div>
+            <div class="static-star absolute text-[#c49a35] dark:text-white opacity-25 text-4xl" style="top: 40%; left: 24%;">★</div>
+            <div class="static-star absolute text-[#c49a35] dark:text-white opacity-35 text-xl" style="top: 32%; left: 75%;">★</div>
+            <div class="static-star absolute text-[#c49a35] dark:text-white opacity-20 text-3xl" style="top: 65%; left: 12%;">★</div>
+            <div class="static-star absolute text-[#c49a35] dark:text-white opacity-25 text-2xl" style="top: 18%; left: 34%;">★</div>
+            <div class="static-star absolute text-[#c49a35] dark:text-white opacity-30 text-xl" style="top: 78%; left: 42%;">✦</div>
+            <div class="static-star absolute text-[#c49a35] dark:text-white opacity-20 text-3xl" style="top: 48%; left: 68%;">★</div>
+            <div class="static-star absolute text-[#c49a35] dark:text-white opacity-25 text-xl" style="top: 88%; left: 82%;">✦</div>
+            <div class="static-star absolute text-[#c49a35] dark:text-white opacity-30 text-2xl" style="top: 36%; left: 92%;">★</div>
         </div>
 
         <!-- HEADER -->
-        <header class="w-full flex justify-between items-center p-4 lg:px-12 relative z-50 bg-[#f5f6f8]/80 dark:bg-[#171c20]/80 backdrop-blur-sm border-b border-[#d8dee8] dark:border-[#39434b]">
+        <header class="w-full flex justify-between items-center p-4 lg:px-12 relative z-50 bg-[#f5f6f8]/80 dark:bg-[#212121]/80 backdrop-blur-sm border-b border-[#d8dee8] dark:border-[#2b2b2b]">
             <div class="flex items-center gap-3 cursor-pointer">
                 <!-- Logo de la Institución -->
                 <img src="{{ asset('images/LogoSv.png') }}" alt="Logo Institución Salvatore" class="w-10 h-10 lg:w-12 lg:h-12 object-contain">
@@ -142,7 +141,7 @@
                     <!-- Menú Navegación (Escritorio) -->
                     <nav class="hidden lg:flex items-center gap-4 text-sm font-medium">
                         @auth
-                            <a href="{{ route('dashboard') }}" class="inline-block px-5 py-2 border border-[#d8dee8] dark:border-[#39434b] hover:border-[#c49a35] rounded-md transition-colors">
+                            <a href="{{ route('dashboard') }}" class="inline-block px-5 py-2 border border-[#d8dee8] dark:border-[#2b2b2b] hover:border-[#c49a35] rounded-md transition-colors">
                                 Panel principal
                             </a>
                         @else
@@ -166,14 +165,14 @@
 
             <!-- Panel Menú Móvil Desplegable -->
             @if (Route::has('login'))
-                <div id="mobile-menu-panel" class="hidden flex-col w-full bg-white dark:bg-[#20282e] border-b border-[#d8dee8] dark:border-[#39434b] absolute top-full left-0 shadow-lg">
+                <div id="mobile-menu-panel" class="hidden flex-col w-full bg-white dark:bg-[#212121] border-b border-[#d8dee8] dark:border-[#2b2b2b] absolute top-full left-0 shadow-lg">
                     <nav class="flex flex-col px-6 py-6 gap-4 text-base font-medium">
                         @auth
-                            <a href="{{ route('dashboard') }}" class="block text-center px-5 py-3 border border-[#d8dee8] dark:border-[#39434b] rounded-md transition-colors hover:bg-gray-50 dark:hover:bg-[#171c20]">Panel principal</a>
+                            <a href="{{ route('dashboard') }}" class="block text-center px-5 py-3 border border-[#d8dee8] dark:border-[#2b2b2b] rounded-md transition-colors hover:bg-gray-50 dark:hover:bg-[#151515]">Panel principal</a>
                         @else
                             <a href="{{ route('login') }}" class="block text-center hover:text-[#9a761f] dark:hover:text-[#d8b85c] py-2 transition-colors">Ingresar</a>
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="block text-center px-5 py-3 bg-[#27313a] text-white dark:bg-[#d8b85c] dark:text-[#20282e] rounded-md transition-colors">Registrar usuario</a>
+                                <a href="{{ route('formulario') }}" class="block text-center px-5 py-3 bg-[#27313a] text-white dark:bg-[#d8b85c] dark:text-[#20282e] rounded-md transition-colors">Registrar usuario</a>
                             @endif
                         @endauth
                     </nav>
@@ -195,7 +194,7 @@
 
             <!-- Derecha: Carrusel con forma de Blob -->
             <div class="flex-1 w-full flex justify-center items-center relative mt-4 lg:mt-0">
-                <div id="carousel" class="w-full max-w-[280px] sm:max-w-[350px] lg:max-w-md aspect-square relative overflow-hidden blob-shape shadow-2xl bg-white dark:bg-[#20282e]">
+                    <div id="carousel" class="w-full max-w-[280px] sm:max-w-[350px] lg:max-w-md aspect-square relative overflow-hidden blob-shape shadow-2xl bg-white dark:bg-[#2b2b2b]">
                     <img src="{{ asset('images/niño1.png') }}" class="carousel-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Escuela 1">
                     <img src="{{ asset('images/niño2.png') }}" class="carousel-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Niños jugando">
                     <img src="{{ asset('images/niño3.png') }}" class="carousel-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Instalaciones">
@@ -215,7 +214,7 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Tarjeta 1 -->
-                    <div class="bg-white dark:bg-[#20282e] rounded-xl shadow-sm border border-[#d8dee8] dark:border-[#39434b] overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+                    <div class="bg-white dark:bg-[#2b2b2b] rounded-xl shadow-sm border border-[#d8dee8] dark:border-[#2b2b2b] overflow-hidden flex flex-col hover:shadow-md transition-shadow">
                         <!-- Imagen superior -->
                         <img src="{{ asset('images/enfoque1.jpg') }}" class="w-full h-48 object-cover" alt="Desarrollo Creativo">
                         <div class="p-6 flex-1 flex flex-col text-left">
@@ -224,7 +223,7 @@
                         </div>
                     </div>
                     <!-- Tarjeta 2 -->
-                    <div class="bg-white dark:bg-[#20282e] rounded-xl shadow-sm border border-[#d8dee8] dark:border-[#39434b] overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+                    <div class="bg-white dark:bg-[#2b2b2b] rounded-xl shadow-sm border border-[#d8dee8] dark:border-[#2b2b2b] overflow-hidden flex flex-col hover:shadow-md transition-shadow">
                         <!-- Imagen superior -->
                         <img src="{{ asset('images/enfoque2.jpg') }}" class="w-full h-48 object-cover" alt="Innovación Digital">
                         <div class="p-6 flex-1 flex flex-col text-left">
@@ -233,7 +232,7 @@
                         </div>
                     </div>
                     <!-- Tarjeta 3 -->
-                    <div class="bg-white dark:bg-[#20282e] rounded-xl shadow-sm border border-[#d8dee8] dark:border-[#39434b] overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+                    <div class="bg-white dark:bg-[#2b2b2b] rounded-xl shadow-sm border border-[#d8dee8] dark:border-[#2b2b2b] overflow-hidden flex flex-col hover:shadow-md transition-shadow">
                         <!-- Imagen superior -->
                         <img src="{{ asset('images/enfoque3.jpg') }}" class="w-full h-48 object-cover" alt="Crecimiento Integral">
                         <div class="p-6 flex-1 flex flex-col text-left">
@@ -246,7 +245,7 @@
         </section>
 
         <!-- FOOTER SECCIONADO -->
-        <footer class="w-full bg-white dark:bg-[#20282e] pt-12 pb-8 mt-auto relative z-10 border-t border-[#d8dee8] dark:border-[#39434b] transition-colors duration-300">
+        <footer class="w-full bg-white dark:bg-[#151515] pt-12 pb-8 mt-auto relative z-10 border-t border-[#d8dee8] dark:border-[#2b2b2b] transition-colors duration-300">
             <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-3 gap-10">
                 
                 <!-- Columna 1: Información General -->
@@ -259,11 +258,11 @@
                         Portal administrativo para la gestión de usuarios, profesores y estudiantes.
                     </p>
                     <div class="flex items-center gap-2 text-sm text-[#53606b] dark:text-zinc-300 mt-2">
-                        <span class="text-[#c49a35] dark:text-[#9b51e0] font-bold">@</span>
+                        <span class="text-[#c49a35] dark:text-white font-bold">@</span>
                         <a href="mailto:colegio@salvatore.edu.co" class="hover:underline">colegio@salvatore.edu.co</a>
                     </div>
                     <div class="flex items-center gap-2 text-sm text-[#53606b] dark:text-zinc-300 mt-2">
-                        <span class="text-[#c49a35] dark:text-[#9b51e0]">📞</span>
+                        <span class="text-[#c49a35] dark:text-white">📞</span>
                         <span>(601) 742 5893</span>
                     </div>
                 </div>
@@ -271,14 +270,14 @@
                 <!-- Columna 2: Redes Sociales -->
                 <div class="flex flex-col items-center md:items-start text-center md:text-left">
                     <h3 class="font-bold text-lg mb-4 text-[#27313a] dark:text-zinc-100">Síguenos</h3>
-                    <div class="flex gap-4 text-[#c49a35] dark:text-[#9b51e0]">
-                        <a href="#" class="p-2 border-2 border-[#c49a35] dark:border-[#9b51e0] rounded-full hover:bg-[#c49a35] dark:hover:bg-[#9b51e0] hover:text-white dark:hover:text-white transition-colors">
+                    <div class="flex gap-4 text-[#c49a35] dark:text-white">
+                        <a href="#" class="p-2 border-2 border-[#c49a35] dark:border-white rounded-full hover:bg-[#c49a35] dark:hover:bg-white hover:text-white dark:hover:text-[#151515] transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                         </a>
-                        <a href="#" class="p-2 border-2 border-[#c49a35] dark:border-[#9b51e0] rounded-full hover:bg-[#c49a35] dark:hover:bg-[#9b51e0] hover:text-white dark:hover:text-white transition-colors">
+                        <a href="#" class="p-2 border-2 border-[#c49a35] dark:border-white rounded-full hover:bg-[#c49a35] dark:hover:bg-white hover:text-white dark:hover:text-[#151515] transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
                         </a>
-                        <a href="#" class="p-2 border-2 border-[#c49a35] dark:border-[#9b51e0] rounded-full hover:bg-[#c49a35] dark:hover:bg-[#9b51e0] hover:text-white dark:hover:text-white transition-colors">
+                        <a href="#" class="p-2 border-2 border-[#c49a35] dark:border-white rounded-full hover:bg-[#c49a35] dark:hover:bg-white hover:text-white dark:hover:text-[#151515] transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                         </a>
                     </div>
@@ -289,7 +288,7 @@
                     <h3 class="font-bold text-lg mb-4 text-[#27313a] dark:text-zinc-100">Convenios Institucionales</h3>
                     <ul class="space-y-2 text-sm text-[#66717b] dark:text-zinc-400">
                         <li class="flex items-center gap-2 justify-center md:justify-start">
-                            <span class="w-2 h-2 bg-[#c49a35] dark:bg-[#9b51e0] rounded-full"></span> SENA
+                            <span class="w-2 h-2 bg-[#c49a35] dark:bg-white rounded-full"></span> SENA
                         </li>
                         <li class="flex items-center gap-2 justify-center md:justify-start">
                             <span class="w-2 h-2 bg-blue-500 rounded-full"></span> Secretaría de Educación
@@ -309,7 +308,7 @@
 
         <!-- Scripts de interacción -->
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
+            function initializeWelcome() {
                 /* --- LOGICA DEL CARRUSEL --- */
                 const images = document.querySelectorAll('.carousel-img');
                 let currentIndex = 0;
@@ -327,48 +326,53 @@
                 /* --- LOGICA DEL MODO OSCURO/CLARO --- */
                 const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
                 const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-                const themeToggleBtn = document.getElementById('theme-toggle');
 
-                if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                    themeToggleLightIcon.classList.remove('hidden');
-                } else {
-                    themeToggleDarkIcon.classList.remove('hidden');
+                if (themeToggleDarkIcon && themeToggleLightIcon) {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    themeToggleDarkIcon.classList.toggle('hidden', isDark);
+                    themeToggleLightIcon.classList.toggle('hidden', !isDark);
                 }
 
-                themeToggleBtn.addEventListener('click', function() {
-                    themeToggleDarkIcon.classList.toggle('hidden');
-                    themeToggleLightIcon.classList.toggle('hidden');
+                if (!window.welcomeThemeHandlerAttached) {
+                    document.addEventListener('click', (event) => {
+                        if (!event.target.closest('#theme-toggle')) return;
 
-                    if (localStorage.getItem('color-theme')) {
-                        if (localStorage.getItem('color-theme') === 'light') {
-                            document.documentElement.classList.add('dark');
-                            localStorage.setItem('color-theme', 'dark');
-                        } else {
-                            document.documentElement.classList.remove('dark');
-                            localStorage.setItem('color-theme', 'light');
-                        }
-                    } else {
-                        if (document.documentElement.classList.contains('dark')) {
-                            document.documentElement.classList.remove('dark');
-                            localStorage.setItem('color-theme', 'light');
-                        } else {
-                            document.documentElement.classList.add('dark');
-                            localStorage.setItem('color-theme', 'dark');
-                        }
-                    }
-                });
+                        const isDark = !document.documentElement.classList.contains('dark');
+                        document.documentElement.classList.toggle('dark', isDark);
+                        localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
+
+                        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+                        const lightIcon = document.getElementById('theme-toggle-light-icon');
+                        darkIcon?.classList.toggle('hidden', isDark);
+                        lightIcon?.classList.toggle('hidden', !isDark);
+                    });
+                    window.welcomeThemeHandlerAttached = true;
+                }
 
                 /* --- LOGICA MENÚ HAMBURGUESA (MÓVIL) --- */
                 const mobileMenuBtn = document.getElementById('mobile-menu-btn');
                 const mobileMenuPanel = document.getElementById('mobile-menu-panel');
 
                 if(mobileMenuBtn && mobileMenuPanel) {
+                    const closeMobileMenuOnDesktop = () => {
+                        if (window.innerWidth >= 1024) {
+                            mobileMenuPanel.classList.add('hidden');
+                            mobileMenuPanel.classList.remove('flex');
+                        }
+                    };
+
                     mobileMenuBtn.addEventListener('click', () => {
                         mobileMenuPanel.classList.toggle('hidden');
-                        mobileMenuPanel.classList.toggle('flex'); 
+                        mobileMenuPanel.classList.toggle('flex');
                     });
+
+                    window.addEventListener('resize', closeMobileMenuOnDesktop);
+                    closeMobileMenuOnDesktop();
                 }
-            });
+            }
+
+            document.addEventListener('DOMContentLoaded', initializeWelcome);
+            document.addEventListener('livewire:navigated', initializeWelcome);
         </script>
     </body>
 </html>

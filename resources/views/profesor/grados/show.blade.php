@@ -4,7 +4,7 @@
             <flux:icon name="arrow-left" class="size-4" /> Volver a grados
         </a>
 
-        <div class="rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-zinc-800 dark:bg-zinc-900">
+        <div class="rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-[#2b2b2b] dark:bg-[#2b2b2b]">
             <div class="flex items-center gap-4">
                 <span class="flex size-14 items-center justify-center rounded-2xl bg-[#f5eaf2] text-[#985278]"><flux:icon name="bookmark" class="size-6" /></span>
                 <div>
@@ -14,8 +14,8 @@
             </div>
         </div>
 
-        <div class="rounded-2xl border border-[#d8dee8] bg-white shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-zinc-800 dark:bg-zinc-900">
-            <div class="border-b border-zinc-100 p-6 dark:border-zinc-800">
+        <div class="rounded-2xl border border-[#d8dee8] bg-white shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-[#2b2b2b] dark:bg-[#2b2b2b]">
+            <div class="border-b border-zinc-100 p-6 dark:border-[#2b2b2b]">
                 <h3 class="font-semibold text-zinc-900 dark:text-zinc-100">Cursos de este grado</h3>
                 <p class="mt-1 text-sm text-zinc-500">Grupos activos que pertenecen a este nivel.</p>
             </div>

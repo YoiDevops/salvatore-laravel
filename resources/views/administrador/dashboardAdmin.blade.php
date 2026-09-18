@@ -2,7 +2,7 @@
     <div class="mx-auto max-w-7xl space-y-8">
         <div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div><p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#9a761f]">Administración escolar</p><flux:heading size="xl" class="mt-2">Panel administrativo</flux:heading><flux:subheading class="mt-1">Un espacio central para organizar la comunidad educativa.</flux:subheading></div>
-            <div class="flex items-center gap-2 rounded-full border border-[#e6d6a8] bg-[#fffaf0] px-4 py-2 text-sm text-[#8a681b] dark:border-[#665322] dark:bg-[#2e2714] dark:text-[#d8b85c]"><span class="size-2 rounded-full bg-[#c49a35]"></span> Ciclo escolar en curso</div>
+            <div class="flex items-center gap-2 rounded-full border border-[#e6d6a8] bg-[#fffaf0] px-4 py-2 text-sm text-[#8a681b] dark:border-[#2b2b2b] dark:bg-[#212121] dark:text-[#d8b85c]"><span class="size-2 rounded-full bg-[#c49a35]"></span> Ciclo escolar en curso</div>
         </div>
 
         <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -18,7 +18,7 @@
                 @endforeach
             </div></section>
 
-            <section class="rounded-2xl border border-[#e6d6a8] bg-[#fffaf0] p-6 dark:border-[#665322] dark:bg-[#2e2714]"><div class="flex size-10 items-center justify-center rounded-xl bg-white text-[#9a761f] shadow-sm dark:bg-[#443a1c] dark:text-[#d8b85c]"><flux:icon name="sparkles" class="size-5" /></div><h2 class="mt-5 font-semibold text-[#5d4611] dark:text-[#f0d98b]">Organización institucional</h2><p class="mt-2 text-sm leading-6 text-[#7e6b3b] dark:text-[#d8c78d]">Mantén actualizados los datos del colegio, sus sedes y los permisos de acceso.</p><div class="mt-6 space-y-2">
+            <section class="rounded-2xl border border-[#e6d6a8] bg-[#fffaf0] p-6 dark:border-[#2b2b2b] dark:bg-[#212121]"><div class="flex size-10 items-center justify-center rounded-xl bg-white text-[#9a761f] shadow-sm dark:bg-[#2b2b2b] dark:text-[#d8b85c]"><flux:icon name="sparkles" class="size-5" /></div><h2 class="mt-5 font-semibold text-[#5d4611] dark:text-[#f0d98b]">Organización institucional</h2><p class="mt-2 text-sm leading-6 text-[#7e6b3b] dark:text-[#d8c78d]">Mantén actualizados los datos del colegio, sus sedes y los permisos de acceso.</p><div class="mt-6 space-y-2">
                 @foreach([['Usuarios','usuarios.index'],['Roles','roles.index'],['Sedes','sedes.index']] as [$label,$routeName])
                     @if(Route::has($routeName))<a href="{{ route($routeName) }}" wire:navigate class="flex items-center justify-between border-b border-[#e6d6a8] py-2 text-sm font-medium text-[#8a681b] last:border-0 dark:border-[#665322] dark:text-[#d8b85c]"><span>{{ $label }}</span><flux:icon name="arrow-up-right" class="size-4" /></a>@endif
                 @endforeach
