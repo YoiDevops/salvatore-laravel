@@ -1,13 +1,13 @@
 <x-layouts::app title="Panel administrativo">
-    <div class="mx-auto max-w-7xl space-y-8">
+    <div class="mx-auto w-full max-w-[min(100%-2rem,96rem)] space-y-8 px-2 sm:px-4 lg:px-6">
         <div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div><p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#9a761f]">Administración escolar</p><flux:heading size="xl" class="mt-2">Panel administrativo</flux:heading><flux:subheading class="mt-1">Un espacio central para organizar la comunidad educativa.</flux:subheading></div>
             <div class="flex items-center gap-2 rounded-full border border-[#e6d6a8] bg-[#fffaf0] px-4 py-2 text-sm text-[#8a681b] dark:border-[#665322] dark:bg-[#2e2714] dark:text-[#d8b85c]"><span class="size-2 rounded-full bg-[#c49a35]"></span> Ciclo escolar en curso</div>
         </div>
 
-        <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div class="grid w-full gap-5 sm:grid-cols-2 xl:grid-cols-4">
             @foreach([['Comunidad escolar','Usuarios, roles y perfiles.','usuarios.index','users','bg-[#e8f2e8] text-[#2f6f48]'],['Equipo docente','Profesores y asignaturas.','profesores.index','user-group','bg-[#edf1fa] text-[#526da8]'],['Estructura academica','Grados, cursos y sedes.','cursos.index','building-library','bg-[#fbf1df] text-[#a46b21]'],['Evaluacion','Periodos y escalas de valoracion.','indicadores.index','chart-bar','bg-[#f5eaf2] text-[#985278]']] as [$title,$description,$routeName,$icon,$color])
-                @if(Route::has($routeName))<a href="{{ route($routeName) }}" wire:navigate class="group rounded-2xl border border-[#d8dee8] bg-white p-5 shadow-[0_8px_24px_rgba(16,33,59,0.07)] transition hover:-translate-y-0.5 hover:border-[#c49a35] hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900"><div class="flex items-center justify-between"><span class="flex size-11 items-center justify-center rounded-xl {{ $color }}"><flux:icon :name="$icon" class="size-5" /></span><flux:icon name="arrow-up-right" class="size-4 text-zinc-400 transition group-hover:text-[#9a761f]" /></div><h2 class="mt-5 font-semibold text-zinc-900 dark:text-zinc-100">{{ $title }}</h2><p class="mt-1 text-sm leading-5 text-zinc-500 dark:text-zinc-400">{{ $description }}</p></a>@endif
+                @if(Route::has($routeName))<a href="{{ route($routeName) }}" wire:navigate class="group rounded-xl border border-[#d8dee8] bg-white p-6 shadow-md transition hover:-translate-y-0.5 hover:border-[#c49a35] hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900"><div class="flex items-center justify-between"><span class="flex size-11 items-center justify-center rounded-xl {{ $color }}"><flux:icon :name="$icon" class="size-5" /></span><flux:icon name="arrow-up-right" class="size-4 text-zinc-400 transition group-hover:text-[#9a761f]" /></div><h2 class="mt-5 font-semibold text-zinc-900 dark:text-zinc-100">{{ $title }}</h2><p class="mt-1 text-sm leading-5 text-zinc-500 dark:text-zinc-400">{{ $description }}</p></a>@endif
             @endforeach
         </div>
 
