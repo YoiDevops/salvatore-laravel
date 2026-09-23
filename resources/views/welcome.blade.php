@@ -11,13 +11,17 @@
 
         @fonts
 
-        <!-- Script para evitar el parpadeo blanco al cargar en modo oscuro -->
+        <!-- Script anti-parpadeo sincrónico -->
         <script>
-            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
+            (function() {
+                const theme = localStorage.getItem('theme');
+                const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (theme === 'dark' || (!theme && systemDark)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            })();
         </script>
 
         <style>
@@ -72,11 +76,10 @@
                 position: absolute;
                 z-index: 0;
                 animation: lluviaDiagonal linear infinite;
-                pointer-events: none; /* Evita interferir con los clics */
+                pointer-events: none;
             }
         </style>
         
-        <!-- Script de Tailwind vía CDN -->
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
             tailwind.config = {
@@ -86,29 +89,25 @@
     </head>
     <body class="bg-white dark:bg-[#20282e] text-[#27313a] dark:text-zinc-100 flex flex-col min-h-screen relative overflow-x-hidden transition-colors duration-300">
         
-        <!-- FONDO ANIMADO: Lluvia de estrellas, iconos y manchas esparcidas -->
+        <!-- FONDO ANIMADO -->
         <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
-            <!-- Nacen desde el borde superior (esparcidas a lo ancho) -->
             <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-40 text-4xl" style="top: -10%; left: 5%; animation-duration: 14s; animation-delay: -2s;">★</div>
             <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-25 text-5xl" style="top: -10%; left: 25%; animation-duration: 19s; animation-delay: -10s;">▲</div>
             <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-30 text-3xl" style="top: -10%; left: 45%; animation-duration: 15s; animation-delay: -5s;">★</div>
             <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-20 text-6xl" style="top: -10%; left: 65%; animation-duration: 22s; animation-delay: -12s;">⬤</div>
             <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-35 text-4xl" style="top: -10%; left: 85%; animation-duration: 17s; animation-delay: -7s;">★</div>
             
-            <!-- Nacen desde el borde izquierdo (esparcidas a lo largo) -->
             <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-20 text-3xl" style="top: 15%; left: -10%; animation-duration: 16s; animation-delay: -14s;">■</div>
             <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-30 text-5xl" style="top: 35%; left: -10%; animation-duration: 20s; animation-delay: -3s;">✚</div>
             <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-40 text-2xl" style="top: 55%; left: -10%; animation-duration: 13s; animation-delay: -8s;">★</div>
             <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-25 text-4xl" style="top: 75%; left: -10%; animation-duration: 18s; animation-delay: -15s;">⬢</div>
             <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-15 text-5xl" style="top: 90%; left: -10%; animation-duration: 24s; animation-delay: -6s;">✦</div>
 
-            <!-- Estrellas extras para rellenar vacíos -->
             <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-30 text-2xl" style="top: -10%; left: 15%; animation-duration: 12s; animation-delay: -9s;">★</div>
             <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-25 text-4xl" style="top: 40%; left: -10%; animation-duration: 21s; animation-delay: -1s;">★</div>
             <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-35 text-xl" style="top: -10%; left: 75%; animation-duration: 16s; animation-delay: -18s;">★</div>
             <div class="lluvia-item text-[#c49a35] dark:text-[#9b51e0] opacity-20 text-3xl" style="top: 65%; left: -10%; animation-duration: 19s; animation-delay: -11s;">★</div>
 
-            <!-- Imágenes de pintura (Manchas y manos) -->
             <img src="{{ asset('images/pintura1.png') }}" class="lluvia-item w-32 opacity-25 dark:opacity-15" style="top: -10%; left: 30%; animation-duration: 25s; animation-delay: -4s;" alt="Mancha decorativa">
             <img src="{{ asset('images/pintura2.png') }}" class="lluvia-item w-40 opacity-25 dark:opacity-15" style="top: 50%; left: -10%; animation-duration: 28s; animation-delay: -12s;" alt="Mancha decorativa">
             <img src="{{ asset('images/manos1.png') }}" class="lluvia-item w-28 opacity-30 dark:opacity-20" style="top: -10%; left: 70%; animation-duration: 22s; animation-delay: -8s;" alt="Manos pintadas">
@@ -118,16 +117,13 @@
         <!-- HEADER -->
         <header class="w-full flex justify-between items-center p-4 lg:px-12 relative z-50 bg-[#f5f6f8]/80 dark:bg-[#171c20]/80 backdrop-blur-sm border-b border-[#d8dee8] dark:border-[#39434b]">
             <div class="flex items-center gap-3 cursor-pointer">
-                <!-- Logo de la Institución -->
                 <img src="{{ asset('images/LogoSv.png') }}" alt="Logo Institución Salvatore" class="w-10 h-10 lg:w-12 lg:h-12 object-contain">
                 <span class="font-bold text-lg lg:text-xl leading-tight">
                     Institución <br> Salvatore
                 </span>
             </div>
 
-            <!-- Controles a la derecha -->
             <div class="flex items-center gap-2 lg:gap-4">
-                
                 <!-- Botón Modo Oscuro/Claro -->
                 <button id="theme-toggle" type="button" class="text-[#27313a] dark:text-[#d8b85c] hover:bg-[#eef1f5] dark:hover:bg-[#27313a] focus:outline-none rounded-lg text-sm p-2 transition-colors">
                     <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -139,7 +135,6 @@
                 </button>
 
                 @if (Route::has('login'))
-                    <!-- Menú Navegación (Escritorio) -->
                     <nav class="hidden lg:flex items-center gap-4 text-sm font-medium">
                         @auth
                             <a href="{{ route('dashboard') }}" class="inline-block px-5 py-2 border border-[#d8dee8] dark:border-[#39434b] hover:border-[#c49a35] rounded-md transition-colors">
@@ -157,14 +152,12 @@
                         @endauth
                     </nav>
 
-                    <!-- Botón Hamburguesa (Móvil) -->
                     <button id="mobile-menu-btn" class="lg:hidden p-2 text-[#27313a] dark:text-[#d8b85c] hover:bg-[#eef1f5] dark:hover:bg-[#27313a] rounded-md transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                 @endif
             </div>
 
-            <!-- Panel Menú Móvil Desplegable -->
             @if (Route::has('login'))
                 <div id="mobile-menu-panel" class="hidden flex-col w-full bg-white dark:bg-[#20282e] border-b border-[#d8dee8] dark:border-[#39434b] absolute top-full left-0 shadow-lg">
                     <nav class="flex flex-col px-6 py-6 gap-4 text-base font-medium">
@@ -183,7 +176,6 @@
 
         <!-- SECCIÓN 1: INICIO (HERO) -->
         <main class="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center p-4 sm:p-6 lg:p-12 gap-6 lg:gap-12 relative z-10 flex-shrink-0 min-h-[80vh]">
-            <!-- Izquierda: Textos Responsivos -->
             <div class="flex-1 text-center lg:text-left mt-2 lg:mt-0">
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4 tracking-tight drop-shadow-sm leading-tight">
                     Bienvenidos a Institución <br class="hidden lg:block"> Salvatore
@@ -193,7 +185,6 @@
                 </p>
             </div>
 
-            <!-- Derecha: Carrusel con forma de Blob -->
             <div class="flex-1 w-full flex justify-center items-center relative mt-4 lg:mt-0">
                 <div id="carousel" class="w-full max-w-[280px] sm:max-w-[350px] lg:max-w-md aspect-square relative overflow-hidden blob-shape shadow-2xl bg-white dark:bg-[#20282e]">
                     <img src="{{ asset('images/niño1.png') }}" class="carousel-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Escuela 1">
@@ -203,7 +194,7 @@
             </div>
         </main>
 
-        <!-- SECCIÓN 2: ENFOQUE E INTRODUCCIÓN (Tarjetas con imágenes) -->
+        <!-- SECCIÓN 2: ENFOQUE -->
         <section class="w-full py-16 relative z-10">
             <div class="max-w-7xl mx-auto px-6 lg:px-12 text-center">
                 <h2 class="text-3xl lg:text-4xl font-bold mb-6 text-[#27313a] dark:text-zinc-100">
@@ -214,27 +205,21 @@
                 </p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Tarjeta 1 -->
                     <div class="bg-white dark:bg-[#20282e] rounded-xl shadow-sm border border-[#d8dee8] dark:border-[#39434b] overflow-hidden flex flex-col hover:shadow-md transition-shadow">
-                        <!-- Imagen superior -->
                         <img src="{{ asset('images/enfoque1.jpg') }}" class="w-full h-48 object-cover" alt="Desarrollo Creativo">
                         <div class="p-6 flex-1 flex flex-col text-left">
                             <h3 class="text-xl font-semibold mb-2 text-[#27313a] dark:text-zinc-100">Desarrollo Creativo</h3>
                             <p class="text-[#66717b] dark:text-zinc-400 text-sm">Fomentamos el arte y la expresión como pilares fundamentales en las primeras etapas del aprendizaje.</p>
                         </div>
                     </div>
-                    <!-- Tarjeta 2 -->
                     <div class="bg-white dark:bg-[#20282e] rounded-xl shadow-sm border border-[#d8dee8] dark:border-[#39434b] overflow-hidden flex flex-col hover:shadow-md transition-shadow">
-                        <!-- Imagen superior -->
                         <img src="{{ asset('images/enfoque2.jpg') }}" class="w-full h-48 object-cover" alt="Innovación Digital">
                         <div class="p-6 flex-1 flex flex-col text-left">
                             <h3 class="text-xl font-semibold mb-2 text-[#27313a] dark:text-zinc-100">Innovación Digital</h3>
                             <p class="text-[#66717b] dark:text-zinc-400 text-sm">Integramos la tecnología en las aulas para garantizar un aprendizaje moderno y adaptado al mundo actual.</p>
                         </div>
                     </div>
-                    <!-- Tarjeta 3 -->
                     <div class="bg-white dark:bg-[#20282e] rounded-xl shadow-sm border border-[#d8dee8] dark:border-[#39434b] overflow-hidden flex flex-col hover:shadow-md transition-shadow">
-                        <!-- Imagen superior -->
                         <img src="{{ asset('images/enfoque3.jpg') }}" class="w-full h-48 object-cover" alt="Crecimiento Integral">
                         <div class="p-6 flex-1 flex flex-col text-left">
                             <h3 class="text-xl font-semibold mb-2 text-[#27313a] dark:text-zinc-100">Crecimiento Integral</h3>
@@ -245,11 +230,9 @@
             </div>
         </section>
 
-        <!-- FOOTER SECCIONADO -->
+        <!-- FOOTER -->
         <footer class="w-full bg-white dark:bg-[#20282e] pt-12 pb-8 mt-auto relative z-10 border-t border-[#d8dee8] dark:border-[#39434b] transition-colors duration-300">
             <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-3 gap-10">
-                
-                <!-- Columna 1: Información General -->
                 <div class="flex flex-col items-center md:items-start text-center md:text-left">
                     <div class="flex items-center gap-3 mb-4">
                         <img src="{{ asset('images/LogoSv.png') }}" alt="Logo" class="w-8 h-8 object-contain">
@@ -268,7 +251,6 @@
                     </div>
                 </div>
 
-                <!-- Columna 2: Redes Sociales -->
                 <div class="flex flex-col items-center md:items-start text-center md:text-left">
                     <h3 class="font-bold text-lg mb-4 text-[#27313a] dark:text-zinc-100">Síguenos</h3>
                     <div class="flex gap-4 text-[#c49a35] dark:text-[#9b51e0]">
@@ -284,7 +266,6 @@
                     </div>
                 </div>
 
-                <!-- Columna 3: Convenios -->
                 <div class="flex flex-col items-center md:items-start text-center md:text-left">
                     <h3 class="font-bold text-lg mb-4 text-[#27313a] dark:text-zinc-100">Convenios Institucionales</h3>
                     <ul class="space-y-2 text-sm text-[#66717b] dark:text-zinc-400">
@@ -299,7 +280,6 @@
                         </li>
                     </ul>
                 </div>
-                
             </div>
             
             <div class="mt-10 text-center text-xs text-[#66717b] dark:text-zinc-500">
@@ -310,55 +290,47 @@
         <!-- Scripts de interacción -->
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                /* --- LOGICA DEL CARRUSEL --- */
+                /* --- LÓGICA DEL CARRUSEL --- */
                 const images = document.querySelectorAll('.carousel-img');
                 let currentIndex = 0;
-                const intervalTime = 10000; // 10 segundos
-
                 setInterval(() => {
                     images[currentIndex].classList.remove('opacity-100');
                     images[currentIndex].classList.add('opacity-0');
                     currentIndex = (currentIndex + 1) % images.length;
                     images[currentIndex].classList.remove('opacity-0');
                     images[currentIndex].classList.add('opacity-100');
-                }, intervalTime);
+                }, 10000);
 
-
-                /* --- LOGICA DEL MODO OSCURO/CLARO --- */
+                /* --- LÓGICA UNIFICADA MODO OSCURO/CLARO ('theme') --- */
                 const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
                 const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
                 const themeToggleBtn = document.getElementById('theme-toggle');
 
-                if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                    themeToggleLightIcon.classList.remove('hidden');
-                } else {
-                    themeToggleDarkIcon.classList.remove('hidden');
+                function updateIcons() {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    if (isDark) {
+                        themeToggleLightIcon.classList.remove('hidden');
+                        themeToggleDarkIcon.classList.add('hidden');
+                    } else {
+                        themeToggleDarkIcon.classList.remove('hidden');
+                        themeToggleLightIcon.classList.add('hidden');
+                    }
                 }
 
-                themeToggleBtn.addEventListener('click', function() {
-                    themeToggleDarkIcon.classList.toggle('hidden');
-                    themeToggleLightIcon.classList.toggle('hidden');
+                updateIcons();
 
-                    if (localStorage.getItem('color-theme')) {
-                        if (localStorage.getItem('color-theme') === 'light') {
-                            document.documentElement.classList.add('dark');
-                            localStorage.setItem('color-theme', 'dark');
-                        } else {
-                            document.documentElement.classList.remove('dark');
-                            localStorage.setItem('color-theme', 'light');
-                        }
+                themeToggleBtn.addEventListener('click', function() {
+                    if (document.documentElement.classList.contains('dark')) {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('theme', 'light');
                     } else {
-                        if (document.documentElement.classList.contains('dark')) {
-                            document.documentElement.classList.remove('dark');
-                            localStorage.setItem('color-theme', 'light');
-                        } else {
-                            document.documentElement.classList.add('dark');
-                            localStorage.setItem('color-theme', 'dark');
-                        }
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('theme', 'dark');
                     }
+                    updateIcons();
                 });
 
-                /* --- LOGICA MENÚ HAMBURGUESA (MÓVIL) --- */
+                /* --- LÓGICA MENÚ HAMBURGUESA (MÓVIL) --- */
                 const mobileMenuBtn = document.getElementById('mobile-menu-btn');
                 const mobileMenuPanel = document.getElementById('mobile-menu-panel');
 

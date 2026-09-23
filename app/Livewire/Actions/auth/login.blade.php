@@ -77,14 +77,18 @@ new #[Layout('layouts.auth')] class extends Component {
         darkMode: localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
         toggleTheme() {
             this.darkMode = !this.darkMode;
-            localStorage.setItem('theme', this.darkMode ? 'dark' : 'light');
+            const theme = this.darkMode ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+            localStorage.setItem('flux.appearance', theme);
             this.applyTheme();
         },
         applyTheme() {
-            if (this.darkMode) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
+            const theme = this.darkMode ? 'dark' : 'light';
+            document.documentElement.classList.toggle('dark', this.darkMode);
+            document.documentElement.style.colorScheme = theme;
+            localStorage.setItem('theme', theme);
+            if (window.Flux && typeof window.Flux.applyAppearance === 'function') {
+                window.Flux.applyAppearance(theme);
             }
         }
     }"
@@ -98,21 +102,6 @@ new #[Layout('layouts.auth')] class extends Component {
 
     <!-- 2. CAPA DE CONTRASTE SOBRE LA IMAGEN -->
     <div class="fixed inset-0 w-screen h-screen bg-stone-900/40 dark:bg-black/75 backdrop-blur-xs z-10 transition-colors duration-300"></div>
-
-    <!-- 3. BOTÓN VOLVER AL INICIO -->
-    <div class="fixed top-5 left-5 z-30">
-        <a 
-            href="{{ url('/') }}" 
-            wire:navigate
-            class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/90 dark:bg-stone-900/90 hover:bg-white dark:hover:bg-stone-900 text-stone-700 dark:text-stone-200 hover:text-stone-900 dark:hover:text-white text-xs font-semibold rounded-xl border border-stone-200/80 dark:border-stone-800 shadow-lg backdrop-blur-md transition-all duration-200 group"
-        >
-            <svg class="w-4 h-4 text-[#D4A017] transition-transform duration-200 group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-            </svg>
-            <span>Volver al inicio</span>
-        </a>
-    </div>
-
     <!-- 4. CONTENEDOR CENTRAL DEL FORMULARIO -->
     <div class="relative z-20 min-h-screen w-full flex items-center justify-center p-4">
         <div class="relative w-full max-w-md bg-white/95 dark:bg-stone-900/95 backdrop-blur-md rounded-2xl shadow-2xl border border-stone-200/80 dark:border-stone-800 p-8 mx-auto transition-colors duration-300">
