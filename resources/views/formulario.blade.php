@@ -100,6 +100,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
                 'required',
                 'date_format:Y-m-d',
                 'before_or_equal:today',
+                'before_or_equal:' . now()->subYears(18)->format('Y-m-d'),
                 'after_or_equal:' . now()->subYears(150)->format('Y-m-d'),
             ],
             'acudiente_genero' => ['required', 'string'],
@@ -110,7 +111,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
             'acudiente_lugar_trabajo' => ['nullable', 'string', 'max:150'],
             'acudiente_ocupacion' => ['nullable', 'string', 'max:100'],
         ], [
-            'acudiente_fecha_nacimiento.before_or_equal' => 'La fecha de nacimiento no puede ser futura.',
+            'acudiente_fecha_nacimiento.before_or_equal' => 'La fecha de nacimiento debe corresponder a una persona mayor de 18 años.',
             'acudiente_fecha_nacimiento.after_or_equal' => '¿Está seguro de que la fecha de nacimiento es correcta? No puede superar los 150 años.',
         ]);
 
@@ -153,7 +154,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
             'acudiente_numero_documento' => ['required', 'string', 'max:12'],
             'acudiente_nombres' => ['required', 'string', 'max:100'],
             'acudiente_apellidos' => ['required', 'string', 'max:100'],
-            'acudiente_fecha_nacimiento' => ['required', 'date_format:Y-m-d', 'before_or_equal:today', 'after_or_equal:' . now()->subYears(150)->format('Y-m-d')],
+            'acudiente_fecha_nacimiento' => ['required', 'date_format:Y-m-d', 'before_or_equal:today', 'before_or_equal:' . now()->subYears(18)->format('Y-m-d'), 'after_or_equal:' . now()->subYears(150)->format('Y-m-d')],
             'acudiente_genero' => ['required', 'string'],
             'acudiente_parentesco' => ['required', 'string'],
             'acudiente_direccion' => ['required', 'string', 'max:150'],
@@ -191,7 +192,6 @@ new #[Layout('layouts.auth.card')] class extends Component {
             'estudiante_permanencia_discapacidad' => ['required_if:estudiante_tiene_discapacidad,Si', 'nullable', 'string', 'max:50'],
             'estudiante_grado_atencion' => ['required_if:estudiante_tiene_discapacidad,Si', 'nullable', 'string', 'max:100'],
         ], [
-            'estudiante_fecha_nacimiento.before_or_equal' => 'La fecha de nacimiento no puede ser futura.',
             'estudiante_fecha_nacimiento.after_or_equal' => '¿Está seguro de que la fecha de nacimiento es correcta? No puede superar los 150 años.',
             'estudiante_tiene_discapacidad.required' => 'Indica si el estudiante tiene alguna discapacidad.',
             'estudiante_tipo_discapacidad.required_if' => 'Selecciona el tipo de discapacidad.',
@@ -213,12 +213,13 @@ new #[Layout('layouts.auth.card')] class extends Component {
         darkMode: document.documentElement.classList.contains('dark'),
         toggleTheme() {
             this.darkMode = !this.darkMode;
-            if (this.darkMode) {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
+            const theme = this.darkMode ? 'dark' : 'light';
+            document.documentElement.classList.toggle('dark', this.darkMode);
+            document.documentElement.style.colorScheme = theme;
+            localStorage.setItem('theme', theme);
+            localStorage.setItem('flux.appearance', theme);
+            if (window.Flux && typeof window.Flux.applyAppearance === 'function') {
+                window.Flux.applyAppearance(theme);
             }
         }
     }"
@@ -300,7 +301,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
-                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Tipo de Documento *</label>
+                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Tipo de Documento Acudiente *</label>
                             <select wire:model.live="acudiente_tipo_documento" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                 <option value="">Seleccione tipo...</option>
                                 <option value="CC">Cédula de Ciudadanía (CC)</option>
@@ -312,26 +313,30 @@ new #[Layout('layouts.auth.card')] class extends Component {
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Número de Documento *</label>
-                            <input type="text" wire:model.live="acudiente_numero_documento" maxlength="12" placeholder="1000123456" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Número de Documento Acudiente *</label>
+                            <input type="number" 
+                                   wire:model.live="acudiente_numero_documento" 
+                                   oninput="if(this.value.length > 12) this.value = this.value.slice(0, 12);"
+                                   placeholder="1000123456" 
+                                   class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                             @error('acudiente_numero_documento') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Nombres *</label>
+                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Nombres Acudiente *</label>
                             <input type="text" wire:model.live="acudiente_nombres" placeholder="Ej: Carlos Alberto" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                             @error('acudiente_nombres') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Apellidos *</label>
+                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Apellidos Acudiente *</label>
                             <input type="text" wire:model.live="acudiente_apellidos" placeholder="Ej: Gómez Pérez" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                             @error('acudiente_apellidos') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Fecha de Nacimiento *</label>
-                            <div class="grid grid-cols-3 gap-2">
+                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Fecha de Nacimiento Acudiente *</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                                 <select wire:model.live="acudiente_dia_nacimiento" wire:change="actualizarFechaAcudiente" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                     <option value="">Día</option>
                                     @for ($dia = 1; $dia <= 31; $dia++)
@@ -346,7 +351,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
                                 </select>
                                 <select wire:model.live="acudiente_anio_nacimiento" wire:change="actualizarFechaAcudiente" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                     <option value="">Año</option>
-                                    @for ($anio = now()->year; $anio >= now()->subYears(150)->year; $anio--)
+                                    @for ($anio = now()->subYears(18)->year; $anio >= now()->subYears(150)->year; $anio--)
                                         <option value="{{ $anio }}">{{ $anio }}</option>
                                     @endfor
                                 </select>
@@ -355,7 +360,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Género *</label>
+                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Género Acudiente *</label>
                             <select wire:model.live="acudiente_genero" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                 <option value="">Seleccione género...</option>
                                 <option value="Masculino">Masculino</option>
@@ -366,7 +371,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Parentesco *</label>
+                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Parentesco Acudiente *</label>
                             <select wire:model.live="acudiente_parentesco" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                 <option value="">Seleccione parentesco...</option>
                                 <option value="Padre">Padre</option>
@@ -380,13 +385,17 @@ new #[Layout('layouts.auth.card')] class extends Component {
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Teléfono *</label>
-                            <input type="tel" inputmode="numeric" wire:model.live="acudiente_telefono" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)" placeholder="3001234567" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Teléfono Acudiente *</label>
+                            <input type="number" 
+                                   wire:model.live="acudiente_telefono" 
+                                   oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);"
+                                   placeholder="3001234567" 
+                                   class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                             @error('acudiente_telefono') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="md:col-span-2">
-                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Dirección *</label>
+                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Dirección Acudiente *</label>
                             <input type="text" wire:model.live="acudiente_direccion" placeholder="Calle 12 # 34 - 56, Barrio Centro" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                             @error('acudiente_direccion') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
@@ -402,11 +411,20 @@ new #[Layout('layouts.auth.card')] class extends Component {
                         </div>
                     </div>
 
-                    <div class="flex justify-end pt-4 border-t border-stone-100 dark:border-stone-800">
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-4 pt-5 border-t border-stone-100 dark:border-stone-800">
+                        <button 
+                            type="button" 
+                            wire:click="pasoAnterior" 
+                            class="inline-flex justify-center items-center gap-2 py-3 px-6 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 font-semibold text-sm rounded-xl transition-all duration-200 cursor-pointer w-full sm:w-auto"
+                        >
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                            <span>Anterior</span>
+                        </button>
+
                         <button 
                             type="button" 
                             wire:click="guardarAcudiente" 
-                            class="inline-flex items-center gap-2 py-3 px-6 bg-[#D4A017] hover:bg-[#B8860B] active:bg-[#996515] text-white font-semibold text-sm rounded-xl shadow-md transition-all duration-200 cursor-pointer"
+                            class="inline-flex justify-center items-center gap-2 py-3.5 px-8 bg-[#D4A017] hover:bg-[#B8860B] active:bg-[#996515] text-white font-semibold text-sm rounded-xl shadow-lg transition-all duration-200 cursor-pointer w-full sm:w-auto"
                         >
                             <span>Finalizar Registro</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
@@ -439,13 +457,17 @@ new #[Layout('layouts.auth.card')] class extends Component {
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Documento *</label>
-                            <input type="varchar" wire:model.live="estudiante_numero_documento" maxlength="12" placeholder="1011223344" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Documento Estudiante *</label>
+                            <input type="number" 
+                                   wire:model.live="estudiante_numero_documento" 
+                                   oninput="if(this.value.length > 12) this.value = this.value.slice(0, 12);"
+                                   placeholder="1011223344" 
+                                   class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                             @error('estudiante_numero_documento') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Nombres *</label>
+                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Nombre Estudiante *</label>
                             <input type="text" wire:model.live="estudiante_nombres" placeholder="Ej: Mateo" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                             @error('estudiante_nombres') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
@@ -457,8 +479,8 @@ new #[Layout('layouts.auth.card')] class extends Component {
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Fecha de Nacimiento *</label>
-                            <div class="grid grid-cols-3 gap-2">
+                            <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Fecha de Nacimiento Estudiante*</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                                 <select wire:model.live="estudiante_dia_nacimiento" wire:change="actualizarFechaEstudiante" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                     <option value="">Día</option>
                                     @for ($dia = 1; $dia <= 31; $dia++)
@@ -473,7 +495,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
                                 </select>
                                 <select wire:model.live="estudiante_anio_nacimiento" wire:change="actualizarFechaEstudiante" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                     <option value="">Año</option>
-                                    @for ($anio = now()->year; $anio >= now()->subYears(150)->year; $anio--)
+                                    @for ($anio = 2021; $anio >= now()->subYears(150)->year; $anio--)
                                         <option value="{{ $anio }}">{{ $anio }}</option>
                                     @endfor
                                 </select>
@@ -573,26 +595,18 @@ new #[Layout('layouts.auth.card')] class extends Component {
                                 </div>
                             </div>
                         @endif
-
                     </div>
 
-                    <div class="flex items-center justify-between pt-4 border-t border-stone-100 dark:border-stone-800">
-                        <button 
-                            type="button" 
-                            wire:click="pasoAnterior" 
-                            class="inline-flex items-center gap-2 py-3 px-6 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 font-semibold text-sm rounded-xl transition-all duration-200 cursor-pointer"
-                        >
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-                            <span>Anterior</span>
-                        </button>
+                    <div class="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-4 pt-5 border-t border-stone-100 dark:border-stone-800">
+                        <!-- El botón "Anterior" no es necesario en el Paso 1, pero si lo tuvieras, va aquí -->
 
                         <button 
                             type="button" 
                             wire:click="validarEstudianteYContinuar" 
-                            class="inline-flex items-center gap-2 py-3.5 px-8 bg-[#D4A017] hover:bg-[#B8860B] active:bg-[#996515] text-white font-semibold text-sm rounded-xl shadow-lg transition-all duration-200 cursor-pointer"
+                            class="inline-flex justify-center items-center gap-2 py-3.5 px-8 bg-[#D4A017] hover:bg-[#B8860B] active:bg-[#996515] text-white font-semibold text-sm rounded-xl shadow-lg transition-all duration-200 cursor-pointer w-full sm:w-auto"
                         >
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                             <span>Siguiente: Datos Acudiente</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         </button>
                     </div>
                 </div>

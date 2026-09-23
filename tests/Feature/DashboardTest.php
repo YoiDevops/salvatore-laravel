@@ -26,4 +26,17 @@ class DashboardTest extends TestCase
 
         $response->assertOk();
     }
+
+    public function test_dashboard_theme_is_not_hardcoded_to_dark_mode(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->get(route('dashboard'));
+
+        $response->assertOk();
+        $this->assertStringNotContainsString('class="dark"', $response->getContent());
+        $this->assertStringContainsString('flux.appearance', $response->getContent());
+    }
 }
