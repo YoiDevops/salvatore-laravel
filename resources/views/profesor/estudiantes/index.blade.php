@@ -11,6 +11,16 @@
             </div>
         </div>
 
+        @include('components.search-filters', [
+            'placeholder' => 'Nombre, documento o curso...',
+            'filterFields' => [
+                ['name' => 'curso', 'label' => 'Curso', 'options' => $cursos->pluck('nombre_curso', 'id_curso')->all()],
+                ['name' => 'genero', 'label' => 'Género', 'options' => ['Femenino' => 'Femenino', 'Masculino' => 'Masculino', 'Otro' => 'Otro']],
+                ['name' => 'grado', 'label' => 'Grado', 'options' => $grados->pluck('nombre_grado', 'id_grado')->all()],
+                ['name' => 'filter', 'label' => 'Estado', 'options' => ['Activo' => 'Activo', 'Retirado' => 'Retirado', 'Graduado' => 'Graduado', 'Suspendido' => 'Suspendido']],
+            ],
+        ])
+
         <div class="rounded-2xl border border-[#d8dee8] bg-white shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-zinc-800 dark:bg-zinc-900">
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm">

@@ -1,4 +1,13 @@
 (() => {
+	const syncThemeAfterNavigation = () => {
+		if (typeof window.applyTheme === 'function' && typeof window.getThemePreference === 'function') {
+			window.applyTheme(window.getThemePreference());
+		}
+	};
+
+	window.addEventListener('pageshow', syncThemeAfterNavigation);
+	window.addEventListener('popstate', syncThemeAfterNavigation);
+
 	const nativeSelects = 'select:not([data-custom-select])';
 
 	const closeSelect = (container) => {
@@ -126,4 +135,5 @@
 		});
 	});
 	document.addEventListener('livewire:navigated', enhanceVisibleSelects);
+	document.addEventListener('livewire:navigated', syncThemeAfterNavigation);
 })();

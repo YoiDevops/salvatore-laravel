@@ -212,15 +212,9 @@ new #[Layout('layouts.auth.card')] class extends Component {
     x-data="{
         darkMode: document.documentElement.classList.contains('dark'),
         toggleTheme() {
-            this.darkMode = !this.darkMode;
-            const theme = this.darkMode ? 'dark' : 'light';
-            document.documentElement.classList.toggle('dark', this.darkMode);
-            document.documentElement.style.colorScheme = theme;
-            localStorage.setItem('theme', theme);
-            localStorage.setItem('flux.appearance', theme);
-            if (window.Flux && typeof window.Flux.applyAppearance === 'function') {
-                window.Flux.applyAppearance(theme);
-            }
+            const theme = this.darkMode ? 'light' : 'dark';
+            window.applyTheme?.(theme);
+            this.darkMode = theme === 'dark';
         }
     }"
 >

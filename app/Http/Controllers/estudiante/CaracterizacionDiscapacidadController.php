@@ -8,9 +8,14 @@ use Illuminate\Http\Request;
 
 class CaracterizacionDiscapacidadController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $caracterizaciones = CaracterizacionDiscapacidad::all();
+        $caracterizaciones = CaracterizacionDiscapacidad::when($request->filled('search'), function ($query) use ($request) {
+            $search = $request->input('search');
+            $query->where('tipo_discapacidad', 'like', "%{$search}%")
+                ->orWhere('diagnostico', 'like', "%{$search}%")
+                ->orWhere('grado_atencion', 'like', "%{$search}%");
+        })->when($request->filled('filter'), fn ($query) => $query->where('grado_discapacidad', $request->input('filter')))->get();
         return view('caracterizaciones.index', compact('caracterizaciones'));
     }
 

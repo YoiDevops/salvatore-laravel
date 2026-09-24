@@ -5,6 +5,11 @@
             <flux:heading size="xl">{{ $title }}</flux:heading>
             <flux:button variant="primary" icon="plus" href="{{ route($resource.'.create') }}">Nuevo</flux:button>
         </div>
+        @include('components.search-filters', [
+            'placeholder' => 'Buscar en '.mb_strtolower($title).'...',
+            'filterLabel' => $filterLabel ?? 'Filtrar por',
+            'filterOptions' => $filterOptions ?? [],
+        ])
         <div class="academic-table-wrap overflow-x-auto rounded-lg border shadow-sm">
             <table class="academic-table w-full text-left text-sm">
                 <thead><tr>@foreach($columns as $column)<th class="p-3">{{ $column[1] }}</th>@endforeach<th class="p-3 text-right">Acciones</th></tr></thead>

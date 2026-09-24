@@ -1,1 +1,1 @@
-@php($title='Escalas de valoración') @php($resource='escalas') @php($items=$escalas) @php($columns=[['nombre_desempeno','Desempeño'],['nota_minima','Mínima'],['nota_maxima','Máxima']]) @include('crud.index')
+@php($title='Escalas de valoración') @php($resource='escalas') @php($items=$escalas) @php($columns=[['nombre_desempeno','Desempeño'],['nota_minima','Mínima'],['nota_maxima','Máxima']]) @php($filterLabel='Desempeño') @php($filterOptions=['Superior'=>'Superior','Alto'=>'Alto','Basico'=>'Básico','Bajo'=>'Bajo']) @include('crud.index')

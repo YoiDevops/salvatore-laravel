@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 
 class EscalaValoracionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $escalas = EscalaValoracion::all();
+        $escalas = EscalaValoracion::when($request->filled('search'), function ($query) use ($request) {
+            $search = $request->input('search');
+            $query->where('nombre_desempeno', 'like', "%{$search}%")
+                ->orWhere('definicion_escala', 'like', "%{$search}%");
+        })->when($request->filled('filter'), fn ($query) => $query->where('nombre_desempeno', $request->input('filter')))->get();
         return view('escalas.index', compact('escalas'));
     }
 

@@ -8,6 +8,11 @@
             </div>
         </div>
 
+        @include('components.search-filters', [
+            'placeholder' => 'Nombre del grado...',
+            'filterFields' => [['name' => 'filter', 'label' => 'Cursos asociados', 'options' => ['con_cursos' => 'Con cursos', 'sin_cursos' => 'Sin cursos']]],
+        ])
+
         <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             @forelse($grados as $grado)
                 <a href="{{ route('profesor.grados.show', $grado->id_grado) }}" wire:navigate class="group rounded-2xl border border-[#d8dee8] bg-white p-5 shadow-[0_8px_24px_rgba(16,33,59,0.07)] transition hover:-translate-y-0.5 hover:border-[#c49a35] hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900">

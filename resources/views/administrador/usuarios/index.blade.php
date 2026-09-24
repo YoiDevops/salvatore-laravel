@@ -11,10 +11,11 @@
         </div>
 
         <div class="bg-white dark:bg-zinc-900 rounded-lg shadow p-4 border border-zinc-200 dark:border-zinc-800">
-            <form method="GET" action="{{ route('usuarios.index') }}" class="mb-4 flex gap-2">
-                <flux:input type="text" name="search" placeholder="Buscar por correo o usuario..." value="{{ request('search') }}" class="max-w-md" />
-                <flux:button type="submit" variant="filled">Buscar</flux:button>
-            </form>
+            @include('components.search-filters', [
+                'placeholder' => 'Buscar por correo o usuario...',
+                'filterLabel' => 'Estado',
+                'filterOptions' => ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'],
+            ])
 
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm text-zinc-600 dark:text-zinc-300">

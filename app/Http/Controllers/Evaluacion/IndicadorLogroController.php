@@ -11,10 +11,36 @@ use Illuminate\Http\Request;
 
 class IndicadorLogroController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $indicadores = IndicadorLogro::with('asignatura', 'periodo', 'escalaValoracion')->get();
-        return view('indicadores.index', compact('indicadores'));
+        $query = IndicadorLogro::with('asignatura', 'periodo', 'escalaValoracion');
+
+        if ($search = $request->string('search')->trim()->toString()) {
+            $query->where(function ($query) use ($search) {
+                $query->where('codigo_logro', 'like', "%{$search}%")
+                    ->orWhere('descripcion_logro', 'like', "%{$search}%")
+                    ->orWhereHas('asignatura', fn ($query) => $query->where('nombre_asignatura', 'like', "%{$search}%"))
+                    ->orWhereHas('periodo', fn ($query) => $query->where('nombre_periodo', 'like', "%{$search}%"));
+            });
+        }
+
+        if ($filter = $request->string('filter')->trim()->toString()) {
+            $query->where('tipo_logro', $filter);
+        }
+
+        if ($request->filled('periodo')) {
+            $query->where('id_periodo', $request->input('periodo'));
+        }
+
+        if ($request->filled('escala')) {
+            $query->where('id_escala', $request->input('escala'));
+        }
+
+        $indicadores = $query->get();
+        $periodos = Periodo::orderBy('anio_lectivo')->orderBy('nombre_periodo')->get(['id_periodo', 'nombre_periodo']);
+        $escalas = EscalaValoracion::orderBy('nombre_desempeno')->get(['id_escala', 'nombre_desempeno']);
+
+        return view('indicadores.index', compact('indicadores', 'periodos', 'escalas'));
     }
 
     public function create()

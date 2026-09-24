@@ -8,9 +8,12 @@ use Illuminate\Http\Request;
 
 class GradoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $grados = Grado::all();
+        $grados = Grado::when($request->filled('search'), fn ($query) => $query->where('nombre_grado', 'like', '%'.$request->input('search').'%'))
+            ->when($request->input('filter') === 'con_cursos', fn ($query) => $query->has('cursos'))
+            ->when($request->input('filter') === 'sin_cursos', fn ($query) => $query->doesntHave('cursos'))
+            ->get();
         return view('grados.index', compact('grados'));
     }
 

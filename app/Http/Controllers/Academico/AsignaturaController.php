@@ -9,9 +9,23 @@ use Illuminate\Http\Request;
 
 class AsignaturaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $asignaturas = Asignatura::with('area')->get();
+        $query = Asignatura::with('area');
+
+        if ($search = $request->string('search')->trim()->toString()) {
+            $query->where(function ($query) use ($search) {
+                $query->where('nombre_asignatura', 'like', "%{$search}%")
+                    ->orWhere('descripcion', 'like', "%{$search}%")
+                    ->orWhereHas('area', fn ($query) => $query->where('nombre_area', 'like', "%{$search}%"));
+            });
+        }
+
+        if ($request->filled('area')) {
+            $query->where('id_area', $request->input('area'));
+        }
+
+        $asignaturas = $query->get();
         $areas = Area::all();
         return view('asignaturas.index', compact('asignaturas', 'areas'));
     }

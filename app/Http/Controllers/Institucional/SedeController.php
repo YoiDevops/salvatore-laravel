@@ -9,9 +9,19 @@ use Illuminate\Http\Request;
 
 class SedeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $sedes = Sede::with('institucion')->get();
+        $query = Sede::with('institucion');
+
+        if ($search = $request->string('search')->trim()->toString()) {
+            $query->where(function ($query) use ($search) {
+                $query->where('nombre_sede', 'like', "%{$search}%")
+                    ->orWhere('direccion_sede', 'like', "%{$search}%")
+                    ->orWhere('telefono_sede', 'like', "%{$search}%");
+            });
+        }
+
+        $sedes = $query->get();
         return view('sedes.index', compact('sedes'));
     }
 

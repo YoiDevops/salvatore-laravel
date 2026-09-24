@@ -19,6 +19,11 @@
             </div>
         </div>
 
+        @include('components.search-filters', [
+            'placeholder' => 'Asignatura, área o descripción...',
+            'filterFields' => [['name' => 'area', 'label' => 'Área', 'options' => $areas->pluck('nombre_area', 'id_area')->all()]],
+        ])
+
         <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             @forelse($asignaturas as $asignatura)
                 <a href="{{ route('profesor.asignaturas.show', $asignatura->id_asignatura) }}" wire:navigate class="group overflow-hidden rounded-2xl border border-[#d8dee8] bg-white shadow-[0_8px_24px_rgba(16,33,59,0.07)] transition hover:-translate-y-0.5 hover:border-[#c49a35] hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900">

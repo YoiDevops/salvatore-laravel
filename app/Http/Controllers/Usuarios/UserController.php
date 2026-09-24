@@ -20,6 +20,10 @@ class UserController extends Controller
             });
         }
 
+        if ($request->filled('filter')) {
+            $query->where('status', $request->input('filter'));
+        }
+
         $usuarios = $query->paginate(10);
 
         return view('administrador.usuarios.index', compact('usuarios'));

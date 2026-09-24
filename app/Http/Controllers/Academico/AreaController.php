@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 
 class AreaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $areas = Area::all();
+        $areas = Area::when($request->filled('search'), function ($query) use ($request) {
+            $search = $request->input('search');
+            $query->where('nombre_area', 'like', "%{$search}%")
+                ->orWhere('descripcion', 'like', "%{$search}%");
+        })->get();
         return view('areas.index', compact('areas'));
     }
 

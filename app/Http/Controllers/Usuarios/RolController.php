@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class RolController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $roles = Rol::all();
+        $roles = Rol::when($request->filled('search'), fn ($query) => $query->where('nombre_rol', 'like', '%'.$request->input('search').'%'))->get();
         return view('roles.index', compact('roles'));
     }
 

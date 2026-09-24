@@ -11,10 +11,32 @@ use Illuminate\Http\Request;
 
 class CursoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $cursos = Curso::with('sede', 'grado')->get();
-        return view('cursos.index', compact('cursos'));
+        $query = Curso::with('sede', 'grado');
+
+        if ($search = $request->string('search')->trim()->toString()) {
+            $query->where(function ($query) use ($search) {
+                $query->where('nombre_curso', 'like', "%{$search}%")
+                    ->orWhere('jornada', 'like', "%{$search}%")
+                    ->orWhereHas('grado', fn ($query) => $query->where('nombre_grado', 'like', "%{$search}%"))
+                    ->orWhereHas('sede', fn ($query) => $query->where('nombre_sede', 'like', "%{$search}%"));
+            });
+        }
+
+        if ($filter = $request->string('filter')->trim()->toString()) {
+            $query->where('jornada', $filter);
+        }
+
+        if ($request->filled('ano_lectivo')) {
+            $query->where('ano_lectivo', $request->input('ano_lectivo'));
+        }
+
+        $cursos = $query->get();
+        $jornadas = Curso::whereNotNull('jornada')->distinct()->orderBy('jornada')->pluck('jornada', 'jornada');
+        $anios = Curso::whereNotNull('ano_lectivo')->distinct()->orderByDesc('ano_lectivo')->pluck('ano_lectivo', 'ano_lectivo');
+
+        return view('cursos.index', compact('cursos', 'jornadas', 'anios'));
     }
 
     public function create()

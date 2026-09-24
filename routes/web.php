@@ -32,7 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware('role:Administrador')
         ->name('dashboardAdmin');
 
-    Route::middleware('role:Administrador')->group(function () {
+    Route::middleware('role:Administrador')->prefix('administrador')->group(function () {
         Route::resource('acudientes', AcudienteController::class);
         Route::resource('areas', AreaController::class);
         Route::resource('asignaturas', AsignaturaController::class);

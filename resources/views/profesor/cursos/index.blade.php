@@ -11,6 +11,14 @@
             </div>
         </div>
 
+        @include('components.search-filters', [
+            'placeholder' => 'Curso, grado o sede...',
+            'filterFields' => [
+                ['name' => 'filter', 'label' => 'Jornada', 'options' => $jornadas->all()],
+                ['name' => 'ano_lectivo', 'label' => 'Año lectivo', 'options' => $anios->all()],
+            ],
+        ])
+
         <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             @forelse($cursos as $curso)
                 @php($enCurso = ($curso->ano_lectivo ?? null) == date('Y'))

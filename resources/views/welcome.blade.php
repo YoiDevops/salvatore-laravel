@@ -14,13 +14,33 @@
         <!-- Script anti-parpadeo sincrónico -->
         <script>
             (function() {
-                const theme = localStorage.getItem('theme');
-                const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                if (theme === 'dark' || (!theme && systemDark)) {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                }
+                const validThemes = ['light', 'dark', 'system'];
+                const readTheme = () => {
+                    const fluxTheme = localStorage.getItem('flux.appearance');
+                    if (validThemes.includes(fluxTheme)) return fluxTheme;
+
+                    const storedTheme = localStorage.getItem('theme');
+                    return validThemes.includes(storedTheme) ? storedTheme : 'system';
+                };
+
+                window.applyTheme = (theme) => {
+                    const preference = validThemes.includes(theme) ? theme : 'system';
+                    const isDark = preference === 'dark'
+                        || (preference === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                    const resolvedTheme = isDark ? 'dark' : 'light';
+
+                    document.documentElement.classList.toggle('dark', isDark);
+                    document.documentElement.style.colorScheme = resolvedTheme;
+                    localStorage.setItem('theme', preference);
+                    localStorage.setItem('flux.appearance', preference);
+
+                    if (window.Flux && typeof window.Flux.applyAppearance === 'function') {
+                        window.Flux.applyAppearance(preference);
+                    }
+                };
+
+                window.getThemePreference = readTheme;
+                window.applyTheme(readTheme());
             })();
         </script>
 
@@ -320,12 +340,9 @@
                 updateIcons();
 
                 themeToggleBtn.addEventListener('click', function() {
-                    if (document.documentElement.classList.contains('dark')) {
-                        document.documentElement.classList.remove('dark');
-                        localStorage.setItem('theme', 'light');
-                    } else {
-                        document.documentElement.classList.add('dark');
-                        localStorage.setItem('theme', 'dark');
+                    const theme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+                    if (typeof window.applyTheme === 'function') {
+                        window.applyTheme(theme);
                     }
                     updateIcons();
                 });

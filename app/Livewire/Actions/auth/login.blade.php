@@ -68,28 +68,23 @@ new #[Layout('layouts.auth')] class extends Component {
             'profesor', '2' => '/profesor/dashboard',
             'estudiante', '3' => '/estudiante/dashboard',
             default => '/',
-        }, navigate: true);
+        });
     }
 }; ?>
 
 <div class="relative w-full"
     x-data="{
-        darkMode: localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
+        darkMode: document.documentElement.classList.contains('dark'),
         toggleTheme() {
-            this.darkMode = !this.darkMode;
-            const theme = this.darkMode ? 'dark' : 'light';
+            const theme = this.darkMode ? 'light' : 'dark';
             localStorage.setItem('theme', theme);
             localStorage.setItem('flux.appearance', theme);
-            this.applyTheme();
+            window.applyTheme?.(theme);
+            this.darkMode = theme === 'dark';
         },
         applyTheme() {
-            const theme = this.darkMode ? 'dark' : 'light';
-            document.documentElement.classList.toggle('dark', this.darkMode);
-            document.documentElement.style.colorScheme = theme;
-            localStorage.setItem('theme', theme);
-            if (window.Flux && typeof window.Flux.applyAppearance === 'function') {
-                window.Flux.applyAppearance(theme);
-            }
+            window.applyTheme?.(window.getThemePreference?.() ?? (this.darkMode ? 'dark' : 'light'));
+            this.darkMode = document.documentElement.classList.contains('dark');
         }
     }"
     x-init="applyTheme()"
@@ -105,6 +100,16 @@ new #[Layout('layouts.auth')] class extends Component {
     <!-- 4. CONTENEDOR CENTRAL DEL FORMULARIO -->
     <div class="relative z-20 min-h-screen w-full flex items-center justify-center p-4">
         <div class="relative w-full max-w-md bg-white/95 dark:bg-stone-900/95 backdrop-blur-md rounded-2xl shadow-2xl border border-stone-200/80 dark:border-stone-800 p-8 mx-auto transition-colors duration-300">
+
+            <!-- Botón para regresar a la página inicial -->
+            <a href="{{ route('home') }}"
+                class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-xl border border-stone-200 bg-white/80 px-3 py-2 text-sm font-medium text-stone-600 shadow-sm transition hover:border-[#D4A017] hover:text-[#B8860B] focus:outline-none focus:ring-2 focus:ring-[#D4A017]/40 dark:border-stone-700 dark:bg-stone-800/80 dark:text-stone-300 dark:hover:border-[#D4A017] dark:hover:text-amber-300"
+                aria-label="Regresar al inicio"
+                title="Regresar al inicio"
+            >
+                <flux:icon name="arrow-left" class="size-4" />
+                <span>Inicio</span>
+            </a>
 
             <!-- Botón Conmutador de Modo Claro / Oscuro -->
             <div class="absolute top-4 right-4">

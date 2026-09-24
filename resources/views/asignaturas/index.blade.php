@@ -8,6 +8,7 @@
         ['intensidad_horaria','Horas'],
         ['porcentaje_area','% del área'],
     ];
+    $filterFields = [['name' => 'area', 'label' => 'Área', 'options' => $areas->pluck('nombre_area', 'id_area')->all()]];
 @endphp
 
 @include('crud.index')

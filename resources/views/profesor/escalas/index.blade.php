@@ -8,6 +8,11 @@
             </div>
         </div>
 
+        @include('components.search-filters', [
+            'placeholder' => 'Desempeño o definición...',
+            'filterFields' => [['name' => 'filter', 'label' => 'Desempeño', 'options' => ['Superior' => 'Superior', 'Alto' => 'Alto', 'Basico' => 'Básico', 'Bajo' => 'Bajo']]],
+        ])
+
         <div class="rounded-2xl border border-[#d8dee8] bg-white shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-zinc-800 dark:bg-zinc-900">
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm">

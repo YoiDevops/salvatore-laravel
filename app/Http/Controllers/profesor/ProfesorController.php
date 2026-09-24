@@ -10,9 +10,24 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfesorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $profesores = Profesor::with('usuario')->get();
+        $query = Profesor::with('usuario');
+
+        if ($search = $request->string('search')->trim()->toString()) {
+            $query->where(function ($query) use ($search) {
+                $query->where('documento_profesor', 'like', "%{$search}%")
+                    ->orWhere('nombres_profesor', 'like', "%{$search}%")
+                    ->orWhere('apellidos_profesor', 'like', "%{$search}%")
+                    ->orWhere('correo_profesor', 'like', "%{$search}%");
+            });
+        }
+
+        if ($filter = $request->string('filter')->trim()->toString()) {
+            $query->where('estado_profesor', $filter);
+        }
+
+        $profesores = $query->get();
         return view('profesores.index', compact('profesores'));
     }
 

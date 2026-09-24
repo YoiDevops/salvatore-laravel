@@ -4,6 +4,7 @@ namespace App\Http\Controllers\estudiante;
 
 use App\Http\Controllers\Controller;
 use App\Models\Academico\Curso;
+use App\Models\Academico\Grado;
 use App\Models\Estudiante\Acudiente;
 use App\Models\Estudiante\CaracterizacionDiscapacidad;
 use App\Models\Estudiante\Estudiante;
@@ -13,10 +14,41 @@ use Illuminate\Support\Facades\Hash;
 
 class EstudianteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $estudiantes = Estudiante::with('usuario', 'curso', 'acudiente')->get();
-        return view('estudiantes.index', compact('estudiantes'));
+        $query = Estudiante::with('usuario', 'curso', 'acudiente');
+
+        if ($search = $request->string('search')->trim()->toString()) {
+            $query->where(function ($query) use ($search) {
+                $query->where('documento_identidad', 'like', "%{$search}%")
+                    ->orWhere('nombres_estudiante', 'like', "%{$search}%")
+                    ->orWhere('apellidos_estudiante', 'like', "%{$search}%")
+                    ->orWhereHas('curso', fn ($query) => $query->where('nombre_curso', 'like', "%{$search}%"))
+                    ->orWhereHas('acudiente', fn ($query) => $query->where('nombres_acudiente', 'like', "%{$search}%"));
+            });
+        }
+
+        if ($filter = $request->string('filter')->trim()->toString()) {
+            $query->where('estado_estudiante', $filter);
+        }
+
+        if ($request->filled('curso')) {
+            $query->where('id_curso', $request->input('curso'));
+        }
+
+        if ($request->filled('genero')) {
+            $query->where('genero', $request->input('genero'));
+        }
+
+        if ($request->filled('grado')) {
+            $query->whereHas('curso', fn ($query) => $query->where('id_grado', $request->input('grado')));
+        }
+
+        $estudiantes = $query->get();
+        $cursos = Curso::orderBy('nombre_curso')->get(['id_curso', 'nombre_curso']);
+        $grados = Grado::orderBy('nombre_grado')->get(['id_grado', 'nombre_grado']);
+
+        return view('estudiantes.index', compact('estudiantes', 'cursos', 'grados'));
     }
 
     public function create()

@@ -9,6 +9,10 @@
         ['escalaValoracion.nombre_desempeno','Desempeño'],
         ['descripcion_logro','Descripción'],
     ];
+    $filterFields = [
+        ['name' => 'periodo', 'label' => 'Periodo', 'options' => $periodos->pluck('nombre_periodo', 'id_periodo')->all()],
+        ['name' => 'escala', 'label' => 'Escala', 'options' => $escalas->pluck('nombre_desempeno', 'id_escala')->all()],
+    ];
 @endphp
 
 @include('crud.index')

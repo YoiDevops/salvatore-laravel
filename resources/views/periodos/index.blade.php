@@ -11,6 +11,8 @@
     </a>
 </div>
 
+@include('components.search-filters', ['placeholder' => 'Nombre o año lectivo...'])
+
 <div class="bg-white rounded-lg shadow overflow-x-auto">
     <table class="w-full text-left border-collapse">
         <thead class="bg-gray-50 border-b">

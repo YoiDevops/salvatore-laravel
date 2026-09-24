@@ -8,10 +8,32 @@ use Illuminate\Http\Request;
 
 class AcudienteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $acudientes = Acudiente::all();
-        return view('acudientes.index', compact('acudientes'));
+        $query = Acudiente::query();
+
+        if ($search = $request->string('search')->trim()->toString()) {
+            $query->where(function ($query) use ($search) {
+                $query->where('documento_identidad', 'like', "%{$search}%")
+                    ->orWhere('nombres_acudiente', 'like', "%{$search}%")
+                    ->orWhere('apellidos_acudiente', 'like', "%{$search}%")
+                    ->orWhere('correo_acudiente', 'like', "%{$search}%");
+            });
+        }
+
+        if ($filter = $request->string('filter')->trim()->toString()) {
+            $query->where('parentesco_estudiante', $filter);
+        }
+
+        $acudientes = $query->get();
+        $parentescos = Acudiente::query()
+            ->whereNotNull('parentesco_estudiante')
+            ->where('parentesco_estudiante', '<>', '')
+            ->distinct()
+            ->orderBy('parentesco_estudiante')
+            ->pluck('parentesco_estudiante');
+
+        return view('acudientes.index', compact('acudientes', 'parentescos'));
     }
 
     public function create()

@@ -11,6 +11,11 @@
     </a>
 </div>
 
+@include('components.search-filters', [
+    'placeholder' => 'Nombre del grado...',
+    'filterFields' => [['name' => 'filter', 'label' => 'Cursos asociados', 'options' => ['con_cursos' => 'Con cursos', 'sin_cursos' => 'Sin cursos']]],
+])
+
 <div class="bg-white rounded-lg shadow overflow-x-auto">
     <table class="w-full text-left border-collapse">
         <thead class="bg-gray-50 border-b">

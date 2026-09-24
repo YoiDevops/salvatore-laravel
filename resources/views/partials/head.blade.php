@@ -13,25 +13,28 @@
 <script>
     (function () {
         const storageKey = 'theme';
+        const validThemes = ['light', 'dark', 'system'];
         const readTheme = () => {
-            const storedTheme = localStorage.getItem(storageKey);
-            if (storedTheme === 'dark' || storedTheme === 'light') {
-                return storedTheme;
-            }
-
             const fluxTheme = localStorage.getItem('flux.appearance');
-            if (fluxTheme === 'dark' || fluxTheme === 'light') {
+            if (validThemes.includes(fluxTheme)) {
                 return fluxTheme;
             }
 
-            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            const storedTheme = localStorage.getItem(storageKey);
+            if (validThemes.includes(storedTheme)) {
+                return storedTheme;
+            }
+
+            return 'system';
         };
 
         const applyTheme = (theme) => {
-            const isDark = theme === 'dark';
-            const normalizedTheme = isDark ? 'dark' : 'light';
+            const normalizedTheme = validThemes.includes(theme) ? theme : 'system';
+            const isDark = normalizedTheme === 'dark'
+                || (normalizedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            const resolvedTheme = isDark ? 'dark' : 'light';
             document.documentElement.classList.toggle('dark', isDark);
-            document.documentElement.style.colorScheme = normalizedTheme;
+            document.documentElement.style.colorScheme = resolvedTheme;
             localStorage.setItem(storageKey, normalizedTheme);
             localStorage.setItem('flux.appearance', normalizedTheme);
             if (window.Flux && typeof window.Flux.applyAppearance === 'function') {
@@ -41,6 +44,13 @@
 
         applyTheme(readTheme());
         window.applyTheme = applyTheme;
+        window.getThemePreference = readTheme;
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (readTheme() === 'system') {
+                applyTheme('system');
+            }
+        });
     })();
 </script>
 

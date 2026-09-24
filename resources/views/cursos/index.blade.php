@@ -9,6 +9,10 @@
         ['jornada','Jornada'],
         ['cupo_maximo','Cupo'],
     ];
+    $filterFields = [
+        ['name' => 'filter', 'label' => 'Jornada', 'options' => $jornadas->all()],
+        ['name' => 'ano_lectivo', 'label' => 'Año lectivo', 'options' => $anios->all()],
+    ];
 @endphp
 
 @include('crud.index')

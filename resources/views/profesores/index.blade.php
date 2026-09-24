@@ -11,6 +11,12 @@
     </a>
 </div>
 
+@include('components.search-filters', [
+    'placeholder' => 'Nombre, documento o correo...',
+    'filterLabel' => 'Estado',
+    'filterOptions' => ['Activo' => 'Activo', 'Inactivo' => 'Inactivo', 'Licencia' => 'Licencia'],
+])
+
 <div class="bg-white rounded-lg shadow overflow-x-auto">
     <table class="w-full text-left border-collapse">
         <thead class="bg-gray-50 border-b">

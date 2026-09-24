@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 
 class PeriodoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $periodos = Periodo::all();
+        $periodos = Periodo::when($request->filled('search'), function ($query) use ($request) {
+            $search = $request->input('search');
+            $query->where('nombre_periodo', 'like', "%{$search}%")
+                ->orWhere('anio_lectivo', 'like', "%{$search}%");
+        })->get();
         return view('periodos.index', compact('periodos'));
     }
 
