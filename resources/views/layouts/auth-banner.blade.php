@@ -7,7 +7,9 @@
 
     <link rel="icon" href="/images/logopequeno.ico" sizes="any">
 
+    @include('partials.theme')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @fluxAppearance
 </head>
 <body>
     {{ $slot }}

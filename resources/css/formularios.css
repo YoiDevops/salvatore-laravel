@@ -10,6 +10,10 @@
     padding-top: 90px;
 }
 
+html.dark .banner-login {
+    background: #121212 !important;
+}
+
 .encabezado {
     position: absolute;
     top: 0;

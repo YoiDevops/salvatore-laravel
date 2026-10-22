@@ -38,7 +38,7 @@
                 <td class="p-4">{{ $profesor->nombres_profesor }} {{ $profesor->apellidos_profesor }}</td>
                 <td class="p-4">{{ $profesor->especialidad ?? 'General' }}</td>
                 <td class="p-4">{{ $profesor->telefono_profesor ?? 'N/A' }}</td>
-                <td class="p-4 space-x-2 flex items-center">
+                <td class="p-4 space-x-2 whitespace-nowrap">
                     <a href="{{ route('profesores.show', [$profesor->id_profesor ?? $profesor->id]) }}" class="text-blue-600 hover:text-blue-900 font-medium">Ver</a>
                     <a href="{{ route('profesores.edit', [$profesor->id_profesor ?? $profesor->id]) }}" class="text-yellow-600 hover:text-yellow-900 font-medium">Editar</a>
                     <form action="{{ route('profesores.destroy', [$profesor->id_profesor ?? $profesor->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este profesor?');" class="inline">

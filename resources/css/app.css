@@ -319,11 +319,11 @@
         justify-content: end;
         padding: clamp(1.5rem, 5vw, 4rem);
         color: white;
-        background: linear-gradient(90deg, rgba(16, 33, 59, 0.78), rgba(16, 33, 59, 0.08));
+        background: linear-gradient(90deg, rgba(18, 18, 18, 0.84), rgba(18, 18, 18, 0.08));
     }
 
     .dark .profesor-experience {
-        background: #171c20;
+        background: #121212;
     }
 
     @media (max-width: 1023px) {
@@ -382,16 +382,15 @@
     }
 
     .dark .app-footer {
-        background: linear-gradient(180deg, rgba(26,31,35,0.98) 0%, rgba(33,38,42,0.98) 100%);
-        border-top: 1px solid rgba(148,163,184,0.18);
-        color: #dfe7ef;
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+        background: #1e1f20;
+        border-top: 1px solid #3c4043;
+        color: #bdc1c6;
+        box-shadow: none;
     }
 
     .app-footer-inner {
-        max-width: 1280px;
-        margin: 0 auto;
-        padding: 2.5rem 1.5rem 1.5rem;
+        width: 100%;
+        padding: 2.5rem clamp(1rem, 5vw, 5rem) 1.5rem;
         display: grid;
         grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 1.3fr);
         gap: 2.5rem;
@@ -418,10 +417,10 @@
     }
 
     .dark .app-footer-logo {
-        background: rgba(148, 163, 184, 0.12);
-        border-color: rgba(148, 163, 184, 0.2);
+        background: #292a2c;
+        border-color: #3c4043;
         color: #d8b85c;
-        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2);
+        box-shadow: none;
     }
 
     .app-footer-logo svg {
@@ -486,8 +485,8 @@
     }
 
     .dark .app-footer-socials a {
-        background: rgba(255,255,255,0.04);
-        border-color: rgba(148,163,184,0.2);
+        background: #292a2c;
+        border-color: #3c4043;
         color: #d8b85c;
         box-shadow: none;
     }
@@ -543,16 +542,15 @@
 
     .app-footer-bottom {
         border-top: 1px solid rgba(148,163,184,0.18);
-        max-width: 1280px;
-        margin: 0 auto;
-        padding: 1rem 1.5rem 1.6rem;
+        width: 100%;
+        padding: 1rem clamp(1rem, 5vw, 5rem) 1.6rem;
         text-align: center;
         color: #687884;
         font-size: 0.95rem;
     }
 
     .dark .app-footer-bottom {
-        border-top-color: rgba(148,163,184,0.14);
+        border-top-color: #3c4043;
     }
 
     @media (max-width: 980px) {
@@ -628,29 +626,29 @@
     }
 
     .dark .academic-table-wrap {
-        background-color: #20282e;
-        border-color: #46535e;
+        background-color: #1e1f20;
+        border-color: #3c4043;
     }
 
     .dark .academic-table thead {
-        background-color: #2b353d;
-        color: #e0bd5e;
+        background-color: #292a2c;
+        color: #e8eaed;
     }
 
     .dark .academic-table tbody {
-        color: #d4dde3;
+        color: #bdc1c6;
     }
 
     .dark .academic-table tbody tr {
-        border-color: #46535e;
+        border-color: #3c4043;
     }
 
     .dark .academic-table tbody tr:nth-child(even) {
-        background-color: #252f36;
+        background-color: #242527;
     }
 
     .dark .academic-table tbody tr:hover {
-        background-color: #344049;
+        background-color: #2b2c2e;
     }
 
     .dark .academic-shell .text-gray-900,
@@ -661,7 +659,7 @@
 
     .dark .academic-shell .text-gray-600,
     .dark .academic-shell .text-gray-500 {
-        color: #b8c2ca !important;
+        color: #bdc1c6 !important;
     }
 
     .dark .academic-shell .text-indigo-600,
@@ -676,28 +674,28 @@
     }
 
     .dark .academic-shell .bg-white {
-        background-color: #20282e !important;
+        background-color: #1e1f20 !important;
     }
 
     .dark .academic-shell .bg-gray-50,
     .dark .academic-shell .bg-gray-100,
     .dark .academic-shell .bg-gray-200 {
-        background-color: #2b353d !important;
+        background-color: #242527 !important;
     }
 
     .dark .academic-shell .border-gray-200,
     .dark .academic-shell .border-gray-300 {
-        border-color: #46535e !important;
+        border-color: #3c4043 !important;
     }
 
     .dark .academic-shell .hover\:bg-gray-50:hover {
-        background-color: #344049 !important;
+        background-color: #2b2c2e !important;
     }
 
     .dark .academic-shell .bg-indigo-600,
     .dark .academic-shell .bg-indigo-700 {
         background-color: #c49a35 !important;
-        color: #20282e !important;
+        color: #121212 !important;
     }
 
     .dark .academic-shell .hover\:bg-indigo-700:hover {
@@ -708,13 +706,13 @@
     .dark .academic-shell textarea,
     .dark .academic-shell select {
         color: #edf1f4;
-        background-color: #20282e;
-        border-color: #53616c;
+        background-color: #1e1f20;
+        border-color: #3c4043;
     }
 
     .dark .academic-shell input::placeholder,
     .dark .academic-shell textarea::placeholder {
-        color: #aeb9c1;
+        color: #9aa0a6;
     }
 
     .institution-sidebar {
@@ -723,7 +721,7 @@
     }
 
     .dark .institution-sidebar {
-        background: linear-gradient(180deg, #20282e 0%, #1a1f23 100%) !important;
+        background: #1e1f20 !important;
         color: #ffffff !important;
     }
 
@@ -738,13 +736,17 @@
     }
 
     .dark .institution-sidebar [data-flux-sidebar-item] {
-        color: #e8edf2 !important;
+        color: #bdc1c6 !important;
     }
 
     .dark .institution-sidebar [data-flux-sidebar-item]:hover,
     .dark .institution-sidebar [data-flux-sidebar-item][data-active] {
-        color: #f8ebc4 !important;
-        background-color: rgba(196, 154, 53, 0.15) !important;
+        color: #f1f3f4 !important;
+        background-color: #2b2c2e !important;
+    }
+
+    .dark .institution-sidebar [data-flux-sidebar-item][data-active] {
+        box-shadow: inset 3px 0 #d8b85c;
     }
 
     .institution-sidebar [data-flux-sidebar-group] > div > div {
@@ -752,7 +754,7 @@
     }
 
     .dark .institution-sidebar [data-flux-sidebar-group] > div > div {
-        color: #c8d0d7 !important;
+        color: #9aa0a6 !important;
     }
 
     .institution-sidebar [data-flux-sidebar-brand] {
@@ -795,9 +797,9 @@
     }
 
     .dark .institution-sidebar [data-flux-sidebar-collapse] {
-        border-color: #39434b;
-        background: #2a3138;
-        color: #f3f6f7;
+        border-color: #3c4043;
+        background: #292a2c;
+        color: #e8eaed;
     }
 
     .institution-sidebar-expand-toggle {
@@ -806,10 +808,10 @@
         height: 2.5rem;
         align-items: center;
         justify-content: center;
-        border: 1px solid #39434b;
+        border: 1px solid #3c4043;
         border-radius: 0.75rem;
-        background: #2a3138;
-        color: #f3f6f7;
+        background: #292a2c;
+        color: #e8eaed;
     }
 
     body:has(.institution-sidebar[data-flux-sidebar-collapsed-desktop]) .institution-sidebar-expand-toggle {
@@ -817,8 +819,8 @@
     }
 
     .institution-sidebar-expand-toggle:hover {
-        border-color: #d8b85c;
-        color: #f2d98c;
+        border-color: #5f6368;
+        color: #e8eaed;
     }
 
     .institution-sidebar[data-flux-sidebar-collapsed-desktop] {
@@ -870,7 +872,317 @@ select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
 }
 
+html.dark body {
+    background-color: #121212;
+    color: #e8eaed;
+}
+
+html.dark .institution-sidebar {
+    background: #1e1f20 !important;
+    border-color: #3c4043 !important;
+    color: #e8eaed !important;
+}
+
+html.dark .institution-sidebar [data-flux-sidebar-group] > div > div {
+    color: #9aa0a6 !important;
+}
+
+html.dark .institution-sidebar [data-flux-sidebar-brand],
+html.dark .institution-sidebar [data-flux-sidebar-brand] > div:last-of-type {
+    color: #e8eaed !important;
+}
+
+html.dark .institution-sidebar [data-flux-sidebar-collapse] button {
+    border-color: #3c4043 !important;
+    background: #292a2c !important;
+    color: #e8eaed !important;
+}
+
+html.dark .institution-sidebar [data-flux-sidebar-item] {
+    color: #bdc1c6 !important;
+}
+
+html.dark .institution-sidebar [data-flux-sidebar-item]:hover,
+html.dark .institution-sidebar [data-flux-sidebar-item][data-active] {
+    background-color: #2b2c2e !important;
+    color: #f1f3f4 !important;
+}
+
+html.dark .institution-sidebar [data-flux-sidebar-item][data-active] {
+    box-shadow: inset 3px 0 #d8b85c;
+}
+
+html.dark .institution-sidebar [data-flux-sidebar-item] svg {
+    color: #bdc1c6;
+}
+
+html.dark .institution-sidebar .border-white\/10 {
+    border-color: #3c4043 !important;
+}
+
+html.dark .academic-shell {
+    color: #e8eaed;
+}
+
+html.dark .academic-table-wrap {
+    background-color: #1e1f20;
+    border-color: #3c4043;
+}
+
+html.dark .academic-table thead {
+    background-color: #292a2c;
+    color: #e8eaed;
+}
+
+html.dark .academic-table tbody {
+    color: #bdc1c6;
+}
+
+html.dark .academic-table tbody tr,
+html.dark .academic-shell .border-gray-200,
+html.dark .academic-shell .border-gray-300 {
+    border-color: #3c4043 !important;
+}
+
+html.dark .academic-table tbody tr:nth-child(even),
+html.dark .academic-shell .bg-gray-50,
+html.dark .academic-shell .bg-gray-100,
+html.dark .academic-shell .bg-gray-200 {
+    background-color: #242527 !important;
+}
+
+html.dark .academic-table tbody tr:hover,
+html.dark .academic-shell .hover\:bg-gray-50:hover {
+    background-color: #2b2c2e !important;
+}
+
+html.dark .academic-shell .text-gray-900,
+html.dark .academic-shell .text-gray-800,
+html.dark .academic-shell .text-gray-700 {
+    color: #e8eaed !important;
+}
+
+html.dark .academic-shell .text-gray-600,
+html.dark .academic-shell .text-gray-500 {
+    color: #bdc1c6 !important;
+}
+
+html.dark .academic-shell .bg-white {
+    background-color: #1e1f20 !important;
+}
+
+html.dark .academic-shell input:not([type="checkbox"]):not([type="radio"]),
+html.dark .academic-shell textarea,
+html.dark .academic-shell select,
+html.dark input:not([type="checkbox"]):not([type="radio"]),
+html.dark textarea,
+html.dark select {
+    color: #e8eaed;
+    background-color: #1e1f20;
+    border-color: #3c4043;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+    color: #9aa0a6;
+}
+
+html.dark .dark\:bg-\[\#20282e\] {
+    background-color: #1e1f20 !important;
+}
+
+html.dark .dark\:bg-\[\#171c20\] {
+    background-color: #121212 !important;
+}
+
+html.dark [class~="dark:bg-zinc-900"],
+html.dark [class~="dark:bg-neutral-900"],
+html.dark [class~="dark:bg-gray-900"] {
+    background-color: #1e1f20 !important;
+}
+
+html.dark [class~="dark:bg-zinc-800"],
+html.dark [class~="dark:bg-neutral-800"],
+html.dark [class~="dark:bg-gray-800"] {
+    background-color: #292a2c !important;
+}
+
+html.dark [class*="dark:bg-zinc-800/"],
+html.dark [class*="dark:bg-neutral-800/"],
+html.dark [class*="dark:bg-gray-800/"] {
+    background-color: rgb(41 42 44 / 70%) !important;
+}
+
+html.dark [class~="dark:bg-neutral-950"],
+html.dark [class~="dark:bg-gray-950"] {
+    background-color: #121212 !important;
+}
+
+html.dark [class*="dark:bg-stone-900"] {
+    background-color: rgb(30 31 32 / 95%) !important;
+}
+
+html.dark [class*="dark:bg-stone-800"] {
+    background-color: rgb(41 42 44 / 80%) !important;
+}
+
+html.dark [class*="dark:border-stone-800"],
+html.dark [class*="dark:border-stone-700"] {
+    border-color: #3c4043 !important;
+}
+
+html.dark [class*="bg-[#D4A017]"] {
+    background-color: #d8b85c !important;
+    color: #27313a !important;
+}
+
+html.dark [class*="hover:bg-[#B8860B]"]:hover {
+    background-color: #e6c96f !important;
+}
+
+html.dark [class~="dark:hover:bg-zinc-800"]:hover,
+html.dark [class~="dark:hover:bg-neutral-800"]:hover,
+html.dark [class~="dark:hover:bg-gray-800"]:hover {
+    background-color: #333537 !important;
+}
+
+html.dark body [class~="bg-cover"][class~="bg-no-repeat"] {
+    display: none !important;
+}
+
+html.dark .dark\:bg-\[\#171c20\]\/80 {
+    background-color: rgb(18 18 18 / 80%) !important;
+}
+
+html.dark .dark\:bg-\[\#27313a\] {
+    background-color: #1e1f20 !important;
+}
+
+html.dark .dark\:bg-\[\#1d2227\] {
+    background-color: #1e1f20 !important;
+}
+
+html.dark .dark\:bg-\[\#253653\],
+html.dark .dark\:bg-\[\#272e36\],
+html.dark .dark\:bg-\[\#273127\],
+html.dark .dark\:bg-\[\#302d24\],
+html.dark .dark\:bg-\[\#39434b\],
+html.dark .dark\:bg-\[\#3d3522\],
+html.dark .dark\:bg-\[\#443a1c\],
+html.dark .dark\:bg-\[\#2e2714\] {
+    background-color: #2b2c2e !important;
+}
+
+html.dark .dark\:hover\:bg-\[\#171c20\]:hover,
+html.dark .dark\:hover\:bg-\[\#27313a\]:hover {
+    background-color: #2b2c2e !important;
+}
+
+html.dark .dark\:border-\[\#39434b\],
+html.dark .dark\:border-\[\#665322\],
+html.dark [class~="dark:border-zinc-800"],
+html.dark [class~="dark:border-zinc-700"],
+html.dark [class~="dark:border-neutral-800"],
+html.dark [class~="dark:border-gray-800"] {
+    border-color: #3c4043 !important;
+}
+
+html.dark .dark\:text-\[\#9b51e0\] {
+    color: #d8b85c !important;
+}
+
+html.dark .profesor-experience {
+    background-color: #121212;
+}
+
+html.dark .profesor-experience .profesor-hero-content {
+    background: linear-gradient(90deg, rgba(18, 18, 18, 0.88), rgba(18, 18, 18, 0.1));
+}
+
+html.dark .app-footer {
+    background: #1e1f20;
+    border-top-color: #3c4043;
+    color: #bdc1c6;
+}
+
+html,
+body {
+    max-width: 100%;
+}
+
+body,
+main,
+.academic-shell,
+.profesor-page-content {
+    min-width: 0;
+}
+
+img,
+video,
+canvas,
+svg {
+    max-width: 100%;
+}
+
+table {
+    width: 100%;
+    max-width: 100%;
+}
+
+input,
+select,
+textarea,
+button {
+    max-width: 100%;
+}
+
+@media (max-width: 639px) {
+    .app-footer-inner {
+        padding: 2rem 1rem 1.25rem;
+    }
+
+    .academic-shell {
+        overflow-wrap: anywhere;
+    }
+
+    .academic-shell [class*="grid-cols-"],
+    .profesor-page-content [class*="grid-cols-"] {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+    .app-footer-inner {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .app-footer-brand {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 1023px) {
+    table {
+        display: table;
+        width: max-content;
+        min-width: 42rem;
+        table-layout: auto;
+    }
+
+    th,
+    td {
+        word-break: normal;
+        overflow-wrap: normal;
+        white-space: nowrap;
+    }
+
+    .academic-table td:last-child,
+    .academic-table th:last-child {
+        min-width: 11rem;
+    }
+}
+
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
-

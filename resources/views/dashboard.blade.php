@@ -10,9 +10,9 @@
                 <div class="flex items-center gap-2 text-sm text-zinc-500"><span class="size-2 rounded-full bg-[#c49a35]"></span> Sistema activo</div>
             </div>
 
-            <section class="relative isolate min-h-64 w-full overflow-hidden rounded-xl bg-[#27313a] shadow-lg sm:min-h-72">
+            <section class="relative isolate min-h-64 w-full overflow-hidden rounded-xl bg-[#27313a] shadow-lg dark:bg-[#121212] sm:min-h-72">
                 <img src="{{ asset('images/fondo.jpg') }}" alt="Campus de la Institución Educativa Salvatore" class="absolute inset-0 -z-20 size-full object-cover object-center opacity-75" />
-                <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#172028]/95 via-[#27313a]/65 to-[#27313a]/15"></div>
+                <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#172028]/95 via-[#27313a]/65 to-[#27313a]/15 dark:from-[#121212]/95 dark:via-[#121212]/75 dark:to-[#121212]/35"></div>
                 <div class="flex min-h-64 w-full max-w-3xl flex-col justify-center p-6 text-white sm:min-h-72 sm:p-10">
                     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#e2c66f]">Comunidad educativa</p>
                     <h2 class="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Un colegio organizado para aprender mejor.</h2>

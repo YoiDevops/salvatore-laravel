@@ -1,9 +1,9 @@
 <x-layouts::app.sidebar :title="$title">
     <flux:main>
         <div class="academic-shell">
-        <div class="flex justify-between items-center mb-6">
+        <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <flux:heading size="xl">{{ $title }}</flux:heading>
-            <flux:button variant="primary" icon="plus" href="{{ route($resource.'.create') }}">Nuevo</flux:button>
+            <flux:button class="w-full sm:w-auto" variant="primary" icon="plus" href="{{ route($resource.'.create') }}">Nuevo</flux:button>
         </div>
         @include('components.search-filters', [
             'placeholder' => 'Buscar en '.mb_strtolower($title).'...',

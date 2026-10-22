@@ -8,11 +8,11 @@
 
     </head>
 
-    <body class="min-h-screen overflow-x-hidden bg-[#f5f6f8] text-[#27313a] dark:bg-[#171c20] dark:text-zinc-100">
+    <body class="min-h-screen overflow-x-hidden bg-[#f5f6f8] text-[#27313a] dark:bg-[#121212] dark:text-zinc-100">
 
-        <div class="flex min-h-screen">
+        <div class="flex min-h-screen w-full">
 
-            <flux:sidebar sticky collapsible="desktop" persist="false" class="institution-sidebar sticky min-h-screen shrink-0 border-e border-[#d8dee8] bg-white text-[#27313a] dark:border-[#39434b] dark:bg-[#27313a] dark:text-white">
+            <flux:sidebar sticky collapsible="mobile" persist="false" class="institution-sidebar sticky min-h-screen shrink-0 border-e border-[#d8dee8] bg-white text-[#27313a] dark:border-[#3c4043] dark:bg-[#1e1f20] dark:text-white">
 
             <flux:sidebar.header>
 
@@ -347,9 +347,9 @@
 
             </flux:sidebar>
 
-            <div class="flex min-h-screen flex-1 flex-col">
+            <div class="flex min-h-screen min-w-0 flex-1 flex-col">
 
-        <div class="hidden border-b border-[#d8dee8] bg-[#f3f4f5] px-4 py-3 shadow-sm lg:flex dark:border-[#39434b] dark:bg-[#1d2227]">
+        <div class="hidden border-b border-[#d8dee8] bg-[#f3f4f5] px-4 py-3 shadow-sm lg:flex dark:border-[#3c4043] dark:bg-[#1e1f20]">
 
             <flux:sidebar.toggle class="institution-sidebar-expand-toggle" icon="bars-2" aria-label="Abrir barra lateral" />
 
@@ -466,7 +466,7 @@
 
                 </flux:header>
 
-                <div class="flex-1">
+                <div class="min-w-0 flex-1">
                     {{ $slot }}
                 </div>
 

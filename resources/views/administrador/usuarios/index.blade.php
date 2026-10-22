@@ -1,11 +1,11 @@
 <x-layouts::app.sidebar title="Gestión de Usuarios">
     <flux:main>
-        <div class="flex justify-between items-center mb-6">
+        <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <h1 class="text-2xl font-bold text-zinc-800 dark:text-zinc-100">Gestión de Usuarios</h1>
                 <p class="text-sm text-zinc-500">Administración de cuentas registradas en la plataforma.</p>
             </div>
-            <flux:button variant="primary" icon="plus" href="{{ route('usuarios.create') }}">
+            <flux:button class="w-full sm:w-auto" variant="primary" icon="plus" href="{{ route('usuarios.create') }}">
                 Agregar Usuario
             </flux:button>
         </div>

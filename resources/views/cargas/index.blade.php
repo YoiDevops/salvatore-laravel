@@ -29,7 +29,7 @@
                 <td class="p-4 font-medium text-gray-700">{{ $carga->asignatura->nombre_asignatura ?? 'N/A' }}</td>
                 <td class="p-4">{{ $carga->profesor->nombres_profesor ?? 'N/A' }} {{ $carga->profesor->apellidos_profesor ?? '' }}</td>
                 <td class="p-4">{{ $carga->intensidad_horaria ?? 'N/A' }} hrs/sem</td>
-                <td class="p-4 space-x-2 flex items-center">
+                <td class="p-4 space-x-2 whitespace-nowrap">
                     <a href="{{ route('cargas.edit', [$carga->id_carga ?? $carga->id]) }}" class="text-yellow-600 hover:text-yellow-900 font-medium">Editar</a>
                     <form action="{{ route('cargas.destroy', [$carga->id_carga ?? $carga->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar esta asignación?');" class="inline">
                         @csrf
