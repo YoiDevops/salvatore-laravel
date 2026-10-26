@@ -149,7 +149,7 @@
                         </div>
                     </div>
 
-                    <div class="relative mx-auto w-full max-w-[620px]">
+                    <div class="relative mx-auto w-full max-w-[500px]">
                         <span class="pointer-events-none absolute -right-2 top-2 z-10 text-3xl text-[#a17b23] dark:text-[#e6c96f]" aria-hidden="true">✦</span>
                         <span class="pointer-events-none absolute -bottom-3 left-2 z-10 text-2xl text-[#a17b23] dark:text-[#e6c96f]" aria-hidden="true">✧</span>
                         <img src="{{ asset('images/aventura-salvatore.jpg') }}" alt="Niños leyendo, dibujando y explorando las estrellas junto a un telescopio" class="relative z-0 w-full rounded-[2rem] shadow-[0_24px_70px_rgba(39,49,58,0.20)] sm:rounded-[2.5rem]">

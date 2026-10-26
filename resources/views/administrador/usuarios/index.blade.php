@@ -41,13 +41,15 @@
                                         {{ $usuario->status ?? 'Activo' }}
                                     </span>
                                 </td>
-                                <td class="p-3 text-right space-x-2">
-                                    <flux:button size="sm" href="{{ route('usuarios.edit', $usuario->id_users) }}">Editar</flux:button>
-                                    <form action="{{ route('usuarios.destroy', $usuario->id_users) }}" method="POST" class="inline">
+                                <td class="p-3">
+                                    <div class="flex flex-wrap items-center justify-end gap-2">
+                                    <flux:button class="crud-action-button" size="sm" href="{{ route('usuarios.edit', $usuario->id_users) }}">Editar</flux:button>
+                                    <form action="{{ route('usuarios.destroy', $usuario->id_users) }}" method="POST" class="inline-flex">
                                         @csrf
                                         @method('DELETE')
-                                        <flux:button size="sm" variant="danger" type="submit" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</flux:button>
+                                        <flux:button class="crud-action-button-danger" size="sm" variant="danger" type="submit" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</flux:button>
                                     </form>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

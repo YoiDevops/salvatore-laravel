@@ -86,6 +86,89 @@
 }
 
 @layer components {
+    .crud-action-button,
+    .crud-action-button-danger,
+    [data-flux-button].crud-action-button,
+    [data-flux-button].crud-action-button-danger {
+        display: inline-flex !important;
+        min-height: 2.5rem !important;
+        align-items: center;
+        justify-content: center;
+        gap: 0.375rem;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 0.625rem !important;
+        padding: 0.5rem 0.875rem !important;
+        font-size: 0.875rem !important;
+        font-weight: 600 !important;
+        line-height: 1.25rem !important;
+        text-decoration: none !important;
+        white-space: nowrap;
+        box-shadow: none !important;
+        cursor: pointer;
+        transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+    }
+
+    .crud-action-button,
+    [data-flux-button].crud-action-button {
+        background: #ffffff !important;
+        color: #27313a !important;
+    }
+
+    .crud-action-button:hover,
+    [data-flux-button].crud-action-button:hover {
+        border-color: #9ca3af !important;
+        background: #f3f4f6 !important;
+        color: #111827 !important;
+    }
+
+    .crud-action-button:focus-visible,
+    [data-flux-button].crud-action-button:focus-visible {
+        outline: 2px solid #d8b85c !important;
+        outline-offset: 2px;
+    }
+
+    .crud-action-button-danger,
+    [data-flux-button].crud-action-button-danger {
+        border-color: #e60012 !important;
+        background: #e60012 !important;
+        color: #ffffff !important;
+    }
+
+    .crud-action-button-danger:hover,
+    [data-flux-button].crud-action-button-danger:hover {
+        border-color: #c90010 !important;
+        background: #c90010 !important;
+        color: #ffffff !important;
+    }
+
+    html.dark .crud-action-button,
+    html.dark [data-flux-button].crud-action-button {
+        border-color: #4a4a4a !important;
+        background: transparent !important;
+        color: #f3f4f6 !important;
+    }
+
+    html.dark .crud-action-button:hover,
+    html.dark [data-flux-button].crud-action-button:hover {
+        border-color: #737373 !important;
+        background: #2b2c2e !important;
+        color: #ffffff !important;
+    }
+
+    html.dark .crud-action-button-danger,
+    html.dark [data-flux-button].crud-action-button-danger {
+        border-color: #e60012 !important;
+        background: #e60012 !important;
+        color: #ffffff !important;
+    }
+
+    html.dark .crud-action-button-danger:hover,
+    html.dark [data-flux-button].crud-action-button-danger:hover {
+        border-color: #c90010 !important;
+        background: #c90010 !important;
+        color: #ffffff !important;
+    }
+
     .custom-select {
         position: relative;
         width: 100%;
@@ -720,6 +803,34 @@
         color: #27313a !important;
     }
 
+    .institution-app-content {
+        display: flex !important;
+        flex-direction: column !important;
+        width: auto !important;
+        flex: 1 1 0% !important;
+        min-width: 0 !important;
+    }
+
+    .institution-app-content > [data-flux-main] {
+        width: 100% !important;
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+    }
+
+    .institution-sidebar:not([data-flux-sidebar-collapsed-desktop]) {
+        width: min(18rem, calc(100vw - 2rem)) !important;
+    }
+
+    .institution-sidebar [data-flux-sidebar-header] {
+        gap: 0.5rem;
+    }
+
+    .institution-sidebar .institution-sidebar-brand {
+        flex: 1 1 auto;
+        min-width: 0;
+        width: auto;
+    }
+
     .dark .institution-sidebar {
         background: #1e1f20 !important;
         color: #ffffff !important;
@@ -762,6 +873,8 @@
     }
 
     .institution-sidebar [data-flux-sidebar-brand] > div:last-of-type {
+        flex: 1 1 auto;
+        min-width: 0;
         color: #27313a !important;
         overflow: visible;
         text-overflow: clip;

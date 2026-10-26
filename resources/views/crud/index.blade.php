@@ -17,7 +17,13 @@
                     @forelse($items as $item)
                         <tr class="border-t">
                             @foreach($columns as $column)<td class="p-3">{{ data_get($item, $column[0]) ?? 'N/D' }}</td>@endforeach
-                            <td class="p-3 text-right space-x-2"><flux:button size="sm" href="{{ route($resource.'.show', $item->getKey()) }}">Ver</flux:button><flux:button size="sm" href="{{ route($resource.'.edit', $item->getKey()) }}">Editar</flux:button><form class="inline" method="POST" action="{{ route($resource.'.destroy', $item->getKey()) }}">@csrf @method('DELETE')<flux:button size="sm" variant="danger" type="submit">Eliminar</flux:button></form></td>
+                            <td class="p-3">
+                                <div class="flex flex-wrap items-center justify-end gap-2">
+                                    <flux:button class="crud-action-button" size="sm" href="{{ route($resource.'.show', $item->getKey()) }}">Ver</flux:button>
+                                    <flux:button class="crud-action-button" size="sm" href="{{ route($resource.'.edit', $item->getKey()) }}">Editar</flux:button>
+                                    <form class="inline-flex" method="POST" action="{{ route($resource.'.destroy', $item->getKey()) }}">@csrf @method('DELETE')<flux:button class="crud-action-button-danger" size="sm" variant="danger" type="submit">Eliminar</flux:button></form>
+                                </div>
+                            </td>
                         </tr>
                     @empty
                         <tr><td class="p-4 text-center" colspan="{{ count($columns) + 1 }}">No hay registros.</td></tr>

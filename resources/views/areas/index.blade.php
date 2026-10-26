@@ -25,13 +25,15 @@
             <tr class="hover:bg-gray-50">
                 <td class="p-4 font-bold text-gray-800">{{ $area->nombre_area }}</td>
                 <td class="p-4 text-gray-600">{{ $area->descripcion ?? 'Sin descripción' }}</td>
-                <td class="p-4 space-x-2 whitespace-nowrap">
-                    <a href="{{ route('areas.edit', [$area->id_area ?? $area->id]) }}" class="text-yellow-600 hover:text-yellow-900 font-medium">Editar</a>
-                    <form action="{{ route('areas.destroy', [$area->id_area ?? $area->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar esta área?');" class="inline">
+                <td class="p-4">
+                    <div class="flex flex-wrap items-center gap-2">
+                    <a href="{{ route('areas.edit', [$area->id_area ?? $area->id]) }}" class="crud-action-button">Editar</a>
+                    <form action="{{ route('areas.destroy', [$area->id_area ?? $area->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar esta área?');" class="inline-flex">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:text-red-900 font-medium">Eliminar</button>
+                        <button type="submit" class="crud-action-button-danger">Eliminar</button>
                     </form>
+                    </div>
                 </td>
             </tr>
             @empty

@@ -36,7 +36,7 @@
                                 <td class="p-4 text-zinc-600 dark:text-zinc-300">{{ $escala->nota_maxima }}</td>
                                 <td class="p-4 max-w-sm truncate text-zinc-600 dark:text-zinc-300">{{ $escala->definicion_escala ?? 'Sin definición' }}</td>
                                 <td class="p-4 text-right">
-                                    <flux:button size="sm" href="{{ route('profesor.escalas.show', $escala->id_escala) }}" wire:navigate>Ver</flux:button>
+                                    <flux:button class="crud-action-button" size="sm" href="{{ route('profesor.escalas.show', $escala->id_escala) }}" wire:navigate>Ver</flux:button>
                                 </td>
                             </tr>
                         @empty

@@ -12,7 +12,7 @@
 
         <div class="flex min-h-screen w-full">
 
-            <flux:sidebar sticky collapsible="mobile" persist="false" class="institution-sidebar sticky min-h-screen shrink-0 border-e border-[#d8dee8] bg-white text-[#27313a] dark:border-[#3c4043] dark:bg-[#1e1f20] dark:text-white">
+            <flux:sidebar sticky collapsible="true" persist="false" class="institution-sidebar sticky min-h-screen shrink-0 border-e border-[#d8dee8] bg-white text-[#27313a] dark:border-[#3c4043] dark:bg-[#1e1f20] dark:text-white">
 
             <flux:sidebar.header>
 
@@ -347,7 +347,7 @@
 
             </flux:sidebar>
 
-            <div class="flex min-h-screen min-w-0 flex-1 flex-col">
+            <div class="institution-app-content flex min-h-screen min-w-0 flex-1 flex-col">
 
         <div class="hidden border-b border-[#d8dee8] bg-[#f3f4f5] px-4 py-3 shadow-sm lg:flex dark:border-[#3c4043] dark:bg-[#1e1f20]">
 
@@ -424,7 +424,7 @@
 
                         <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
 
-                            {{ __('Settings') }}
+                            Configuración
 
                         </flux:menu.item>
 
