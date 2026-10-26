@@ -48,7 +48,7 @@
                                     <span class="rounded-full bg-[#e8f2e8] px-3 py-1 text-xs font-semibold text-[#2f6f48]">{{ $estudiante->estado_estudiante ?? 'Activo' }}</span>
                                 </td>
                                 <td class="p-4 text-right">
-                                    <flux:button size="sm" href="{{ route('profesor.estudiantes.show', $estudiante->id_estudiante) }}" wire:navigate>Ver</flux:button>
+                                    <flux:button class="crud-action-button" size="sm" href="{{ route('profesor.estudiantes.show', $estudiante->id_estudiante) }}" wire:navigate>Ver</flux:button>
                                 </td>
                             </tr>
                         @empty

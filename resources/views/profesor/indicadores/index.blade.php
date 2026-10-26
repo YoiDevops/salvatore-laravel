@@ -41,7 +41,7 @@
                                 <td class="p-4 text-zinc-600 dark:text-zinc-300">{{ $indicador->periodo->nombre_periodo ?? 'N/D' }}</td>
                                 <td class="p-4 text-zinc-600 dark:text-zinc-300">{{ $indicador->escalaValoracion->nombre_desempeno ?? 'N/D' }}</td>
                                 <td class="p-4 text-right">
-                                    <flux:button size="sm" href="{{ route('profesor.indicadores.show', $indicador->id_indicador) }}" wire:navigate>Ver</flux:button>
+                                    <flux:button class="crud-action-button" size="sm" href="{{ route('profesor.indicadores.show', $indicador->id_indicador) }}" wire:navigate>Ver</flux:button>
                                 </td>
                             </tr>
                         @empty

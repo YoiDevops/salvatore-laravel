@@ -27,13 +27,15 @@
             <tr class="hover:bg-gray-50">
                 <td class="p-4 font-bold text-gray-800">{{ $periodo->nombre_periodo }}</td>
                 <td class="p-4 font-semibold text-indigo-600">{{ $periodo->porcentaje_periodo ?? 25 }}%</td>
-                <td class="p-4 space-x-2 whitespace-nowrap">
-                    <a href="{{ route('periodos.edit', [$periodo->id_periodo ?? $periodo->id]) }}" class="text-yellow-600 hover:text-yellow-900 font-medium">Editar</a>
-                    <form action="{{ route('periodos.destroy', [$periodo->id_periodo ?? $periodo->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este periodo?');" class="inline">
+                <td class="p-4">
+                    <div class="flex flex-wrap items-center gap-2">
+                    <a href="{{ route('periodos.edit', [$periodo->id_periodo ?? $periodo->id]) }}" class="crud-action-button">Editar</a>
+                    <form action="{{ route('periodos.destroy', [$periodo->id_periodo ?? $periodo->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este periodo?');" class="inline-flex">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:text-red-900 font-medium">Eliminar</button>
+                        <button type="submit" class="crud-action-button-danger">Eliminar</button>
                     </form>
+                    </div>
                 </td>
             </tr>
             @empty

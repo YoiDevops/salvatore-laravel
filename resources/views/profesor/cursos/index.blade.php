@@ -44,7 +44,7 @@
                             <flux:icon name="academic-cap" class="size-4 text-[#526da8]" />
                             {{ $curso->estudiantes->count() }} {{ Str::plural('aprendiz', $curso->estudiantes->count()) }}
                         </span>
-                        <flux:button size="sm" href="{{ route('profesor.cursos.show', $curso->id_curso) }}" wire:navigate>
+                        <flux:button class="crud-action-button" size="sm" href="{{ route('profesor.cursos.show', $curso->id_curso) }}" wire:navigate>
                             Ver curso
                         </flux:button>
                     </div>

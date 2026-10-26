@@ -38,14 +38,16 @@
                 <td class="p-4">{{ $acudiente->nombres_acudiente }} {{ $acudiente->apellidos_acudiente }}</td>
                 <td class="p-4">{{ $acudiente->telefono_acudiente ?? 'N/A' }}</td>
                 <td class="p-4">{{ $acudiente->parentesco_estudiante ?? 'N/A' }}</td>
-                <td class="p-4 space-x-2 whitespace-nowrap">
-                    <a href="{{ route('acudientes.show', [$acudiente->id_acudiente ?? $acudiente->id]) }}" class="text-blue-600 hover:text-blue-900 font-medium">Ver</a>
-                    <a href="{{ route('acudientes.edit', [$acudiente->id_acudiente ?? $acudiente->id]) }}" class="text-yellow-600 hover:text-yellow-900 font-medium">Editar</a>
-                    <form action="{{ route('acudientes.destroy', [$acudiente->id_acudiente ?? $acudiente->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este acudiente?');" class="inline">
+                <td class="p-4">
+                    <div class="flex flex-wrap items-center gap-2">
+                    <a href="{{ route('acudientes.show', [$acudiente->id_acudiente ?? $acudiente->id]) }}" class="crud-action-button">Ver</a>
+                    <a href="{{ route('acudientes.edit', [$acudiente->id_acudiente ?? $acudiente->id]) }}" class="crud-action-button">Editar</a>
+                    <form action="{{ route('acudientes.destroy', [$acudiente->id_acudiente ?? $acudiente->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este acudiente?');" class="inline-flex">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:text-red-900 font-medium">Eliminar</button>
+                        <button type="submit" class="crud-action-button-danger">Eliminar</button>
                     </form>
+                    </div>
                 </td>
             </tr>
             @empty

@@ -38,14 +38,16 @@
                 <td class="p-4">{{ $profesor->nombres_profesor }} {{ $profesor->apellidos_profesor }}</td>
                 <td class="p-4">{{ $profesor->especialidad ?? 'General' }}</td>
                 <td class="p-4">{{ $profesor->telefono_profesor ?? 'N/A' }}</td>
-                <td class="p-4 space-x-2 whitespace-nowrap">
-                    <a href="{{ route('profesores.show', [$profesor->id_profesor ?? $profesor->id]) }}" class="text-blue-600 hover:text-blue-900 font-medium">Ver</a>
-                    <a href="{{ route('profesores.edit', [$profesor->id_profesor ?? $profesor->id]) }}" class="text-yellow-600 hover:text-yellow-900 font-medium">Editar</a>
-                    <form action="{{ route('profesores.destroy', [$profesor->id_profesor ?? $profesor->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este profesor?');" class="inline">
+                <td class="p-4">
+                    <div class="flex flex-wrap items-center gap-2">
+                    <a href="{{ route('profesores.show', [$profesor->id_profesor ?? $profesor->id]) }}" class="crud-action-button">Ver</a>
+                    <a href="{{ route('profesores.edit', [$profesor->id_profesor ?? $profesor->id]) }}" class="crud-action-button">Editar</a>
+                    <form action="{{ route('profesores.destroy', [$profesor->id_profesor ?? $profesor->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este profesor?');" class="inline-flex">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:text-red-900 font-medium">Eliminar</button>
+                        <button type="submit" class="crud-action-button-danger">Eliminar</button>
                     </form>
+                    </div>
                 </td>
             </tr>
             @empty
