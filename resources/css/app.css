@@ -298,9 +298,20 @@
         position: relative;
         isolation: isolate;
         min-height: calc(100vh - 2rem);
-        overflow: hidden;
         padding: 1.25rem 0;
-        background: #f5f6f8;
+        background: transparent;
+    }
+
+    .institution-app-content > [data-flux-main]:has(.profesor-experience) {
+        background-color: #fbfaf7;
+        background-image: radial-gradient(circle, #e8e2d8 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+
+    .institution-app-content > [data-flux-main]:has(.inicio-page-content) {
+        background-color: #fbfaf7;
+        background-image: radial-gradient(circle, #e8e2d8 1px, transparent 1px);
+        background-size: 24px 24px;
     }
 
     .profesor-page-content {
@@ -308,45 +319,6 @@
         z-index: 2;
         width: min(100% - 2rem, 90rem);
         margin-inline: auto;
-    }
-
-    .profesor-art {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        pointer-events: none;
-        opacity: 0.68;
-    }
-
-    .profesor-art img {
-        position: absolute;
-        width: clamp(5.5rem, 7.5vw, 10rem);
-        max-height: 10rem;
-        object-fit: contain;
-        opacity: 0.42;
-        filter: blur(1.2px) saturate(0.8) brightness(1.08) drop-shadow(0 8px 12px rgba(39, 49, 58, 0.12));
-        mix-blend-mode: multiply;
-        will-change: transform;
-    }
-
-    .profesor-art-left img:nth-child(1) { top: 6%; left: 1%; }
-    .profesor-art-left img:nth-child(2) { top: 25%; left: 5%; }
-    .profesor-art-left img:nth-child(3) { top: 46%; left: 1%; }
-    .profesor-art-left img:nth-child(4) { top: 67%; left: 5%; }
-    .profesor-art-left img:nth-child(5) { top: 87%; left: 1%; }
-
-    .profesor-art-right img:nth-child(1) { top: 14%; right: 1%; }
-    .profesor-art-right img:nth-child(2) { top: 36%; right: 5%; }
-    .profesor-art-right img:nth-child(3) { top: 59%; right: 1%; }
-    .profesor-art-right img:nth-child(4) { top: 81%; right: 5%; }
-
-    .profesor-art-center img {
-        opacity: 0.58;
-    }
-
-    .profesor-art-left img:nth-child(even),
-    .profesor-art-right img:nth-child(odd) {
-        width: clamp(5rem, 6.5vw, 8.5rem);
     }
 
     .profesor-experience .rounded-2xl {
@@ -406,14 +378,10 @@
     }
 
     .dark .profesor-experience {
-        background: #121212;
+        background: transparent;
     }
 
     @media (max-width: 1023px) {
-        .profesor-art {
-            display: none;
-        }
-
         .profesor-page-content {
             width: min(100% - 1.5rem, 90rem);
         }
@@ -840,6 +808,25 @@
         color: #53606b !important;
     }
 
+    .institution-sidebar:not([data-flux-sidebar-collapsed-desktop]) [data-flux-sidebar-item] > div:first-child {
+        display: flex;
+        flex: 0 0 1rem;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .institution-sidebar:not([data-flux-sidebar-collapsed-desktop]) [data-flux-sidebar-item] > div:first-child svg {
+        display: block;
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .institution-sidebar .profesor-sidebar-group [data-flux-sidebar-item] {
+        height: auto;
+        min-height: 2.75rem;
+        padding-block: 0.5rem;
+    }
+
     .institution-sidebar [data-flux-sidebar-item]:hover,
     .institution-sidebar [data-flux-sidebar-item][data-active] {
         color: #27313a !important;
@@ -1204,8 +1191,14 @@ html.dark .dark\:text-\[\#9b51e0\] {
     color: #d8b85c !important;
 }
 
-html.dark .profesor-experience {
-    background-color: #121212;
+html.dark .institution-app-content > [data-flux-main]:has(.profesor-experience) {
+    background-color: #1e1f20;
+    background-image: radial-gradient(circle, rgba(60, 64, 67, 0.45) 1px, transparent 1px);
+}
+
+html.dark .institution-app-content > [data-flux-main]:has(.inicio-page-content) {
+    background-color: #1e1f20;
+    background-image: radial-gradient(circle, rgba(60, 64, 67, 0.45) 1px, transparent 1px);
 }
 
 html.dark .profesor-experience .profesor-hero-content {

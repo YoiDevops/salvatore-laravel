@@ -40,7 +40,11 @@
                         <flux:icon name="chevron-right" class="size-4 shrink-0 text-zinc-400" />
                     </a>
                 @empty
-                    <p class="p-6 text-center text-sm text-zinc-500">Esta asignatura aún no tiene indicadores de logro registrados.</p>
+                    <x-profesor.empty-state
+                        icon="chart-bar"
+                        title="Sin indicadores de logro"
+                        description="Los indicadores de esta asignatura aparecerán aquí cuando estén disponibles."
+                    />
                 @endforelse
             </div>
         </div>

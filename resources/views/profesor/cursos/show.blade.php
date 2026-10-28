@@ -76,7 +76,13 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="p-6 text-center text-zinc-500">No hay estudiantes matriculados en este curso.</td>
+                                <td colspan="5" class="p-0">
+                                    <x-profesor.empty-state
+                                        icon="academic-cap"
+                                        title="Sin estudiantes matriculados"
+                                        description="Cuando se matriculen estudiantes en este curso, aparecerán aquí."
+                                    />
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>

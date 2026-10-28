@@ -1,87 +1,73 @@
 <x-layouts::app title="Panel del docente">
-    <div class="mx-auto max-w-7xl space-y-8">
-        <section class="profesor-hero">
-            <img src="{{ asset('images/fondo.jpg') }}" alt="Campus de la Institución Educativa Salvatore" loading="eager" decoding="async">
-            <div class="profesor-hero-content">
-                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#f4d77a]">Panel docente</p>
-                <h1 class="mt-3 text-3xl font-bold sm:text-5xl">Tu espacio para enseñar y evaluar</h1>
-                <p class="mt-3 max-w-xl text-base leading-7 text-white/85 sm:text-lg">Consulta la información académica de tus cursos, estudiantes y asignaturas desde un solo lugar.</p>
+    <div class="mx-auto max-w-7xl space-y-10">
+        {{-- Banner Principal --}}
+        <section class="relative isolate grid overflow-hidden rounded-3xl border border-[#e8e2d8] border-t-4 border-t-[#d8b85c] bg-[#fbfaf7] shadow-[0_18px_50px_rgba(39,49,58,0.10)] dark:border-[#3c4043] dark:border-t-[#d8b85c] dark:bg-[#1e1f20] lg:min-h-[390px] lg:grid-cols-[1.05fr_0.95fr]">
+            <div class="relative z-10 flex flex-col items-start justify-center px-6 py-8 sm:px-10 sm:py-12 lg:px-12">
+                <p class="inline-flex items-center gap-2 border-b border-[#d6ad4b]/50 pb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#82631d] dark:text-[#e6c96f]">
+                    <span aria-hidden="true">✦</span> Tu aventura docente
+                </p>
+                <h1 class="mt-5 max-w-xl text-3xl font-extrabold leading-tight text-[#27313a] sm:text-4xl dark:text-[#f1f3f4]">
+                    Hola, {{ auth()->user()->name }}. <span class="text-[#9a761f] dark:text-[#e6c96f]">Hoy también es un gran día para enseñar.</span>
+                </h1>
+                <p class="mt-4 max-w-lg text-base leading-7 text-[#53606b] dark:text-[#bdc1c6]">
+                    Organiza tus cursos, acompaña a tus estudiantes y celebra cada nuevo descubrimiento.
+                </p>
+                <div class="mt-7 flex flex-wrap gap-3">
+                    @if(Route::has('profesor.cursos.index'))
+                        <a href="{{ route('profesor.cursos.index') }}" wire:navigate class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#d8b85c] px-6 py-3 font-bold text-[#27313a] shadow-lg shadow-[#d8b85c]/20 transition hover:-translate-y-0.5 hover:bg-[#e6c96f]">
+                            Explorar mis cursos <span aria-hidden="true">→</span>
+                        </a>
+                    @endif
+                </div>
+            </div>
+            <div class="relative min-h-64 overflow-hidden lg:min-h-full">
+                <img src="{{ asset('images/aventura-salvatore.jpg') }}" alt="Estudiantes leyendo, creando y explorando juntos" class="absolute inset-0 size-full object-cover" loading="eager" decoding="async">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#27313a]/35 via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#fbfaf7] lg:via-[#fbfaf7]/20 lg:to-transparent dark:lg:from-[#1e1f20]"></div>
+                <span class="absolute right-6 top-5 text-3xl text-white drop-shadow" aria-hidden="true">✦</span>
             </div>
         </section>
 
-        <div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-            <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#9a761f]">Panel docente</p>
-                <flux:heading size="xl" class="mt-2">Hola, {{ auth()->user()->name }}</flux:heading>
-                <flux:subheading class="mt-1">Consulta la información académica de tus cursos y estudiantes.</flux:subheading>
+        <section aria-label="Gestión docente" class="pt-4">
+            {{-- Encabezado Centrado --}}
+            <div class="mb-8 text-center">
+                <p class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#9a761f] dark:text-[#e6c96f]">
+                    <span class="h-0.5 w-6 bg-[#9a761f] dark:bg-[#e6c96f]"></span>
+                    QUÉ HACEMOS
+                    <span class="h-0.5 w-6 bg-[#9a761f] dark:bg-[#e6c96f]"></span>
+                </p>
+                <h2 class="mt-2 text-2xl font-black uppercase tracking-tight text-[#27313a] dark:text-zinc-100 sm:text-3xl">
+                    HERRAMIENTAS DE <span class="text-[#9a761f] dark:text-[#e6c96f]">GESTIÓN DOCENTE.</span>
+                </h2>
             </div>
-            <div class="flex items-center gap-2 rounded-full border border-[#e6d6a8] bg-[#fffaf0] px-4 py-2 text-sm text-[#8a681b] dark:border-[#665322] dark:bg-[#2e2714] dark:text-[#d8b85c]">
-                <span class="size-2 rounded-full bg-[#c49a35]"></span> Ciclo escolar en curso
-            </div>
-        </div>
 
-        <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            @foreach([
-                ['Cursos', $stats['cursos'].' registrados', 'profesor.cursos.index', 'rectangle-stack', 'bg-[#fbf1df] text-[#a46b21]'],
-                ['Estudiantes', $stats['estudiantes'].' matriculados', 'profesor.estudiantes.index', 'academic-cap', 'bg-[#e8f2e8] text-[#2f6f48]'],
-                ['Asignaturas', $stats['asignaturas'].' activas', 'profesor.asignaturas.index', 'book-open', 'bg-[#edf1fa] text-[#526da8]'],
-                ['Grados', $stats['grados'].' niveles', 'profesor.grados.index', 'bookmark', 'bg-[#f5eaf2] text-[#985278]'],
-            ] as [$title, $description, $routeName, $icon, $color])
-                @if(Route::has($routeName))
-                    <a href="{{ route($routeName) }}" wire:navigate class="group rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] transition hover:-translate-y-0.5 hover:border-[#c49a35] hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
-                        <div class="flex items-center justify-between">
-                            <span class="flex size-11 items-center justify-center rounded-xl {{ $color }}"><flux:icon :name="$icon" class="size-5" /></span>
-                            <flux:icon name="arrow-up-right" class="size-4 text-zinc-400 transition group-hover:text-[#9a761f]" />
-                        </div>
-                        <h2 class="mt-5 font-semibold text-zinc-900 dark:text-zinc-100">{{ $title }}</h2>
-                        <p class="mt-1 text-sm leading-5 text-zinc-500 dark:text-zinc-400">{{ $description }}</p>
-                    </a>
-                @endif
-            @endforeach
-        </div>
-
-        <div class="grid gap-6 lg:grid-cols-[1.35fr_0.65fr]">
-            <section class="rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-zinc-800 dark:bg-zinc-900">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h2 class="font-semibold">Mi gestión académica</h2>
-                        <p class="mt-1 text-sm text-zinc-500">Accede a la información de tus cursos y estudiantes.</p>
-                    </div>
-                    <flux:icon name="academic-cap" class="size-6 text-[#9a761f]" />
-                </div>
-                <div class="mt-6 grid gap-3 sm:grid-cols-2">
+            <div class="overflow-hidden rounded-2xl border border-[#e8e2d8] border-t-4 border-t-[#d8b85c] bg-white shadow-md dark:border-[#3c4043] dark:border-t-[#d8b85c] dark:bg-[#1e1f20]">
+                <div class="grid divide-y divide-[#e8e2d8] sm:grid-cols-2 sm:divide-y-0 sm:divide-x dark:divide-[#3c4043] lg:grid-cols-4">
                     @foreach([
-                        ['Estudiantes', 'profesor.estudiantes.index', 'academic-cap'],
-                        ['Cursos', 'profesor.cursos.index', 'rectangle-stack'],
-                        ['Grados', 'profesor.grados.index', 'bookmark'],
-                        ['Asignaturas', 'profesor.asignaturas.index', 'book-open'],
-                    ] as [$label, $routeName, $icon])
+                        ['CURSOS', 'Espacios para enseñar y compartir ideas.', 'profesor.cursos.index', 'rectangle-stack', $stats['cursos']],
+                        ['ESTUDIANTES', 'Historias por acompañar.', 'profesor.estudiantes.index', 'academic-cap', $stats['estudiantes']],
+                        ['ASIGNATURAS', 'Mundos por descubrir.', 'profesor.asignaturas.index', 'book-open', $stats['asignaturas']],
+                        ['GRADOS', 'Etapas de crecimiento.', 'profesor.grados.index', 'bookmark', $stats['grados']],
+                    ] as [$title, $description, $routeName, $icon, $count])
                         @if(Route::has($routeName))
-                            <a href="{{ route($routeName) }}" wire:navigate class="flex items-center gap-3 rounded-xl border border-zinc-100 px-4 py-3 text-sm font-medium text-zinc-700 transition hover:border-[#c49a35] hover:bg-[#fffaf0] dark:border-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-800">
-                                <span class="flex size-8 items-center justify-center rounded-lg bg-[#eef1f5] text-[#10213b] dark:bg-[#253653] dark:text-[#d8b85c]"><flux:icon :name="$icon" class="size-4" /></span>
-                                {{ $label }}
-                                <flux:icon name="chevron-right" class="ml-auto size-4 text-zinc-400" />
+                            <a href="{{ route($routeName) }}" wire:navigate class="group flex flex-col items-center justify-between p-8 text-center transition duration-300 hover:bg-[#fbfaf7] dark:hover:bg-[#252628]">
+                                <div class="flex flex-col items-center">
+                                    <div class="mb-5 flex size-14 items-center justify-center text-[#53606b] transition duration-300 group-hover:scale-110 group-hover:text-[#9a761f] dark:text-zinc-400 dark:group-hover:text-[#e6c96f]">
+                                        <flux:icon :name="$icon" class="size-10" />
+                                    </div>
+                                    <p class="mb-2 text-3xl font-extrabold tabular-nums text-[#27313a] dark:text-zinc-100">{{ $count }}</p>
+                                    <h3 class="text-sm font-extrabold uppercase tracking-wide text-[#27313a] dark:text-zinc-100">
+                                        {{ $title }}
+                                    </h3>
+                                    <p class="mt-3 text-xs leading-relaxed text-[#66717b] dark:text-zinc-400">
+                                        {{ $description }}
+                                    </p>
+                                </div>
+                                <div class="mt-6 h-0.5 w-8 bg-[#d8b85c] opacity-40 transition-all duration-300 group-hover:w-16 group-hover:opacity-100"></div>
                             </a>
                         @endif
                     @endforeach
                 </div>
-            </section>
-
-            <section class="rounded-2xl border border-[#e6d6a8] bg-[#fffaf0] p-6 dark:border-[#665322] dark:bg-[#2e2714]">
-                <div class="flex size-10 items-center justify-center rounded-xl bg-white text-[#9a761f] shadow-sm dark:bg-[#443a1c] dark:text-[#d8b85c]"><flux:icon name="sparkles" class="size-5" /></div>
-                <h2 class="mt-5 font-semibold text-[#5d4611] dark:text-[#f0d98b]">Evaluación</h2>
-                <p class="mt-2 text-sm leading-6 text-[#7e6b3b] dark:text-[#d8c78d]">Consulta las escalas de valoración y los indicadores de logro definidos para tus asignaturas.</p>
-                <div class="mt-6 space-y-2">
-                    @foreach([['Indicadores de logro','profesor.indicadores.index'],['Escalas de valoracion','profesor.escalas.index']] as [$label, $routeName])
-                        @if(Route::has($routeName))
-                            <a href="{{ route($routeName) }}" wire:navigate class="flex items-center justify-between border-b border-[#e6d6a8] py-2 text-sm font-medium text-[#8a681b] last:border-0 dark:border-[#665322] dark:text-[#d8b85c]">
-                                <span>{{ $label }}</span>
-                                <flux:icon name="arrow-up-right" class="size-4" />
-                            </a>
-                        @endif
-                    @endforeach
-                </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </div>
 </x-layouts::app>

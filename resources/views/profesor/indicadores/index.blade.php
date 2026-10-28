@@ -46,7 +46,13 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="p-6 text-center text-zinc-500">No hay indicadores de logro registrados.</td>
+                                <td colspan="6" class="p-0">
+                                    <x-profesor.empty-state
+                                        icon="chart-bar"
+                                        title="Sin indicadores registrados"
+                                        description="Los indicadores de aprendizaje aparecerán aquí cuando estén disponibles."
+                                    />
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>

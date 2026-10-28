@@ -48,7 +48,7 @@
 
                          siempre visible, sin desplegable --}}
 
-                    <flux:sidebar.group heading="GESTION ACADEMICA" class="grid text-[#c7d0df]">
+                    <flux:sidebar.group heading="GESTION ACADEMICA" class="profesor-sidebar-group grid text-[#c7d0df]">
 
                         <flux:sidebar.item icon="squares-2x2" :href="route('profesor.dashboard')" :current="request()->routeIs('profesor.dashboard')" wire:navigate>
 
@@ -115,16 +115,12 @@
                         </div>
 
                         @foreach([
-
-                            ['profesor.indicadores.index', 'Indicadores de logro'],
-
-                            ['profesor.escalas.index', 'Escalas de valoracion'],
-
-                        ] as [$routeName, $label])
-
+                            ['profesor.indicadores.index', 'Indicadores de logro', 'chart-bar'],
+                            ['profesor.escalas.index', 'Escalas de valoracion', 'clipboard-document-check'],
+                        ] as [$routeName, $label, $icon])
                             @if (Route::has($routeName))
 
-                                <flux:sidebar.item class="pl-9" icon="clipboard-document-list" :href="route($routeName)" :current="request()->routeIs($routeName.'*')" wire:navigate title="{{ $label }}">
+                                <flux:sidebar.item class="pl-9" icon="{{ $icon }}" :href="route($routeName)" :current="request()->routeIs($routeName.'*')" wire:navigate title="{{ $label }}">
 
                                     {{ $label }}
 
@@ -325,25 +321,6 @@
 
 
 
-            <flux:sidebar.nav class="border-t border-white/10 pt-4">
-
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank" title="Ayuda del sistema">
-
-                    Ayuda del sistema
-
-                </flux:sidebar.item>
-
-
-
-                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank" title="Documentacion">
-
-                    Documentacion
-
-                </flux:sidebar.item>
-
-            </flux:sidebar.nav>
-
-
 
             </flux:sidebar>
 
@@ -470,6 +447,7 @@
                     {{ $slot }}
                 </div>
 
+                @if (strtolower((string) auth()->user()?->effective_role) !== 'profesor')
                 <footer class="app-footer mt-auto w-full">
                     <div class="app-footer-inner">
                         <div class="app-footer-brand">
@@ -511,6 +489,7 @@
                         © {{ date('Y') }} Institución Salvatore. Todos los derechos reservados.
                     </div>
                 </footer>
+                @endif
             </div>
 
         </div>

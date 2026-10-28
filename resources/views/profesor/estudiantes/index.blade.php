@@ -53,7 +53,13 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="p-6 text-center text-zinc-500">No hay estudiantes registrados.</td>
+                                <td colspan="6" class="p-0">
+                                    <x-profesor.empty-state
+                                        icon="academic-cap"
+                                        title="Sin estudiantes registrados"
+                                        description="Cuando haya estudiantes disponibles, aparecerán aquí."
+                                    />
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
