@@ -1159,7 +1159,7 @@ html.dark [class~="dark:hover:bg-gray-800"]:hover {
     background-color: #333537 !important;
 }
 
-html.dark body [class~="bg-cover"][class~="bg-no-repeat"] {
+html.dark body [class~="bg-cover"][class~="bg-no-repeat"]:not(.login-background) {
     display: none !important;
 }
 
@@ -1299,3 +1299,14 @@ button {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

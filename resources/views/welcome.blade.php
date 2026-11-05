@@ -152,7 +152,7 @@
                     <div class="relative mx-auto w-full max-w-[500px]">
                         <span class="pointer-events-none absolute -right-2 top-2 z-10 text-3xl text-[#a17b23] dark:text-[#e6c96f]" aria-hidden="true">✦</span>
                         <span class="pointer-events-none absolute -bottom-3 left-2 z-10 text-2xl text-[#a17b23] dark:text-[#e6c96f]" aria-hidden="true">✧</span>
-                        <img src="{{ asset('images/aventura-salvatore.jpg') }}" alt="Niños leyendo, dibujando y explorando las estrellas junto a un telescopio" class="relative z-0 w-full rounded-[2rem] shadow-[0_24px_70px_rgba(39,49,58,0.20)] sm:rounded-[2.5rem]">
+                        <img src="{{ asset('images/aventura-salvatore.jpg') }}" alt="Niños leyendo, dibujando y explorando las estrellas junto a un telescopio" loading="eager" fetchpriority="high" decoding="async" class="relative z-0 w-full rounded-[2rem] shadow-[0_24px_70px_rgba(39,49,58,0.20)] sm:rounded-[2.5rem]">
                     </div>
                 </div>
             </section>
@@ -170,7 +170,7 @@
                     <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                         <article class="group overflow-hidden rounded-3xl border border-[#e8e2d8] bg-white shadow-[0_12px_35px_rgba(39,49,58,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(39,49,58,0.12)] dark:border-[#3c4043] dark:bg-[#1e1f20]">
                             <div class="relative h-52 overflow-hidden sm:h-56">
-                                <img src="{{ asset('images/enfoque1.jpg') }}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Niño expresándose a través del arte">
+                                <img src="{{ asset('images/enfoque1.jpg') }}" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Niño expresándose a través del arte">
                                 <span class="absolute left-4 top-4 rounded-xl bg-[#f6edcf] px-3 py-2 text-lg text-[#82631d] shadow-sm dark:bg-[#302d24] dark:text-[#e6c96f]" aria-hidden="true">✿</span>
                             </div>
                             <div class="p-5 sm:p-6">
@@ -181,7 +181,7 @@
 
                         <article class="group overflow-hidden rounded-3xl border border-[#e8e2d8] bg-white shadow-[0_12px_35px_rgba(39,49,58,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(39,49,58,0.12)] dark:border-[#3c4043] dark:bg-[#1e1f20]">
                             <div class="relative h-52 overflow-hidden sm:h-56">
-                                <img src="{{ asset('images/ninos-lectura.jpg') }}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Estudiantes leyendo y descubriendo nuevas ideas">
+                                <img src="{{ asset('images/ninos-lectura.jpg') }}" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Estudiantes leyendo y descubriendo nuevas ideas">
                                 <span class="absolute left-4 top-4 rounded-xl bg-[#e7edf4] px-3 py-2 text-lg text-[#50677f] shadow-sm dark:bg-[#272e36] dark:text-[#b1c6dc]" aria-hidden="true">✧</span>
                             </div>
                             <div class="p-5 sm:p-6">
@@ -192,7 +192,7 @@
 
                         <article class="group overflow-hidden rounded-3xl border border-[#e8e2d8] bg-white shadow-[0_12px_35px_rgba(39,49,58,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(39,49,58,0.12)] dark:border-[#3c4043] dark:bg-[#1e1f20] sm:col-span-2 lg:col-span-1">
                             <div class="relative h-52 overflow-hidden sm:h-56">
-                                <img src="{{ asset('images/actividades-colegio.jpg') }}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Estudiantes compartiendo una actividad escolar">
+                                <img src="{{ asset('images/actividades-colegio.jpg') }}" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Estudiantes compartiendo una actividad escolar">
                                 <span class="absolute left-4 top-4 rounded-xl bg-[#e7f0e5] px-3 py-2 text-lg text-[#54744d] shadow-sm dark:bg-[#273127] dark:text-[#a4c49a]" aria-hidden="true">♡</span>
                             </div>
                             <div class="p-5 sm:p-6">

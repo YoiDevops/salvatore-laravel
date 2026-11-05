@@ -36,22 +36,45 @@
     @if (strtolower((string) auth()->user()?->effective_role) === 'profesor')
         <script>
             (() => {
+                window.__salvatoreParallaxCleanup?.();
+
+                const images = [...document.querySelectorAll('.profesor-art img')].map((image) => ({
+                    image,
+                    speed: image.closest('.profesor-art-right') ? 0.045 : -0.035,
+                }));
+                const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+                if (reducedMotion || images.length === 0) {
+                    window.__salvatoreParallaxCleanup = null;
+                    return;
+                }
+
+                let frame = null;
+                let scrollY = window.scrollY;
+
                 const updateParallax = () => {
-                    document.querySelectorAll('.profesor-art img').forEach((image) => {
-                        const speed = image.closest('.profesor-art-right') ? 0.045 : -0.035;
-                        image.style.transform = `translate3d(0, ${window.scrollY * speed}px, 0)`;
+                    frame = null;
+                    images.forEach(({ image, speed }) => {
+                        image.style.transform = `translate3d(0, ${scrollY * speed}px, 0)`;
                     });
                 };
 
-                let frame = null;
-                window.addEventListener('scroll', () => {
-                    if (frame) return;
-                    frame = window.requestAnimationFrame(() => {
-                        updateParallax();
-                        frame = null;
-                    });
-                }, { passive: true });
+                const handleScroll = () => {
+                    scrollY = window.scrollY;
+                    if (frame === null) {
+                        frame = window.requestAnimationFrame(updateParallax);
+                    }
+                };
+
+                window.addEventListener('scroll', handleScroll, { passive: true });
                 updateParallax();
+
+                window.__salvatoreParallaxCleanup = () => {
+                    window.removeEventListener('scroll', handleScroll);
+                    if (frame !== null) {
+                        window.cancelAnimationFrame(frame);
+                    }
+                };
             })();
         </script>
     @endif

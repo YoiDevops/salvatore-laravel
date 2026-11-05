@@ -16,7 +16,7 @@
 
             <flux:sidebar.header>
 
-                <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
+                <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate.hover />
 
                 <flux:sidebar.collapse class="!ml-auto hidden lg:flex" />
 
@@ -24,7 +24,9 @@
 
 
 
-            @php($rolActual = strtolower((string) auth()->user()?->effective_role))
+            @php
+                $rolActual = strtolower((string) auth()->user()?->effective_role);
+            @endphp
 
 
 
@@ -32,7 +34,7 @@
 
                 <flux:sidebar.group heading="INSTITUCION" class="grid text-[#c7d0df]">
 
-<flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate title="Inicio">
+<flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate.hover title="Inicio">
 
                         Inicio
 
@@ -50,7 +52,7 @@
 
                     <flux:sidebar.group heading="GESTION ACADEMICA" class="grid text-[#c7d0df]">
 
-                        <flux:sidebar.item icon="squares-2x2" :href="route('profesor.dashboard')" :current="request()->routeIs('profesor.dashboard')" wire:navigate>
+                        <flux:sidebar.item icon="squares-2x2" :href="route('profesor.dashboard')" :current="request()->routeIs('profesor.dashboard')" wire:navigate.hover>
 
                             Panel del docente
 
@@ -93,7 +95,7 @@
 
                             @if (Route::has($routeName))
 
-                                <flux:sidebar.item class="pl-9" icon="{{ $icon }}" :href="route($routeName)" :current="request()->routeIs($routeName.'*')" wire:navigate title="{{ $label }}">
+                                <flux:sidebar.item class="pl-9" icon="{{ $icon }}" :href="route($routeName)" :current="request()->routeIs($routeName.'*')" wire:navigate.hover title="{{ $label }}">
 
                                     {{ $label }}
 
@@ -124,7 +126,7 @@
 
                             @if (Route::has($routeName))
 
-                                <flux:sidebar.item class="pl-9" icon="clipboard-document-list" :href="route($routeName)" :current="request()->routeIs($routeName.'*')" wire:navigate title="{{ $label }}">
+                                <flux:sidebar.item class="pl-9" icon="clipboard-document-list" :href="route($routeName)" :current="request()->routeIs($routeName.'*')" wire:navigate.hover title="{{ $label }}">
 
                                     {{ $label }}
 
@@ -136,7 +138,13 @@
 
                     </flux:sidebar.group>
 
-                @elseif ($rolActual === 'administrador')
+                @elseif (in_array($rolActual, ['administrador', 'administrativo'], true))
+
+                    @php
+                        $panelRoute = $rolActual === 'administrativo' ? 'dashboardAdministrativo' : 'dashboardAdmin';
+                        $usuariosRoute = $rolActual === 'administrativo' ? 'administrativo.usuarios.index' : 'usuarios.index';
+                        $administradoresRoute = $usuariosRoute;
+                    @endphp
 
                     {{-- GESTION ACADEMICA: todo anidado y escalonado hacia la derecha,
 
@@ -144,9 +152,9 @@
 
                     <flux:sidebar.group heading="GESTION ACADEMICA" class="grid text-[#c7d0df]">
 
-                        <flux:sidebar.item icon="squares-2x2" :href="route('dashboardAdmin')" :current="request()->routeIs('dashboardAdmin')" wire:navigate>
+                        <flux:sidebar.item icon="squares-2x2" :href="route($panelRoute)" :current="request()->routeIs($panelRoute)" wire:navigate.hover>
 
-                            Panel administrativo
+                            {{ $rolActual === 'administrativo' ? 'Panel del administrativo' : 'Panel administrativo' }}
 
                         </flux:sidebar.item>
 
@@ -173,25 +181,27 @@
 
                         </div>
 
-                        @foreach([
+                        @php
+                            $gestionItems = [
+                                ['estudiantes.index', 'Estudiantes', 'academic-cap'],
+                                ['profesores.index', 'Profesores', 'user-group'],
+                                ['acudientes.index', 'Acudientes', 'users'],
+                            ];
 
-                            ['estudiantes.index', 'Estudiantes', 'academic-cap'],
+                            if ($rolActual !== 'administrativo') {
+                                array_splice($gestionItems, 2, 0, [
+                                    ['cursos.index', 'Cursos', 'rectangle-stack'],
+                                    ['grados.index', 'Grados', 'bookmark'],
+                                    ['asignaturas.index', 'Asignaturas', 'book-open'],
+                                ]);
+                            }
+                        @endphp
 
-                            ['profesores.index', 'Profesores', 'user-group'],
-
-                            ['cursos.index', 'Cursos', 'rectangle-stack'],
-
-                            ['grados.index', 'Grados', 'bookmark'],
-
-                            ['asignaturas.index', 'Asignaturas', 'book-open'],
-
-                            ['acudientes.index', 'Acudientes', 'users'],
-
-                        ] as [$routeName, $label, $icon])
+                        @foreach($gestionItems as [$routeName, $label, $icon])
 
                             @if (Route::has($routeName))
 
-                                <flux:sidebar.item class="pl-9" icon="{{ $icon }}" :href="route($routeName)" :current="request()->routeIs($routeName)" wire:navigate>
+                                <flux:sidebar.item class="pl-9" icon="{{ $icon }}" :href="route($routeName)" :current="request()->routeIs($routeName)" wire:navigate.hover>
 
                                     {{ $label }}
 
@@ -201,8 +211,13 @@
 
                         @endforeach
 
+                        <flux:sidebar.item class="pl-9" icon="shield-check" :href="route($administradoresRoute, ['role' => 'Administrador'])" :current="request()->routeIs($administradoresRoute) && request('role') === 'Administrador'" wire:navigate.hover>
+                            Administradores
+                        </flux:sidebar.item>
 
 
+
+                        @if ($rolActual !== 'administrativo')
                         {{-- EVALUACION: periodos, indicadores y escalas de valoracion --}}
 
                         <div class="mt-2 flex items-center gap-2 pl-6 text-xs font-semibold uppercase tracking-wide text-[#8b96a3] dark:text-zinc-400">
@@ -224,7 +239,7 @@
 
                             @if (Route::has($routeName))
 
-                                <flux:sidebar.item class="pl-9" icon="clipboard-document-list" :href="route($routeName)" :current="request()->routeIs($routeName)" wire:navigate>
+                                <flux:sidebar.item class="pl-9" icon="clipboard-document-list" :href="route($routeName)" :current="request()->routeIs($routeName)" wire:navigate.hover>
 
                                     {{ $label }}
 
@@ -233,6 +248,8 @@
                             @endif
 
                         @endforeach
+
+                        @endif
 
 
 
@@ -247,7 +264,7 @@
 
                         @foreach([
 
-                            ['usuarios.index', 'Usuarios'],
+                            [$usuariosRoute, 'Usuarios'],
 
                             ['roles.index', 'Roles'],
 
@@ -257,7 +274,7 @@
 
                             @if (Route::has($routeName))
 
-                                <flux:sidebar.item class="pl-9" icon="cog-6-tooth" :href="route($routeName)" :current="request()->routeIs($routeName)" wire:navigate title="{{ $label }}">
+                                <flux:sidebar.item class="pl-9" icon="cog-6-tooth" :href="route($routeName)" :current="request()->routeIs($routeName)" wire:navigate.hover title="{{ $label }}">
 
                                     {{ $label }}
 
@@ -269,20 +286,36 @@
 
                     </flux:sidebar.group>
 
+                @elseif ($rolActual === 'administrativo')
+
+                    <flux:sidebar.group heading="GESTIÓN DE USUARIOS" class="grid text-[#c7d0df]">
+                        <flux:sidebar.item icon="squares-2x2" :href="route('dashboardAdministrativo')" :current="request()->routeIs('dashboardAdministrativo')" wire:navigate.hover>
+                            Panel del administrativo
+                        </flux:sidebar.item>
+
+                        <div class="mt-3 flex items-center gap-2 pl-3 text-xs font-semibold uppercase tracking-wide text-[#8b96a3] dark:text-zinc-400">
+                            <flux:icon name="shield-check" class="size-4" />
+                            Administración de cuentas
+                        </div>
+
+                        <flux:sidebar.item class="pl-9" icon="users" :href="route('administrativo.usuarios.index')" :current="request()->routeIs('administrativo.usuarios.*')" wire:navigate.hover>
+                            Usuarios
+                        </flux:sidebar.item>
+                    </flux:sidebar.group>
                 @endif
 
             </flux:sidebar.nav>
 
             <div class="institution-sidebar-collapsed-nav" aria-label="Navegacion compacta">
                 <flux:tooltip content="Inicio" position="right">
-                    <a href="{{ route('dashboard') }}" wire:navigate title="Inicio">
+                    <a href="{{ route('dashboard') }}" wire:navigate.hover title="Inicio">
                         <flux:icon name="home" class="size-5" />
                     </a>
                 </flux:tooltip>
 
                 @if ($rolActual === 'profesor')
                     <flux:tooltip content="Panel del docente" position="right">
-                        <a href="{{ route('profesor.dashboard') }}" wire:navigate title="Panel del docente">
+                        <a href="{{ route('profesor.dashboard') }}" wire:navigate.hover title="Panel del docente">
                             <flux:icon name="squares-2x2" class="size-5" />
                         </a>
                     </flux:tooltip>
@@ -296,7 +329,7 @@
                     </flux:tooltip>
                 @elseif ($rolActual === 'administrador')
                     <flux:tooltip content="Panel administrativo" position="right">
-                        <a href="{{ route('dashboardAdmin') }}" wire:navigate title="Panel administrativo">
+                        <a href="{{ route('dashboardAdmin') }}" wire:navigate.hover title="Panel administrativo">
                             <flux:icon name="squares-2x2" class="size-5" />
                         </a>
                     </flux:tooltip>
@@ -315,6 +348,17 @@
 
                     <flux:tooltip content="Administracion" position="right">
                         <span role="button" tabindex="0" x-on:click="$dispatch('flux-sidebar-toggle')" title="Administracion"><flux:icon name="cog-6-tooth" class="size-5" /></span>
+                    </flux:tooltip>
+                @elseif ($rolActual === 'administrativo')
+                    <flux:tooltip content="Panel del administrativo" position="right">
+                        <a href="{{ route('dashboardAdministrativo') }}" wire:navigate.hover title="Panel del administrativo">
+                            <flux:icon name="squares-2x2" class="size-5" />
+                        </a>
+                    </flux:tooltip>
+                    <flux:tooltip content="Usuarios" position="right">
+                        <a href="{{ route('administrativo.usuarios.index') }}" wire:navigate.hover title="Usuarios">
+                            <flux:icon name="users" class="size-5" />
+                        </a>
                     </flux:tooltip>
                 @endif
             </div>
@@ -422,7 +466,7 @@
 
                     <flux:menu.radio.group>
 
-                        <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
+                        <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate.hover>
 
                             Configuración
 

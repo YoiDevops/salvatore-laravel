@@ -1,5 +1,29 @@
 <x-layouts::app.sidebar title="Inicio">
     <flux:main>
+        @php
+            $rolActual = strtolower((string) auth()->user()?->effective_role);
+            $accesosPrincipales = [
+                ['Estudiantes', 'Gestiona matriculas y datos personales.', 'estudiantes.index', 'academic-cap'],
+                ['Profesores', 'Consulta el equipo docente.', 'profesores.index', 'user-group'],
+            ];
+            $accesosFrecuentes = [
+                ['Crear estudiante', 'estudiantes.create', []],
+                ['Registrar profesor', 'profesores.create', []],
+            ];
+
+            if ($rolActual === 'administrativo') {
+                $accesosPrincipales[] = ['Administradores', 'Gestiona las cuentas administrativas.', 'administrativo.usuarios.index', 'shield-check'];
+                $accesosFrecuentes = [
+                    ['Crear estudiante', 'administrativo.usuarios.create', ['role' => 'Estudiante']],
+                    ['Registrar profesor', 'administrativo.usuarios.create', ['role' => 'Profesor']],
+                    ['Crear administrador', 'administrativo.usuarios.create', ['role' => 'Administrador']],
+                ];
+            } else {
+                $accesosPrincipales[] = ['Cursos', 'Organiza grados y jornadas.', 'cursos.index', 'rectangle-stack'];
+                $accesosPrincipales[] = ['Evaluacion', 'Periodos, escalas e indicadores.', 'periodos.index', 'chart-bar'];
+                $accesosFrecuentes[] = ['Ver periodos', 'periodos.index', []];
+            }
+        @endphp
         <div class="mx-auto w-full max-w-[min(100%-2rem,96rem)] space-y-8 px-2 sm:px-4 lg:px-6">
             <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
                 <div>
@@ -21,14 +45,9 @@
             </section>
 
                 <div class="grid w-full gap-5 sm:grid-cols-2 xl:grid-cols-4">
-                @foreach([
-                    ['Estudiantes', 'Gestiona matriculas y datos personales.', 'estudiantes.index', 'academic-cap'],
-                    ['Profesores', 'Consulta el equipo docente.', 'profesores.index', 'user-group'],
-                    ['Cursos', 'Organiza grados y jornadas.', 'cursos.index', 'rectangle-stack'],
-                    ['Evaluacion', 'Periodos, escalas e indicadores.', 'periodos.index', 'chart-bar'],
-                ] as [$title, $description, $routeName, $icon])
+                @foreach($accesosPrincipales as [$title, $description, $routeName, $icon])
                     @if(Route::has($routeName))
-                        <a href="{{ route($routeName) }}" wire:navigate class="group rounded-xl border border-[#d8dee8] bg-white p-6 shadow-md transition hover:-translate-y-0.5 hover:border-[#c49a35] hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
+                        <a href="{{ route($routeName) }}" wire:navigate.hover class="group rounded-xl border border-[#d8dee8] bg-white p-6 shadow-md transition hover:-translate-y-0.5 hover:border-[#c49a35] hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
                             <div class="flex items-center justify-between"><span class="flex size-10 items-center justify-center rounded-xl bg-[#eef1f5] text-[#27313a] dark:bg-[#39434b] dark:text-[#d8b85c]"><flux:icon :name="$icon" class="size-5" /></span><flux:icon name="arrow-up-right" class="size-4 text-zinc-400 transition group-hover:text-[#9a761f]" /></div>
                             <h2 class="mt-5 font-semibold text-zinc-900 dark:text-zinc-100">{{ $title }}</h2>
                             <p class="mt-1 text-sm leading-5 text-zinc-500 dark:text-zinc-400">{{ $description }}</p>
@@ -48,15 +67,15 @@
 
                 <div class="grid gap-4 md:grid-cols-3">
                     <article class="group overflow-hidden rounded-xl border border-[#d8dee8] bg-white shadow-md dark:border-zinc-800 dark:bg-zinc-900">
-                        <div class="relative h-44 overflow-hidden"><img src="{{ asset('images/ninos-aula.jpg') }}" alt="Niños aprendiendo en el aula" class="size-full object-cover transition duration-500 group-hover:scale-105" /><div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/45 to-transparent"></div></div>
+                        <div class="relative h-44 overflow-hidden"><img src="{{ asset('images/ninos-aula.jpg') }}" alt="Niños aprendiendo en el aula" loading="lazy" decoding="async" class="size-full object-cover transition duration-500 group-hover:scale-105" /><div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/45 to-transparent"></div></div>
                         <div class="p-4"><h3 class="font-semibold text-[#27313a] dark:text-zinc-100">Nuestra aula</h3><p class="mt-1 text-sm leading-5 text-zinc-500 dark:text-zinc-400">Un entorno preparado para descubrir y participar.</p></div>
                     </article>
                     <article class="group overflow-hidden rounded-xl border border-[#d8dee8] bg-white shadow-md dark:border-zinc-800 dark:bg-zinc-900">
-                        <div class="relative h-44 overflow-hidden"><img src="{{ asset('images/ninos-lectura.jpg') }}" alt="Niños compartiendo una lectura" class="size-full object-cover transition duration-500 group-hover:scale-105" /><div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/45 to-transparent"></div></div>
+                        <div class="relative h-44 overflow-hidden"><img src="{{ asset('images/ninos-lectura.jpg') }}" alt="Niños compartiendo una lectura" loading="lazy" decoding="async" class="size-full object-cover transition duration-500 group-hover:scale-105" /><div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/45 to-transparent"></div></div>
                         <div class="p-4"><h3 class="font-semibold text-[#27313a] dark:text-zinc-100">Lectura compartida</h3><p class="mt-1 text-sm leading-5 text-zinc-500 dark:text-zinc-400">Cada historia abre una nueva forma de aprender.</p></div>
                     </article>
                     <article class="group overflow-hidden rounded-xl border border-[#d8dee8] bg-white shadow-md dark:border-zinc-800 dark:bg-zinc-900">
-                        <div class="relative h-44 overflow-hidden"><img src="{{ asset('images/actividades-colegio.jpg') }}" alt="Niños realizando una actividad escolar" class="size-full object-cover transition duration-500 group-hover:scale-105" /><div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/45 to-transparent"></div></div>
+                        <div class="relative h-44 overflow-hidden"><img src="{{ asset('images/actividades-colegio.jpg') }}" alt="Niños realizando una actividad escolar" loading="lazy" decoding="async" class="size-full object-cover transition duration-500 group-hover:scale-105" /><div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/45 to-transparent"></div></div>
                         <div class="p-4"><h3 class="font-semibold text-[#27313a] dark:text-zinc-100">Manos a la obra</h3><p class="mt-1 text-sm leading-5 text-zinc-500 dark:text-zinc-400">Explorar, crear y resolver juntos.</p></div>
                     </article>
                 </div>
@@ -65,8 +84,8 @@
             <section class="rounded-xl border border-[#dce8dc] bg-white p-6 shadow-md dark:border-zinc-800 dark:bg-zinc-900">
                 <div class="flex items-center justify-between"><div><h2 class="font-semibold">Accesos frecuentes</h2><p class="mt-1 text-sm text-zinc-500">Continúa con las tareas habituales de la institución.</p></div><span class="rounded-full bg-[#f8f1dc] px-3 py-1 text-xs font-medium text-[#8a681b]">Gestión escolar</span></div>
                 <div class="mt-6 grid gap-3 sm:grid-cols-3">
-                    @foreach([['Crear estudiante','estudiantes.create'],['Registrar profesor','profesores.create'],['Ver periodos','periodos.index']] as [$label, $routeName])
-                        @if(Route::has($routeName))<a href="{{ route($routeName) }}" wire:navigate class="flex items-center justify-between rounded-xl bg-[#f5f7fa] px-4 py-3 text-sm font-medium text-[#27313a] transition hover:bg-[#eef1f5] dark:bg-zinc-800 dark:text-[#d8b85c]"><span>{{ $label }}</span><flux:icon name="chevron-right" class="size-4" /></a>@endif
+                    @foreach($accesosFrecuentes as [$label, $routeName, $parameters])
+                        @if(Route::has($routeName))<a href="{{ route($routeName, $parameters) }}" wire:navigate.hover class="flex items-center justify-between rounded-xl bg-[#f5f7fa] px-4 py-3 text-sm font-medium text-[#27313a] transition hover:bg-[#eef1f5] dark:bg-zinc-800 dark:text-[#d8b85c]"><span>{{ $label }}</span><flux:icon name="chevron-right" class="size-4" /></a>@endif
                     @endforeach
                 </div>
             </section>

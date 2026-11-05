@@ -28,7 +28,7 @@
                 ['Grados', $stats['grados'].' niveles', 'profesor.grados.index', 'bookmark', 'bg-[#f5eaf2] text-[#985278]'],
             ] as [$title, $description, $routeName, $icon, $color])
                 @if(Route::has($routeName))
-                    <a href="{{ route($routeName) }}" wire:navigate class="group rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] transition hover:-translate-y-0.5 hover:border-[#c49a35] hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
+                    <a href="{{ route($routeName) }}" wire:navigate.hover class="group rounded-2xl border border-[#d8dee8] bg-white p-6 shadow-[0_8px_24px_rgba(16,33,59,0.07)] transition hover:-translate-y-0.5 hover:border-[#c49a35] hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
                         <div class="flex items-center justify-between">
                             <span class="flex size-11 items-center justify-center rounded-xl {{ $color }}"><flux:icon :name="$icon" class="size-5" /></span>
                             <flux:icon name="arrow-up-right" class="size-4 text-zinc-400 transition group-hover:text-[#9a761f]" />
@@ -57,7 +57,7 @@
                         ['Asignaturas', 'profesor.asignaturas.index', 'book-open'],
                     ] as [$label, $routeName, $icon])
                         @if(Route::has($routeName))
-                            <a href="{{ route($routeName) }}" wire:navigate class="flex items-center gap-3 rounded-xl border border-zinc-100 px-4 py-3 text-sm font-medium text-zinc-700 transition hover:border-[#c49a35] hover:bg-[#fffaf0] dark:border-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-800">
+                            <a href="{{ route($routeName) }}" wire:navigate.hover class="flex items-center gap-3 rounded-xl border border-zinc-100 px-4 py-3 text-sm font-medium text-zinc-700 transition hover:border-[#c49a35] hover:bg-[#fffaf0] dark:border-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-800">
                                 <span class="flex size-8 items-center justify-center rounded-lg bg-[#eef1f5] text-[#10213b] dark:bg-[#253653] dark:text-[#d8b85c]"><flux:icon :name="$icon" class="size-4" /></span>
                                 {{ $label }}
                                 <flux:icon name="chevron-right" class="ml-auto size-4 text-zinc-400" />
@@ -74,7 +74,7 @@
                 <div class="mt-6 space-y-2">
                     @foreach([['Indicadores de logro','profesor.indicadores.index'],['Escalas de valoracion','profesor.escalas.index']] as [$label, $routeName])
                         @if(Route::has($routeName))
-                            <a href="{{ route($routeName) }}" wire:navigate class="flex items-center justify-between border-b border-[#e6d6a8] py-2 text-sm font-medium text-[#8a681b] last:border-0 dark:border-[#665322] dark:text-[#d8b85c]">
+                            <a href="{{ route($routeName) }}" wire:navigate.hover class="flex items-center justify-between border-b border-[#e6d6a8] py-2 text-sm font-medium text-[#8a681b] last:border-0 dark:border-[#665322] dark:text-[#d8b85c]">
                                 <span>{{ $label }}</span>
                                 <flux:icon name="arrow-up-right" class="size-4" />
                             </a>

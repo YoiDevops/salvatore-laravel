@@ -4,6 +4,7 @@ use App\Http\Controllers\Academico\AreaController;
 use App\Http\Controllers\Academico\AsignaturaController;
 use App\Http\Controllers\Academico\CursoController;
 use App\Http\Controllers\Academico\GradoController;
+use App\Http\Controllers\Administrativo\PanelController as AdministrativoPanelController;
 use App\Http\Controllers\estudiante\AcudienteController;
 use App\Http\Controllers\estudiante\CaracterizacionDiscapacidadController;
 use App\Http\Controllers\estudiante\EstudianteController;
@@ -29,10 +30,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
     Route::view('administrador/dashboard', 'administrador.dashboardAdmin')
-        ->middleware('role:Administrador')
+        ->middleware('role:Administrador,Administrativo')
         ->name('dashboardAdmin');
 
-    Route::middleware('role:Administrador')->prefix('administrador')->group(function () {
+    Route::get('administrativo/dashboard', [AdministrativoPanelController::class, 'dashboard'])
+        ->middleware('role:Administrativo')
+        ->name('dashboardAdministrativo');
+
+    Route::middleware('role:Administrador,Administrativo')->prefix('administrador')->group(function () {
         Route::resource('acudientes', AcudienteController::class);
         Route::resource('areas', AreaController::class);
         Route::resource('asignaturas', AsignaturaController::class);
@@ -49,6 +54,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resource('usuarios', UserController::class);
         Route::put('usuarios/{id}/password', [UserController::class, 'updatePassword'])->name('usuarios.updatePassword');
+    });
+
+    Route::middleware('role:Administrativo')->prefix('administrativo')->name('administrativo.')->group(function () {
+        Route::resource('usuarios', UserController::class);
     });
 
     // Portal del profesor: acceso de solo consulta a la información

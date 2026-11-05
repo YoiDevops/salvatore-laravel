@@ -65,6 +65,7 @@ new #[Layout('layouts.auth')] class extends Component {
         $role = strtolower($user->effective_role);
         $this->redirect(match ($role) {
             'administrador' => '/administrador/dashboard',
+            'administrativo' => '/administrativo/dashboard',
             'profesor', '2' => '/profesor/dashboard',
             'estudiante', '3' => '/estudiante/dashboard',
             default => '/',
@@ -91,12 +92,12 @@ new #[Layout('layouts.auth')] class extends Component {
 >
     <!-- 1. IMAGEN DE FONDO PANTALLA COMPLETA (Fixed) -->
     <div 
-        class="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat z-0"
+        class="login-background fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat z-0"
         style="background-image: url('{{ asset('images/colegioinicio.jpg') }}');"
     ></div>
 
     <!-- 2. CAPA DE CONTRASTE SOBRE LA IMAGEN -->
-    <div class="fixed inset-0 w-screen h-screen bg-stone-900/40 dark:bg-black/75 backdrop-blur-xs z-10 transition-colors duration-300"></div>
+    <div class="fixed inset-0 w-screen h-screen bg-stone-900/40 dark:bg-black/35 backdrop-blur-xs z-10 transition-colors duration-300"></div>
     <!-- 4. CONTENEDOR CENTRAL DEL FORMULARIO -->
     <div class="relative z-20 min-h-screen w-full flex items-center justify-center p-4">
         <div class="relative w-full max-w-md bg-white/95 dark:bg-stone-900/95 backdrop-blur-md rounded-2xl shadow-2xl border border-stone-200/80 dark:border-stone-800 p-8 mx-auto transition-colors duration-300">

@@ -119,6 +119,25 @@
 		document.querySelectorAll(nativeSelects).forEach(enhanceSelect);
 	};
 
+	const enhanceSelectsWithin = (root) => {
+		if (root instanceof HTMLSelectElement) {
+			enhanceSelect(root);
+			return;
+		}
+
+		root.querySelectorAll?.(nativeSelects).forEach(enhanceSelect);
+	};
+
+	const enhanceAddedNodes = (mutations) => {
+		mutations.forEach(({ addedNodes }) => {
+			addedNodes.forEach((node) => {
+				if (node.nodeType === Node.ELEMENT_NODE) {
+					enhanceSelectsWithin(node);
+				}
+			});
+		});
+	};
+
 	document.addEventListener('click', (event) => {
 		document.querySelectorAll('.custom-select.is-open').forEach((container) => {
 			if (!container.contains(event.target)) {
@@ -129,7 +148,7 @@
 
 	document.addEventListener('DOMContentLoaded', () => {
 		enhanceVisibleSelects();
-		new MutationObserver(enhanceVisibleSelects).observe(document.body, {
+		new MutationObserver(enhanceAddedNodes).observe(document.body, {
 			childList: true,
 			subtree: true,
 		});

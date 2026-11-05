@@ -1,0 +1,3 @@
+<x-layouts::app.sidebar title="Detalle de cuenta">
+    <flux:main><div class="mx-auto max-w-xl space-y-5 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"><div><p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#9a761f]">Cuenta registrada</p><flux:heading size="xl" class="mt-2">{{ $usuario->name }}</flux:heading></div><div class="space-y-3 text-sm"><p><strong>Correo:</strong> {{ $usuario->email }}</p><p><strong>Rol:</strong> {{ $usuario->effective_role }}</p><p><strong>Estado:</strong> {{ $usuario->status ?? $usuario->estado ?? 'Activo' }}</p></div><flux:button href="{{ route('administrativo.usuarios.index') }}">Volver a cuentas</flux:button></div></flux:main>
+</x-layouts::app.sidebar>

@@ -13,6 +13,7 @@ class LoginResponse implements LoginResponseContract
     {
         $home = match (strtolower((string) $request->user()?->effective_role)) {
             'administrador' => route('dashboardAdmin'),
+            'administrativo' => route('dashboardAdministrativo'),
             'profesor' => route('profesor.dashboard'),
             default => Fortify::redirects('login'),
         };
