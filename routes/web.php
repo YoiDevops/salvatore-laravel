@@ -16,6 +16,8 @@ use App\Http\Controllers\profesor\PanelController as ProfesorPanelController;
 use App\Http\Controllers\profesor\ProfesorController;
 use App\Http\Controllers\Usuarios\RolController;
 use App\Http\Controllers\Usuarios\UserController;
+use App\Http\Controllers\Administrativo\UsuarioController as AdministrativoUsuarioController;
+use App\Http\Controllers\SolicitudController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -30,15 +32,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
     Route::view('administrador/dashboard', 'administrador.dashboardAdmin')
-        ->middleware('role:Administrador,Administrativo')
+        ->middleware('role:Administrador')
         ->name('dashboardAdmin');
 
     Route::get('administrativo/dashboard', [AdministrativoPanelController::class, 'dashboard'])
         ->middleware('role:Administrativo')
         ->name('dashboardAdministrativo');
 
-    Route::middleware('role:Administrador,Administrativo')->prefix('administrador')->group(function () {
-        Route::resource('acudientes', AcudienteController::class);
+    Route::middleware('role:Administrador')->prefix('administrador')->group(function () {
+
         Route::resource('areas', AreaController::class);
         Route::resource('asignaturas', AsignaturaController::class);
         Route::resource('caracterizaciones', CaracterizacionDiscapacidadController::class);
@@ -47,8 +49,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('escalas', EscalaValoracionController::class);
         Route::resource('periodos', PeriodoController::class);
         Route::resource('indicadores', IndicadorLogroController::class);
-        Route::resource('estudiantes', EstudianteController::class);
-        Route::resource('profesores', ProfesorController::class);
+
         Route::resource('sedes', SedeController::class);
         Route::resource('roles', RolController::class);
 
@@ -56,8 +57,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('usuarios/{id}/password', [UserController::class, 'updatePassword'])->name('usuarios.updatePassword');
     });
 
-    Route::middleware('role:Administrativo')->prefix('administrativo')->name('administrativo.')->group(function () {
-        Route::resource('usuarios', UserController::class);
+    Route::middleware('role:Administrador,Administrativo')->prefix('administrador')->group(function () {
+        Route::resource('acudientes', AcudienteController::class);
+        Route::resource('estudiantes', EstudianteController::class);
+        Route::resource('profesores', ProfesorController::class);
+    });
+
+    Route::middleware('role:Administrador,Administrativo')->prefix('administrativo')->name('administrativo.')->group(function () {
+        Route::resource('usuarios', AdministrativoUsuarioController::class);
+        Route::get('solicitudes', [SolicitudController::class, 'index'])->name('solicitudes.index');
+        Route::get('solicitudes/exportar-estudiantes', [SolicitudController::class, 'exportStudents'])->name('solicitudes.export');
+        Route::get('archivos-excel', [SolicitudController::class, 'files'])->name('archivos-excel.index');
+        Route::post('solicitudes/archivos', [SolicitudController::class, 'upload'])->name('solicitudes.archivos.store');
+        Route::get('solicitudes/archivos/{archivo}/descargar', [SolicitudController::class, 'downloadFile'])->name('solicitudes.archivos.download');
+        Route::delete('solicitudes/archivos/{archivo}', [SolicitudController::class, 'destroyFile'])->name('solicitudes.archivos.destroy');
     });
 
     // Portal del profesor: acceso de solo consulta a la información

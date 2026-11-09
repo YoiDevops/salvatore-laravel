@@ -138,7 +138,7 @@
 
                     </flux:sidebar.group>
 
-                @elseif (in_array($rolActual, ['administrador', 'administrativo'], true))
+                @elseif ($rolActual === 'administrador')
 
                     @php
                         $panelRoute = $rolActual === 'administrativo' ? 'dashboardAdministrativo' : 'dashboardAdmin';
@@ -194,6 +194,8 @@
                                     ['grados.index', 'Grados', 'bookmark'],
                                     ['asignaturas.index', 'Asignaturas', 'book-open'],
                                 ]);
+                                 $gestionItems[] = ['administrativo.solicitudes.index', 'Solicitudes', 'inbox-arrow-down'];
+                                 $gestionItems[] = ['administrativo.archivos-excel.index', 'Archivos Excel', 'document-arrow-up'];
                             }
                         @endphp
 
@@ -300,6 +302,14 @@
 
                         <flux:sidebar.item class="pl-9" icon="users" :href="route('administrativo.usuarios.index')" :current="request()->routeIs('administrativo.usuarios.*')" wire:navigate.hover>
                             Usuarios
+                        </flux:sidebar.item>
+
+                        <flux:sidebar.item class="pl-9" icon="inbox-arrow-down" :href="route('administrativo.solicitudes.index')" :current="request()->routeIs('administrativo.solicitudes.*')" wire:navigate.hover>
+                            Solicitudes
+                        </flux:sidebar.item>
+
+                        <flux:sidebar.item class="pl-9" icon="document-arrow-up" :href="route('administrativo.archivos-excel.index')" :current="request()->routeIs('administrativo.archivos-excel.*')" wire:navigate.hover>
+                            Archivos Excel
                         </flux:sidebar.item>
                     </flux:sidebar.group>
                 @endif

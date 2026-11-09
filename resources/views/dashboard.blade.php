@@ -12,11 +12,9 @@
             ];
 
             if ($rolActual === 'administrativo') {
-                $accesosPrincipales[] = ['Administradores', 'Gestiona las cuentas administrativas.', 'administrativo.usuarios.index', 'shield-check'];
                 $accesosFrecuentes = [
                     ['Crear estudiante', 'administrativo.usuarios.create', ['role' => 'Estudiante']],
                     ['Registrar profesor', 'administrativo.usuarios.create', ['role' => 'Profesor']],
-                    ['Crear administrador', 'administrativo.usuarios.create', ['role' => 'Administrador']],
                 ];
             } else {
                 $accesosPrincipales[] = ['Cursos', 'Organiza grados y jornadas.', 'cursos.index', 'rectangle-stack'];

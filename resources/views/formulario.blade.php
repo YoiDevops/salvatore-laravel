@@ -2,6 +2,7 @@
 
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use App\Models\Solicitud;
 
 new #[Layout('layouts.auth.card')] class extends Component {
     public int $pasoActual = 1;
@@ -164,7 +165,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
             'acudiente_ocupacion' => ['nullable', 'string', 'max:100'],
         ]);
 
-        $this->registroCompletado = true;
+        $this->guardarFormulario();
     }
 
     public function guardarFormulario(): void
@@ -202,6 +203,37 @@ new #[Layout('layouts.auth.card')] class extends Component {
         ]);
 
         // Lógica para guardar acudiente y estudiante en BD...
+
+        Solicitud::create([
+            'estudiante_tipo_documento' => $this->estudiante_tipo_documento,
+            'estudiante_numero_documento' => $this->estudiante_numero_documento,
+            'estudiante_nombres' => $this->estudiante_nombres,
+            'estudiante_apellidos' => $this->estudiante_apellidos,
+            'estudiante_fecha_nacimiento' => $this->estudiante_fecha_nacimiento,
+            'estudiante_genero' => $this->estudiante_genero,
+            'estudiante_tipo_sangre' => $this->estudiante_tipo_sangre,
+            'estudiante_lugar_nacimiento' => $this->estudiante_lugar_nacimiento,
+            'estudiante_eps' => $this->estudiante_eps,
+            'estudiante_estado' => $this->estudiante_estado,
+            'estudiante_tiene_discapacidad' => $this->estudiante_tiene_discapacidad,
+            'estudiante_tipo_discapacidad' => $this->estudiante_tipo_discapacidad ?: null,
+            'estudiante_diagnostico_discapacidad' => $this->estudiante_diagnostico_discapacidad ?: null,
+            'estudiante_grado_discapacidad' => $this->estudiante_grado_discapacidad ?: null,
+            'estudiante_permanencia_discapacidad' => $this->estudiante_permanencia_discapacidad ?: null,
+            'estudiante_grado_atencion' => $this->estudiante_grado_atencion ?: null,
+            'acudiente_tipo_documento' => $this->acudiente_tipo_documento,
+            'acudiente_numero_documento' => $this->acudiente_numero_documento,
+            'acudiente_nombres' => $this->acudiente_nombres,
+            'acudiente_apellidos' => $this->acudiente_apellidos,
+            'acudiente_fecha_nacimiento' => $this->acudiente_fecha_nacimiento,
+            'acudiente_genero' => $this->acudiente_genero,
+            'acudiente_parentesco' => $this->acudiente_parentesco,
+            'acudiente_direccion' => $this->acudiente_direccion,
+            'acudiente_telefono' => $this->acudiente_telefono,
+            'acudiente_correo' => $this->acudientecontacto_correo,
+            'acudiente_lugar_trabajo' => $this->acudiente_lugar_trabajo ?: null,
+            'acudiente_ocupacion' => $this->acudiente_ocupacion ?: null,
+        ]);
 
         session()->flash('success', 'Registro completado exitosamente.');
         $this->registroCompletado = true;

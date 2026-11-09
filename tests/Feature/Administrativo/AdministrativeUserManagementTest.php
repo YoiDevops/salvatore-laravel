@@ -18,13 +18,20 @@ class AdministrativeUserManagementTest extends TestCase
             'status' => 'Activo',
             'estado' => 'Activo',
         ]);
+        $administrador = User::factory()->create([
+            'name' => 'administrador_fuera_del_panel',
+            'role' => 'Administrador',
+            'nom_rol' => 'Administrador',
+        ]);
 
         $response = $this->actingAs($administrativo)->get(route('dashboardAdministrativo'));
 
-        $response->assertOk()->assertSee('Panel del administrativo');
+        $response->assertOk()
+            ->assertSee('Panel del administrativo')
+            ->assertDontSee($administrador->name);
     }
 
-    public function test_administrativo_dashboard_does_not_show_courses_or_evaluation(): void
+    public function test_administrativo_dashboard_does_not_show_administrators_courses_or_evaluation(): void
     {
         $administrativo = User::factory()->create([
             'role' => 'Administrativo',
@@ -36,12 +43,57 @@ class AdministrativeUserManagementTest extends TestCase
         $response = $this->actingAs($administrativo)->get(route('dashboard'));
 
         $response->assertOk()
-            ->assertSee('Administradores')
+            ->assertDontSee('Administradores')
+            ->assertDontSee('Crear administrador')
             ->assertDontSee('Cursos')
             ->assertDontSee('Evaluacion')
             ->assertDontSee('Ver periodos')
             ->assertDontSee('Grados')
             ->assertDontSee('Asignaturas');
+    }
+
+    public function test_administrativo_cannot_view_administrator_accounts(): void
+    {
+        $administrativo = User::factory()->create([
+            'role' => 'Administrativo',
+            'nom_rol' => 'Administrativo',
+            'status' => 'Activo',
+            'estado' => 'Activo',
+        ]);
+        $administrador = User::factory()->create([
+            'name' => 'administrador_visible_no',
+            'role' => 'Administrador',
+            'nom_rol' => 'Administrador',
+        ]);
+
+        $response = $this->actingAs($administrativo)->get(route('administrativo.usuarios.index'));
+
+        $response->assertOk()
+            ->assertDontSee($administrador->name)
+            ->assertDontSee('Administrador');
+    }
+
+    public function test_administrativo_cannot_create_an_administrator_account(): void
+    {
+        $administrativo = User::factory()->create([
+            'role' => 'Administrativo',
+            'nom_rol' => 'Administrativo',
+            'status' => 'Activo',
+            'estado' => 'Activo',
+        ]);
+
+        $response = $this->actingAs($administrativo)->post(route('administrativo.usuarios.store'), [
+            'name' => 'administrador_no_creado',
+            'email' => 'administrador.no.creado@example.com',
+            'password' => 'password123',
+            'role' => 'Administrador',
+            'status' => 'Activo',
+        ]);
+
+        $response->assertSessionHasErrors('role');
+        $this->assertDatabaseMissing('users', [
+            'email' => 'administrador.no.creado@example.com',
+        ]);
     }
 
     public function test_administrativo_can_create_a_teacher_account(): void
