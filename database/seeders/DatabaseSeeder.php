@@ -15,5 +15,21 @@ class DatabaseSeeder extends Seeder
     {
        $this->call(RolTableSeeder::class);
        $this->call(UsersTableSeeder::class);
+       $this->call(AcudienteTableSeeder::class);
+       $this->call(AreaTableSeeder::class);
+       $this->call(AsignaturaTableSeeder::class);
+       $this->call(CaracterizacionDiscapacidadTableSeeder::class);
+       $this->call(InstitucionTableSeeder::class);
+       $this->call(SedeTableSeeder::class);
+       $this->call(GradoTableSeeder::class);
+       $this->call(CursoTableSeeder::class);
+       $this->call(::class);
+       $this->call(::class);
+       $this->call(::class);
+       $this->call(::class);
+       $this->call(::class);
+       $this->call(::class);
+       
+        $this->call(CursoTableSeeder::class);
     }
 }
