@@ -31,12 +31,12 @@ class AuthenticationTest extends TestCase
 
         $response
             ->assertSessionHasNoErrors()
-            ->assertRedirect(route('dashboard', absolute: false));
+            ->assertRedirect(route('estudiante.dashboard', absolute: false));
 
         $this->assertAuthenticated();
     }
 
-    public function test_passkey_login_response_redirects_to_the_dashboard(): void
+    public function test_passkey_login_response_redirects_students_to_their_portal(): void
     {
         $user = User::factory()->create();
 
@@ -49,7 +49,7 @@ class AuthenticationTest extends TestCase
         $jsonResponse = app(PasskeyLoginResponse::class)->toResponse($request);
 
         $this->assertSame(
-            route('dashboard'),
+            route('estudiante.dashboard'),
             $jsonResponse->getData()->redirect,
         );
     }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Administrativo\PanelController as AdministrativoPanelCo
 use App\Http\Controllers\estudiante\AcudienteController;
 use App\Http\Controllers\estudiante\CaracterizacionDiscapacidadController;
 use App\Http\Controllers\estudiante\EstudianteController;
+use App\Http\Controllers\estudiante\PanelController as EstudiantePanelController;
 use App\Http\Controllers\Evaluacion\EscalaValoracionController;
 use App\Http\Controllers\Evaluacion\IndicadorLogroController;
 use App\Http\Controllers\Evaluacion\PeriodoController;
@@ -29,7 +30,13 @@ Volt::route('/formulario', 'formulario')->name('formulario');
 require __DIR__.'/settings.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', function () {
+        if (strtolower((string) auth()->user()?->effective_role) === 'estudiante') {
+            return redirect()->route('estudiante.dashboard');
+        }
+
+        return view('dashboard');
+    })->name('dashboard');
 
     Route::view('administrador/dashboard', 'administrador.dashboardAdmin')
         ->middleware('role:Administrador')
@@ -39,8 +46,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware('role:Administrativo')
         ->name('dashboardAdministrativo');
 
-    Route::middleware('role:Administrador')->prefix('administrador')->group(function () {
+    Route::get('estudiante/dashboard', [EstudiantePanelController::class, 'dashboard'])
+        ->middleware('role:Estudiante')
+        ->name('estudiante.dashboard');
 
+    Route::middleware('role:Administrador,Administrativo')->prefix('administrador')->group(function () {
+        Route::resource('acudientes', AcudienteController::class);
         Route::resource('areas', AreaController::class);
         Route::resource('asignaturas', AsignaturaController::class);
         Route::resource('caracterizaciones', CaracterizacionDiscapacidadController::class);

@@ -15,6 +15,7 @@ class LoginResponse implements LoginResponseContract
             'administrador' => route('dashboardAdmin'),
             'administrativo' => route('dashboardAdministrativo'),
             'profesor' => route('profesor.dashboard'),
+            'estudiante' => route('estudiante.dashboard'),
             default => Fortify::redirects('login'),
         };
 
