@@ -32,15 +32,13 @@
 
             <flux:sidebar.nav>
 
-                <flux:sidebar.group heading="INSTITUCION" class="grid text-[#c7d0df]">
-
-<flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate.hover title="Inicio">
-
-                        Inicio
-
-                    </flux:sidebar.item>
-
-                </flux:sidebar.group>
+                @if ($rolActual !== 'estudiante')
+                    <flux:sidebar.group heading="INSTITUCION" class="grid text-[#c7d0df]">
+                        <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate.hover title="Inicio">
+                            Inicio
+                        </flux:sidebar.item>
+                    </flux:sidebar.group>
+                @endif
 
 
 
@@ -286,6 +284,13 @@
 
                     </flux:sidebar.group>
 
+                @elseif ($rolActual === 'estudiante')
+                    <flux:sidebar.group heading="MI ESPACIO" class="grid text-[#c7d0df]">
+                        <flux:sidebar.item icon="academic-cap" :href="route('estudiante.dashboard')" :current="request()->routeIs('estudiante.dashboard')" wire:navigate.hover>
+                            Mi información
+                        </flux:sidebar.item>
+                    </flux:sidebar.group>
+
                 @elseif ($rolActual === 'administrativo')
 
                     <flux:sidebar.group heading="GESTIÓN DE USUARIOS" class="grid text-[#c7d0df]">
@@ -307,11 +312,13 @@
             </flux:sidebar.nav>
 
             <div class="institution-sidebar-collapsed-nav" aria-label="Navegacion compacta">
-                <flux:tooltip content="Inicio" position="right">
-                    <a href="{{ route('dashboard') }}" wire:navigate.hover title="Inicio">
-                        <flux:icon name="home" class="size-5" />
-                    </a>
-                </flux:tooltip>
+                @if ($rolActual !== 'estudiante')
+                    <flux:tooltip content="Inicio" position="right">
+                        <a href="{{ route('dashboard') }}" wire:navigate.hover title="Inicio">
+                            <flux:icon name="home" class="size-5" />
+                        </a>
+                    </flux:tooltip>
+                @endif
 
                 @if ($rolActual === 'profesor')
                     <flux:tooltip content="Panel del docente" position="right">
@@ -348,6 +355,12 @@
 
                     <flux:tooltip content="Administracion" position="right">
                         <span role="button" tabindex="0" x-on:click="$dispatch('flux-sidebar-toggle')" title="Administracion"><flux:icon name="cog-6-tooth" class="size-5" /></span>
+                    </flux:tooltip>
+                @elseif ($rolActual === 'estudiante')
+                    <flux:tooltip content="Mi información" position="right">
+                        <a href="{{ route('estudiante.dashboard') }}" wire:navigate.hover title="Mi información">
+                            <flux:icon name="academic-cap" class="size-5" />
+                        </a>
                     </flux:tooltip>
                 @elseif ($rolActual === 'administrativo')
                     <flux:tooltip content="Panel del administrativo" position="right">
