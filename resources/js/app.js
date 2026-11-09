@@ -1,4 +1,102 @@
 (() => {
+	const profileHeaderSelector = '[data-profile-scroll-header]';
+	let profileHeaderHideTimer;
+	let previousScrollPosition = window.scrollY;
+
+	const revealProfileHeaders = () => {
+		document.documentElement.removeAttribute('data-profile-header-hidden');
+	};
+
+	const hideProfileHeaders = () => {
+		const hoveredHeader = document.querySelector(`${profileHeaderSelector}:hover`);
+		const focusedHeader = document.activeElement?.closest(profileHeaderSelector);
+
+		if (!hoveredHeader && !focusedHeader && window.scrollY > 80) {
+			document.documentElement.setAttribute('data-profile-header-hidden', '');
+		}
+	};
+
+	const scheduleProfileHeaderHide = () => {
+		window.clearTimeout(profileHeaderHideTimer);
+		profileHeaderHideTimer = window.setTimeout(hideProfileHeaders, 1000);
+	};
+
+	const initializeProfileHeaders = () => {
+		document.querySelectorAll(profileHeaderSelector).forEach((header) => {
+			if (header.dataset.profileHeaderBound) {
+				return;
+			}
+
+			header.dataset.profileHeaderBound = 'true';
+			header.addEventListener('pointerenter', revealProfileHeaders);
+			header.addEventListener('pointerleave', () => {
+				if (window.scrollY > 80) {
+					scheduleProfileHeaderHide();
+				}
+			});
+			header.addEventListener('focusin', revealProfileHeaders);
+		});
+	};
+
+	const collapseInstitutionSidebar = () => {
+		const sidebar = document.querySelector('.institution-sidebar');
+
+		if (!sidebar || !window.matchMedia('(min-width: 1024px)').matches) {
+			return;
+		}
+
+		if (typeof sidebar.updateDataAttributes !== 'function') {
+			return;
+		}
+
+		sidebar.updateDataAttributes(sidebar);
+
+		if (!sidebar.hasAttribute('data-flux-sidebar-collapsed-desktop')) {
+			sidebar.dispatchEvent(new CustomEvent('flux-sidebar-toggle', { bubbles: true }));
+		}
+	};
+
+	const initializeApplicationChrome = () => {
+		initializeProfileHeaders();
+
+		window.requestAnimationFrame(() => {
+			window.requestAnimationFrame(collapseInstitutionSidebar);
+		});
+	};
+
+	window.addEventListener('scroll', () => {
+		const currentScrollPosition = window.scrollY;
+		const scrollDelta = currentScrollPosition - previousScrollPosition;
+		previousScrollPosition = currentScrollPosition;
+
+		if (currentScrollPosition < 80 || scrollDelta < -4) {
+			window.clearTimeout(profileHeaderHideTimer);
+			revealProfileHeaders();
+			return;
+		}
+
+		if (scrollDelta > 0) {
+			scheduleProfileHeaderHide();
+		}
+	}, { passive: true });
+
+	document.addEventListener('pointermove', (event) => {
+		if (event.clientY <= 12) {
+			window.clearTimeout(profileHeaderHideTimer);
+			revealProfileHeaders();
+		}
+	});
+
+	document.addEventListener('focusin', (event) => {
+		if (event.target.closest(profileHeaderSelector)) {
+			revealProfileHeaders();
+		}
+	});
+
+	document.addEventListener('DOMContentLoaded', initializeApplicationChrome);
+	document.addEventListener('livewire:navigated', initializeApplicationChrome);
+	window.addEventListener('resize', collapseInstitutionSidebar);
+
 	const syncThemeAfterNavigation = () => {
 		if (typeof window.applyTheme === 'function' && typeof window.getThemePreference === 'function') {
 			window.applyTheme(window.getThemePreference());

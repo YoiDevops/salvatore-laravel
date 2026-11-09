@@ -403,7 +403,7 @@
 
             <div class="institution-app-content flex min-h-screen min-w-0 flex-1 flex-col">
 
-        <div class="hidden border-b border-[#d8dee8] bg-[#f3f4f5] px-4 py-3 shadow-sm lg:flex dark:border-[#3c4043] dark:bg-[#1e1f20]">
+        <div data-profile-scroll-header class="hidden border-b border-[#d8dee8] bg-[#f3f4f5] px-4 py-3 shadow-sm lg:flex dark:border-[#3c4043] dark:bg-[#1e1f20]">
 
             <flux:sidebar.toggle class="institution-sidebar-expand-toggle" icon="bars-2" aria-label="Abrir barra lateral" />
 
@@ -414,7 +414,7 @@
 
         <!-- Mobile User Menu -->
 
-                <flux:header class="lg:hidden">
+                <flux:header data-profile-scroll-header class="lg:hidden">
 
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 

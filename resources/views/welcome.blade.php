@@ -99,7 +99,7 @@
             @endif
         </header>
 
-        <main class="flex-1 overflow-hidden">
+        <main class="min-w-0 flex-1">
             <section class="relative isolate overflow-hidden bg-[#f5f1e8] transition-colors duration-500 dark:bg-[#121212]">
                 <div class="pointer-events-none absolute inset-0 text-[#111827]/45 dark:text-[#d8b85c]/55" aria-hidden="true">
                     <svg class="absolute -left-20 top-8 h-64 w-64 sm:h-80 sm:w-80" viewBox="0 0 300 300" fill="none">
@@ -157,7 +157,7 @@
                 </div>
             </section>
 
-            <section id="aventura" class="scroll-mt-24 bg-[#fbfaf7] py-14 transition-colors duration-500 dark:bg-[#121212] sm:py-20">
+            <section id="aventura" class="bg-[#fbfaf7] py-14 transition-colors duration-500 dark:bg-[#121212] sm:py-20">
                 <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10">
                     <div class="mx-auto mb-9 max-w-2xl text-center sm:mb-12">
                         <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#9a761f] dark:text-[#e6c96f]">Nuestra aventura de aprendizaje</p>

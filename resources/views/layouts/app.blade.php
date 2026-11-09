@@ -19,7 +19,7 @@
                     }
                 }
             @endphp
-            <div class="profesor-experience" style="position:relative;isolation:isolate;min-height:calc(100vh - 2rem);overflow:hidden;padding:1.25rem 0;">
+            <div class="profesor-experience" style="position:relative;isolation:isolate;min-height:calc(100vh - 2rem);overflow:clip;padding:1.25rem 0;">
                 <div class="profesor-art" aria-hidden="true" style="position:absolute;inset:0;display:block;width:auto;pointer-events:none;">
                     @foreach ($decoraciones as $indice => $imagen)
                         <img loading="lazy" decoding="async" src="{{ asset('images/'.$imagen) }}" alt="" style="position:absolute;top:{{ [8, 27, 49, 70, 88][$indice] }}%;left:{{ [4, 27, 54, 76, 42][$indice] }}%;width:clamp(7rem,10vw,13rem);height:auto;">

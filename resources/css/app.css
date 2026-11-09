@@ -45,6 +45,20 @@
 }
 
 @layer base {
+    [data-profile-scroll-header] {
+        position: sticky;
+        top: 0;
+        z-index: 60;
+        flex-shrink: 0;
+        transform: translateY(0);
+        transition: transform 250ms ease;
+        will-change: transform;
+    }
+
+    html[data-profile-header-hidden] [data-profile-scroll-header] {
+        transform: translateY(-110%);
+        pointer-events: none;
+    }
 
     *,
     ::after,
@@ -817,6 +831,10 @@
         min-width: 0 !important;
     }
 
+    .institution-app-content > [data-flux-main] > * {
+        min-width: 0;
+    }
+
     .institution-sidebar:not([data-flux-sidebar-collapsed-desktop]) {
         width: min(18rem, calc(100vw - 2rem)) !important;
     }
@@ -1301,6 +1319,10 @@ button {
 } */
 
 @media (prefers-reduced-motion: reduce) {
+    [data-profile-scroll-header] {
+        transition: none;
+    }
+
     *,
     *::before,
     *::after {
