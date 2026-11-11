@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rol', function (Blueprint $table) {
             $table->increments('id_rol');
-            $table->enum('nombre_rol', ["Administrador","Profesor","Estudiante"]);
+            $table->string('nombre_rol', 80);
         });
     }
 

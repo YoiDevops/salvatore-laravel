@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Usuarios\Rol;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,23 +11,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-       $this->call(RolTableSeeder::class);
-       $this->call(UsersTableSeeder::class);
-       $this->call(AcudienteTableSeeder::class);
-       $this->call(AreaTableSeeder::class);
-       $this->call(AsignaturaTableSeeder::class);
-       $this->call(CaracterizacionDiscapacidadTableSeeder::class);
-       $this->call(InstitucionTableSeeder::class);
-       $this->call(SedeTableSeeder::class);
-       $this->call(GradoTableSeeder::class);
-       $this->call(CursoTableSeeder::class);
-       $this->call(::class);
-       $this->call(::class);
-       $this->call(::class);
-       $this->call(::class);
-       $this->call(::class);
-       $this->call(::class);
-       
-        $this->call(CursoTableSeeder::class);
+        $this->call([
+            RolTableSeeder::class,
+            UsuariosColegioTableSeeder::class,
+            InstitucionTableSeeder::class,
+            SedeTableSeeder::class,
+            GradoTableSeeder::class,
+            AcudienteTableSeeder::class,
+            CaracterizacionDiscapacidadTableSeeder::class,
+            AreaTableSeeder::class,
+            AsignaturaTableSeeder::class,
+            CursoTableSeeder::class,
+            PeriodoTableSeeder::class,
+            EscalaValoracionTableSeeder::class,
+            IndicadorLogroTableSeeder::class,
+            EstudianteTableSeeder::class,
+            ProfesorTableSeeder::class,
+            SolicitudesTableSeeder::class,
+        ]);
     }
 }

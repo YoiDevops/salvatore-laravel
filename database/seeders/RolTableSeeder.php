@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class RolTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,40 +13,31 @@ class RolTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         \DB::table('rol')->delete();
-        
-        \DB::table('rol')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('rol')->insert([
+            0 => [
                 'id_rol' => 1,
                 'nombre_rol' => 'Invitado',
-            ),
-            1 => 
-            array (
+            ],
+            1 => [
                 'id_rol' => 2,
                 'nombre_rol' => 'Administrador',
-            ),
-            2 => 
-            array (
+            ],
+            2 => [
                 'id_rol' => 3,
                 'nombre_rol' => 'Administrativo',
-            ),
-            3 => 
-            array (
+            ],
+            3 => [
                 'id_rol' => 4,
-                'nombre_rol' => 'Profesor
-',
-            ),
-            4 => 
-            array (
+                'nombre_rol' => 'Profesor',
+            ],
+            4 => [
                 'id_rol' => 5,
-                'nombre_rol' => 'Estudiante
-',
-            ),
-        ));
-        
-        
+                'nombre_rol' => 'Estudiante',
+            ],
+        ]);
+
     }
 }
