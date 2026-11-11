@@ -13,8 +13,8 @@
     <style>
         html:has(.student-board) body,
         html:has(.student-board) .institution-app-content,
-        html:has(.student-board) .institution-app-content > [data-flux-main] {
-            background: #f3edff !important;
+        html:has(.student-board) .institution-app-content > .min-w-0.flex-1 > [data-flux-main] {
+            background: #fffdf7 !important;
             color: #3e2f55 !important;
         }
 
@@ -57,36 +57,34 @@
             position: sticky !important;
             top: 0 !important;
             z-index: 50;
-            width: 100vw;
-            max-width: 100vw;
-            margin-left: calc(50% - 50vw);
+            width: 100%;
+            max-width: 100%;
+            margin-left: 0;
             margin-top: 0 !important;
-            border-bottom: 0;
-            background: #ffffff;
+            border: 0;
+            background: #f3edff;
             box-shadow: none;
         }
 
         html:has(.student-board) .institution-app-content {
             position: relative;
+            width: 100%;
+            min-width: 0;
         }
 
-        html:has(.student-board) .institution-app-content > [data-flux-main] {
-            padding-top: 0 !important;
-            padding-right: 0 !important;
-            padding-left: 0 !important;
+        html:has(.student-board) .institution-app-content > .min-w-0.flex-1 {
+            min-width: 0;
+        }
+
+        html:has(.student-board) .institution-app-content > .min-w-0.flex-1 > [data-flux-main] {
+            width: 100%;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: visible;
         }
 
         html:has(.student-board) .student-headbar::after {
-            position: absolute;
-            z-index: -1;
-            right: 0;
-            bottom: -2rem;
-            left: 0;
-            height: 3rem;
-            content: '';
-            background: #ffffff;
-            clip-path: ellipse(76% 100% at 50% 0%);
-            pointer-events: none;
+            display: none;
         }
 
         html:has(.student-board) .student-headbar-inner {
@@ -94,73 +92,43 @@
             z-index: 1;
         }
 
-        /* En el portal infantil, la navegación se convierte en una cabecera horizontal. */
         .student-board {
             position: relative;
             isolation: isolate;
+            width: 100%;
             min-height: 100%;
-            overflow: visible;
-            padding-top: 0;
-            background: #f3edff;
+            overflow-x: clip;
+            padding: 0 0 2rem;
+            background: #fffdf7;
             color: #3e2f55;
             font-family: 'Nunito', 'Comic Sans MS', ui-rounded, system-ui, sans-serif;
         }
 
         .student-board::before,
-        .student-board::after {
-            position: absolute;
-            
-            z-index: 0;
-            content: '';
-            pointer-events: none;
-            border-radius: 999px;
-        }
-
-        .student-board::before {
-            top: 7rem;
-            right: -8rem;
-            width: 26rem;
-            height: 26rem;
-            background: #c9b5eb;
-            box-shadow: -38rem 31rem 0 2rem #b8dfd0;
-            opacity: .7;
-        }
-
-        .student-board::after {
-            bottom: -8rem;
-            left: 12%;
-            width: 18rem;
-            height: 18rem;
-            background: #e8cd79;
-            opacity: .7;
-        }
-
+        .student-board::after,
         .student-doodles {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
+            display: none;
         }
-
-        .student-doodles span { position: absolute; color: #8062ad; font-size: 2rem; opacity: .65; }
-        .student-doodles span:nth-child(1) { top: 8%; left: 7%; color: #a76fc4; transform: rotate(-18deg); }
-        .student-doodles span:nth-child(2) { top: 28%; right: 8%; color: #4f9e91; transform: rotate(15deg); }
-        .student-doodles span:nth-child(3) { top: 56%; left: 5%; color: #d39e3a; transform: rotate(14deg); }
-        .student-doodles span:nth-child(4) { bottom: 12%; right: 12%; color: #c66d76; transform: rotate(-12deg); }
-        .student-doodles span:nth-child(5) { top: 45%; left: 48%; color: #8062ad; opacity: .55; }
 
         .student-board > .relative {
             position: relative;
             z-index: 1;
             display: flex;
+            width: 100%;
+            max-width: none;
             flex-direction: column;
-            gap: 2.5rem;
+            gap: 2rem;
         }
 
         .student-board > .relative > * {
             margin-top: 0 !important;
             margin-bottom: 0 !important;
+        }
+
+        .student-board > .relative > :not(.student-image-container) {
+            width: auto;
+            margin-right: clamp(1rem, 4vw, 4rem) !important;
+            margin-left: clamp(1rem, 4vw, 4rem) !important;
         }
 
         .student-board > .relative > section.grid {
@@ -181,32 +149,47 @@
 
         .student-image-container {
             position: relative;
-            width: 100%;
-            max-width: 72rem;
-            flex: 0 1 72rem;
-            margin-inline: auto;
-            aspect-ratio: auto;
-            height: auto;
-            min-height: clamp(20rem, 23vw, 22rem);
             display: flex;
+            width: 100%;
+            min-height: clamp(15rem, 18vw, 20rem);
             align-items: center;
             isolation: isolate;
-            background: linear-gradient(135deg, #fbf9ff 0%, #eee5ff 100%);
-            border: 2px solid #d7c7f0;
-            border-radius: 0 0 2.75rem 2.75rem;
-            box-shadow: 5px 5px 0 rgba(95, 72, 139, .12);
+            padding: clamp(2rem, 4vw, 3rem) clamp(1.25rem, 5vw, 5rem);
+            border: 0;
+            border-radius: 0;
+            background-color: #e9defb;
+            background-image:
+                radial-gradient(ellipse 24rem 5rem at 12% 105%, rgba(255, 255, 255, .58) 0 98%, transparent 100%),
+                radial-gradient(ellipse 32rem 5.5rem at 54% 107%, rgba(255, 255, 255, .5) 0 98%, transparent 100%),
+                radial-gradient(ellipse 24rem 5rem at 94% 105%, rgba(255, 255, 255, .56) 0 98%, transparent 100%),
+                linear-gradient(160deg, #f3edff 0%, #e8dcfa 55%, #ded0f5 100%);
+            box-shadow: none;
         }
 
         .student-image-content {
-            display: flex;
-            width: 100%;
-            max-width: 60rem;
-            flex-direction: column;
-            align-items: center;
-            margin-inline: auto;
             position: relative;
             z-index: 2;
-            text-align: center;
+            display: flex;
+            width: min(100%, 78rem);
+            max-width: none;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-inline: auto;
+            text-align: left;
+        }
+
+        .student-board > .relative > section:has(.student-subject-grid) {
+            border: 0;
+            border-radius: 0;
+            background: transparent !important;
+            box-shadow: none;
+            padding: 0;
+        }
+
+        .student-board > .relative > section:has(.student-subject-grid) > div:first-child {
+            border: 0;
+            flex-wrap: nowrap;
+            padding-bottom: 0;
         }
 
         .student-panel-small {
@@ -220,19 +203,35 @@
         @media (prefers-reduced-motion: reduce) { .student-subject { transition: none; } }
     </style>
 
-    <div class="student-board px-3 py-5 sm:px-6 sm:py-8">
+    <div class="student-board">
         <div class="student-doodles" aria-hidden="true"><span>✦</span><span>✎</span><span>✿</span><span>★</span><span>• • •</span></div>
 
-        <div class="relative mx-auto max-w-6xl space-y-10">
-            <section class="student-image-container overflow-hidden p-7 sm:p-10">
+        <div class="relative">
+            <section class="student-image-container overflow-hidden">
                 <div class="student-image-content max-w-3xl">
                     <p class="text-sm font-black uppercase tracking-[.18em] text-[#69518f]">Mi rinc&oacute;n escolar</p>
                     <h1 class="mt-4 text-4xl font-black leading-tight tracking-tight text-[#3e2f55] sm:text-6xl">&iexcl;Hola, {{ $estudiante?->nombres_estudiante ?? auth()->user()->name }}!</h1>
-                    <p class="mt-4 max-w-2xl text-lg font-bold leading-7 text-[#5e4a78] sm:text-xl">Aqu&iacute; puedes mirar tu curso, tus materias y tus notas.</p>
-                    <div class="mt-7 inline-flex items-center gap-3 rounded-xl border-2 border-[#b6a0e0] bg-[#f8f4ff] px-4 py-3 font-black text-[#503b70] shadow-[4px_4px_0_#b6a0e0]">
-                        <span class="text-2xl">🌟</span>
-                        <span>Un lugar para aprender y crecer</span>
-                    </div>
+                    <p class="mt-3 max-w-3xl text-lg font-bold leading-7 text-[#5e4a78] sm:text-xl">Bienvenido a tu espacio personal de aprendizaje. Aqu&iacute; puedes encontrar tu curso, tus materias y tu progreso.</p>
+                </div>
+            </section>
+
+            <section class="student-panel bg-[#fffdf7] p-6 sm:p-8">
+                <div class="flex flex-wrap items-end justify-between gap-4 border-b-2 border-dashed border-[#d7c7f0] pb-5">
+                    <div><p class="text-sm font-black uppercase tracking-[.18em] text-[#7959aa]">Lo que estoy aprendiendo</p><h2 class="mt-2 text-3xl font-black text-[#3e2f55] sm:text-4xl">Mis materias</h2></div>
+                    <span class="text-5xl">📚</span>
+                </div>
+                <div class="student-subject-grid mt-6 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+                    @forelse ($asignaturas as $indice => $asignatura)
+                        @php($color = $coloresMaterias[$indice % count($coloresMaterias)])
+                        <article class="student-subject student-panel-small border-2 p-5" style="background: {{ $color['fondo'] }}; border-color: {{ $color['borde'] }}">
+                            <div class="flex items-start justify-between gap-3"><span class="flex size-12 items-center justify-center rounded-xl bg-white/75 text-2xl">{{ $color['icono'] }}</span><span class="rounded-lg bg-white/75 px-2 py-1 text-[11px] font-black" style="color: {{ $color['texto'] }}">MATERIA</span></div>
+                            <h3 class="mt-5 text-xl font-black" style="color: {{ $color['texto'] }}">{{ $asignatura->nombre_asignatura }}</h3>
+                            @if ($asignatura->area?->nombre_area)<p class="mt-2 text-sm font-bold opacity-80" style="color: {{ $color['texto'] }}">&Aacute;rea: {{ $asignatura->area->nombre_area }}</p>@endif
+                            <p class="mt-4 text-xs font-black opacity-70" style="color: {{ $color['texto'] }}">{{ $asignatura->intensidad_horaria }} horas</p>
+                        </article>
+                    @empty
+                        <p class="rounded-xl bg-[#f3edff] p-5 font-semibold text-[#69518f] sm:col-span-2 lg:col-span-3">A&uacute;n no hay materias registradas.</p>
+                    @endforelse
                 </div>
             </section>
 
@@ -263,26 +262,6 @@
                     </article>
                 </section>
             @endif
-
-            <section class="student-panel bg-[#fffdf7] p-6 sm:p-8">
-                <div class="flex flex-wrap items-end justify-between gap-4 border-b-2 border-dashed border-[#d7c7f0] pb-5">
-                    <div><p class="text-sm font-black uppercase tracking-[.18em] text-[#7959aa]">Lo que estoy aprendiendo</p><h2 class="mt-2 text-3xl font-black text-[#3e2f55] sm:text-4xl">Mis materias</h2></div>
-                    <span class="text-5xl">📚</span>
-                </div>
-                <div class="student-subject-grid mt-6 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
-                    @forelse ($asignaturas as $indice => $asignatura)
-                        @php($color = $coloresMaterias[$indice % count($coloresMaterias)])
-                        <article class="student-subject student-panel-small border-2 p-5" style="background: {{ $color['fondo'] }}; border-color: {{ $color['borde'] }}">
-                            <div class="flex items-start justify-between gap-3"><span class="flex size-12 items-center justify-center rounded-xl bg-white/75 text-2xl">{{ $color['icono'] }}</span><span class="rounded-lg bg-white/75 px-2 py-1 text-[11px] font-black" style="color: {{ $color['texto'] }}">MATERIA</span></div>
-                            <h3 class="mt-5 text-xl font-black" style="color: {{ $color['texto'] }}">{{ $asignatura->nombre_asignatura }}</h3>
-                            @if ($asignatura->area?->nombre_area)<p class="mt-2 text-sm font-bold opacity-80" style="color: {{ $color['texto'] }}">&Aacute;rea: {{ $asignatura->area->nombre_area }}</p>@endif
-                            <p class="mt-4 text-xs font-black opacity-70" style="color: {{ $color['texto'] }}">{{ $asignatura->intensidad_horaria }} horas</p>
-                        </article>
-                    @empty
-                        <p class="rounded-xl bg-[#f3edff] p-5 font-semibold text-[#69518f] sm:col-span-2 lg:col-span-3">A&uacute;n no hay materias registradas.</p>
-                    @endforelse
-                </div>
-            </section>
 
             <section class="student-panel bg-[#fff2bd] p-6 sm:p-8">
                 <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">

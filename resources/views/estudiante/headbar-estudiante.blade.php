@@ -95,18 +95,20 @@
     }
 
     .student-headbar-brand-mark {
-        display: flex;
-        width: 2.75rem;
-        height: 2.75rem;
+        display: inline-flex;
+        width: 3.25rem;
+        height: 3.25rem;
+        flex: 0 0 auto;
         align-items: center;
         justify-content: center;
-        border: 2px solid #a98ce3;
-        border-radius: .9rem 1.4rem .9rem 1.4rem;
-        background: #c6afea;
-        box-shadow: 4px 4px 0 #a98ce3;
     }
 
-    .student-headbar-brand-mark img { width: 2rem; height: 2rem; object-fit: contain; }
+    .student-headbar-brand-mark img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
     .student-headbar-brand-text { display: grid; line-height: 1.05; }
     .student-headbar-brand-text small { color: #8069a5; font-size: .68rem; font-weight: 800; }
     .student-headbar-brand-text strong { color: #493769; font-size: 1.05rem; font-weight: 950; }
