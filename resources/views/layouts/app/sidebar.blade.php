@@ -194,8 +194,8 @@
                                     ['grados.index', 'Grados', 'bookmark'],
                                     ['asignaturas.index', 'Asignaturas', 'book-open'],
                                 ]);
-                                 $gestionItems[] = ['administrativo.solicitudes.index', 'Solicitudes', 'inbox-arrow-down'];
-                                 $gestionItems[] = ['administrativo.archivos-excel.index', 'Archivos Excel', 'document-arrow-up'];
+                                 $gestionItems[] = ['administrativo.solicitudes.index', 'Solicitudes en espera', 'inbox-arrow-down'];
+                                 $gestionItems[] = ['administrativo.archivos-excel.index', 'Todas las solicitudes', 'document-text'];
                             }
                         @endphp
 
@@ -304,12 +304,12 @@
                             Usuarios
                         </flux:sidebar.item>
 
-                        <flux:sidebar.item class="pl-9" icon="inbox-arrow-down" :href="route('administrativo.solicitudes.index')" :current="request()->routeIs('administrativo.solicitudes.*')" wire:navigate.hover>
-                            Solicitudes
+                        <flux:sidebar.item class="pl-9" icon="inbox-arrow-down" :href="route('administrativo.solicitudes.index')" :current="request()->routeIs('administrativo.solicitudes.index')" wire:navigate.hover>
+                            Solicitudes en espera
                         </flux:sidebar.item>
 
-                        <flux:sidebar.item class="pl-9" icon="document-arrow-up" :href="route('administrativo.archivos-excel.index')" :current="request()->routeIs('administrativo.archivos-excel.*')" wire:navigate.hover>
-                            Archivos Excel
+                        <flux:sidebar.item class="pl-9" icon="document-text" :href="route('administrativo.archivos-excel.index')" :current="request()->routeIs('administrativo.archivos-excel.*')" wire:navigate.hover>
+                            Todas las solicitudes
                         </flux:sidebar.item>
                     </flux:sidebar.group>
                 @endif

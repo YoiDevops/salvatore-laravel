@@ -18,7 +18,7 @@ return new class extends Migration
                 $table->string('acudiente_'.$field, 150)->nullable();
             }
             $table->date('acudiente_fecha_nacimiento')->nullable();
-            $table->string('estado_solicitud', 30)->default('Pendiente');
+            $table->string('estado', 20)->default('en espera');
             $table->timestamps();
             $table->index('estudiante_numero_documento');
         });
