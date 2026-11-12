@@ -31,8 +31,14 @@ require __DIR__.'/settings.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
-        if (strtolower((string) auth()->user()?->effective_role) === 'estudiante') {
+        $role = strtolower((string) auth()->user()?->effective_role);
+
+        if ($role === 'estudiante') {
             return redirect()->route('estudiante.dashboard');
+        }
+
+        if ($role === 'administrador') {
+            return redirect()->route('dashboardAdmin');
         }
 
         return view('dashboard');

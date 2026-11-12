@@ -41,7 +41,7 @@
 	const collapseInstitutionSidebar = () => {
 		const sidebar = document.querySelector('.institution-sidebar');
 
-		if (!sidebar || !window.matchMedia('(min-width: 1024px)').matches) {
+		if (!sidebar || sidebar.classList.contains('institution-sidebar-always-open') || !window.matchMedia('(min-width: 1024px)').matches) {
 			return;
 		}
 

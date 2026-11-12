@@ -10,9 +10,13 @@
 
     <body class="min-h-screen overflow-x-hidden bg-[#f5f6f8] text-[#27313a] dark:bg-[#121212] dark:text-zinc-100">
 
+        @php
+            $rolActual = strtolower((string) auth()->user()?->effective_role);
+        @endphp
+
         <div class="flex min-h-screen w-full">
 
-            <flux:sidebar sticky collapsible="true" persist="false" class="institution-sidebar sticky min-h-screen shrink-0 border-e border-[#d8dee8] bg-white text-[#27313a] dark:border-[#3c4043] dark:bg-[#1e1f20] dark:text-white">
+            <flux:sidebar sticky collapsible="true" persist="false" class="institution-sidebar {{ $rolActual === 'administrador' ? 'institution-sidebar-always-open' : '' }} sticky min-h-screen shrink-0 border-e border-[#d8dee8] bg-white text-[#27313a] dark:border-[#3c4043] dark:bg-[#1e1f20] dark:text-white">
 
             <flux:sidebar.header>
 
@@ -22,17 +26,9 @@
 
             </flux:sidebar.header>
 
-
-
-            @php
-                $rolActual = strtolower((string) auth()->user()?->effective_role);
-            @endphp
-
-
-
             <flux:sidebar.nav>
 
-                @if ($rolActual !== 'estudiante')
+                @if (! in_array($rolActual, ['estudiante', 'administrador'], true))
                     <flux:sidebar.group heading="INSTITUCION" class="grid text-[#c7d0df]">
                         <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate.hover title="Inicio">
                             Inicio
@@ -192,8 +188,6 @@
                                     ['grados.index', 'Grados', 'bookmark'],
                                     ['asignaturas.index', 'Asignaturas', 'book-open'],
                                 ]);
-                                 $gestionItems[] = ['administrativo.solicitudes.index', 'Solicitudes', 'inbox-arrow-down'];
-                                 $gestionItems[] = ['administrativo.archivos-excel.index', 'Archivos Excel', 'document-arrow-up'];
                             }
                         @endphp
 
@@ -322,7 +316,7 @@
             </flux:sidebar.nav>
 
             <div class="institution-sidebar-collapsed-nav" aria-label="Navegacion compacta">
-                @if ($rolActual !== 'estudiante')
+                @if (! in_array($rolActual, ['estudiante', 'administrador'], true))
                     <flux:tooltip content="Inicio" position="right">
                         <a href="{{ route('dashboard') }}" wire:navigate.hover title="Inicio">
                             <flux:icon name="home" class="size-5" />

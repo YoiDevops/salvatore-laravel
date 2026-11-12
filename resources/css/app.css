@@ -839,6 +839,10 @@
         width: min(18rem, calc(100vw - 2rem)) !important;
     }
 
+    .institution-sidebar-always-open [data-flux-sidebar-collapse] {
+        display: none !important;
+    }
+
     .institution-sidebar [data-flux-sidebar-header] {
         gap: 0.5rem;
     }

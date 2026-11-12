@@ -16,7 +16,7 @@ class DashboardTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    public function test_non_student_users_can_visit_the_general_dashboard(): void
+    public function test_administrators_are_redirected_to_their_administrative_dashboard(): void
     {
         $user = User::factory()->admin()->create();
 
@@ -24,7 +24,24 @@ class DashboardTest extends TestCase
             ->actingAs($user)
             ->get(route('dashboard'));
 
+        $response->assertRedirect(route('dashboardAdmin'));
+    }
+
+    public function test_administrative_dashboard_shows_its_hero_and_management_actions(): void
+    {
+        $user = User::factory()->admin()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->get(route('dashboardAdmin'));
+
         $response->assertOk();
+        $response->assertSee('Bienvenido al panel administrativo');
+        $response->assertSee('alt="Aula de la Institución Educativa Salvatore"', false);
+        $response->assertSee('institution-sidebar-always-open');
+        $response->assertDontSee('title="Inicio"', false);
+        $response->assertDontSee(route('administrativo.solicitudes.index'), false);
+        $response->assertDontSee(route('administrativo.archivos-excel.index'), false);
     }
 
     public function test_students_are_redirected_to_their_portal_from_the_general_dashboard(): void
@@ -44,7 +61,7 @@ class DashboardTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->get(route('dashboard'));
+            ->get(route('dashboardAdmin'));
 
         $response->assertOk();
         $this->assertStringNotContainsString('class="dark"', $response->getContent());
