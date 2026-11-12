@@ -987,6 +987,61 @@
         background-color: rgba(196, 154, 53, 0.15);
         color: #f8ebc4;
     }
+
+    /* Debe permanecer dentro de la misma capa que las reglas institucionales para
+       que esta paleta estudiantil gane a los !important del tema oscuro. */
+    html:has(.student-profile-settings) .student-profile-sidebar,
+    html.dark:has(.student-profile-settings) .student-profile-sidebar {
+        border-color: #cbb9ea !important;
+        background: #f3edff !important;
+        color: #493769 !important;
+    }
+
+    html:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-item],
+    html.dark:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-item] {
+        border-color: #cbb9ea !important;
+        background: #ffffff !important;
+        color: #5b467d !important;
+        box-shadow: none !important;
+    }
+
+    html:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-item]:hover,
+    html:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-item][data-active],
+    html.dark:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-item]:hover,
+    html.dark:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-item][data-active] {
+        border-color: #ad92dc !important;
+        background: #e1d5f8 !important;
+        color: #493769 !important;
+        box-shadow: 0 3px 0 rgba(95, 72, 139, .1) !important;
+    }
+
+    html:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-group] > div > div,
+    html.dark:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-group] > div > div,
+    html:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-brand],
+    html.dark:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-brand],
+    html:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-brand] > div:last-of-type,
+    html.dark:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-brand] > div:last-of-type {
+        color: #493769 !important;
+    }
+
+    html:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-collapse],
+    html.dark:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-collapse] {
+        border-color: #cbb9ea !important;
+        background: #ffffff !important;
+        color: #493769 !important;
+    }
+
+    html:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-collapse] button,
+    html.dark:has(.student-profile-settings) .student-profile-sidebar [data-flux-sidebar-collapse] button {
+        border-color: #cbb9ea !important;
+        background: #ffffff !important;
+        color: #493769 !important;
+    }
+
+    html:has(.student-profile-settings) .student-profile-sidebar .border-white\/10,
+    html.dark:has(.student-profile-settings) .student-profile-sidebar .border-white\/10 {
+        border-color: #cbb9ea !important;
+    }
 }
 
 [data-flux-field]:not(ui-radio, ui-checkbox) {

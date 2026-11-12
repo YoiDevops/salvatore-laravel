@@ -12,7 +12,12 @@
 
         <div class="flex min-h-screen w-full">
 
-            <flux:sidebar sticky collapsible="true" persist="false" class="institution-sidebar sticky min-h-screen shrink-0 border-e border-[#d8dee8] bg-white text-[#27313a] dark:border-[#3c4043] dark:bg-[#1e1f20] dark:text-white">
+            @php
+                $esPerfilEstudiante = in_array(strtolower((string) auth()->user()?->effective_role), ['estudiante', '3'], true)
+                    && request()->routeIs('profile.edit', 'profile.student');
+            @endphp
+
+            <flux:sidebar sticky collapsible="true" persist="false" class="{{ $esPerfilEstudiante ? 'student-profile-sidebar' : '' }} institution-sidebar sticky min-h-screen shrink-0 border-e {{ $esPerfilEstudiante ? 'border-[#d7c7f0] bg-[#fffdf7] text-[#493769]' : 'border-[#d8dee8] bg-white text-[#27313a] dark:border-[#3c4043] dark:bg-[#1e1f20] dark:text-white' }}">
 
             <flux:sidebar.header>
 
@@ -289,7 +294,7 @@
                 @elseif ($rolActual === 'estudiante')
                     <flux:sidebar.group heading="MI ESPACIO" class="grid text-[#c7d0df]">
                         <flux:sidebar.item icon="academic-cap" :href="route('estudiante.dashboard')" :current="request()->routeIs('estudiante.dashboard')" wire:navigate.hover>
-                            Mi información
+                            Mi espacio
                         </flux:sidebar.item>
                     </flux:sidebar.group>
 
@@ -367,8 +372,8 @@
                         <span role="button" tabindex="0" x-on:click="$dispatch('flux-sidebar-toggle')" title="Administracion"><flux:icon name="cog-6-tooth" class="size-5" /></span>
                     </flux:tooltip>
                 @elseif ($rolActual === 'estudiante')
-                    <flux:tooltip content="Mi información" position="right">
-                        <a href="{{ route('estudiante.dashboard') }}" wire:navigate.hover title="Mi información">
+                    <flux:tooltip content="Mi espacio" position="right">
+                        <a class="student-space-sidebar-item" style="background-color: #ffffff !important; border: 1px solid #cbb9ea !important; color: #5b467d !important; box-shadow: none !important;" href="{{ route('estudiante.dashboard') }}" wire:navigate.hover title="Mi espacio">
                             <flux:icon name="academic-cap" class="size-5" />
                         </a>
                     </flux:tooltip>

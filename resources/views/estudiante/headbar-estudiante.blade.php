@@ -149,14 +149,14 @@
         min-width: max-content;
         align-items: center;
         gap: .55rem;
-        border: 2px solid #ad92dc;
+        border: 2px solid #ffffff;
         border-radius: 999px;
-        background: #e1d5f8;
+        background: #ffffff;
         color: #493769;
         padding: .35rem .75rem .35rem .4rem;
         font-size: .82rem;
         font-weight: 900;
-        box-shadow: 0 4px 0 rgba(95, 72, 139, .14);
+        box-shadow: 0 4px 0 rgba(73, 55, 105, .14);
     }
 
     .student-headbar-account-mark {
@@ -165,16 +165,16 @@
         height: 2rem;
         align-items: center;
         justify-content: center;
-        border: 2px solid #a98ce3;
+        border: 2px solid #e5e7eb;
         border-radius: 50%;
-        background: #c6afea;
+        background: #ffffff;
         color: #503477;
         font-size: .72rem;
     }
 
     .student-headbar-account-menu {
-        border-color: #cbb9ea !important;
-        background: #fbf9ff !important;
+        border-color: #e5e7eb !important;
+        background: #ffffff !important;
         color: #493769 !important;
     }
 
@@ -184,7 +184,7 @@
 
     .student-headbar-account-menu [data-flux-menu-item]:hover,
     .student-headbar-account-menu [data-flux-menu-item]:focus {
-        background: #e9defb !important;
+        background: #f3f4f6 !important;
         color: #35234f !important;
     }
 
@@ -213,9 +213,10 @@
                 <span aria-hidden="true">⌄</span>
             </button>
             <flux:menu class="student-headbar-account-menu">
-                <div class="px-3 py-2 text-sm font-bold text-[#493769]">{{ auth()->user()->email }}</div>
+                <div class="px-3 pt-2 text-sm font-black text-[#493769]">{{ $nombrePerfilEstudiante }}</div>
+                <div class="px-3 pb-2 text-xs font-semibold text-[#6b7280]">{{ auth()->user()->email }}</div>
                 <flux:menu.separator />
-                <flux:menu.item :href="route('profile.edit')" icon="cog-6-tooth" wire:navigate>Configuraci&oacute;n</flux:menu.item>
+                <flux:menu.item :href="route('profile.student')" icon="cog-6-tooth" wire:navigate>Configuraci&oacute;n</flux:menu.item>
                 <form method="POST" action="{{ route('logout') }}" class="w-full">
                     @csrf
                     <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full cursor-pointer">Cerrar sesi&oacute;n</flux:menu.item>
