@@ -32,18 +32,6 @@
 
             <flux:sidebar.nav>
 
-                <flux:sidebar.group heading="INSTITUCION" class="grid text-[#c7d0df]">
-
-<flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate.hover title="Inicio">
-
-                        Inicio
-
-                    </flux:sidebar.item>
-
-                </flux:sidebar.group>
-
-
-
                 @if ($rolActual === 'profesor')
 
                     {{-- GESTION ACADEMICA: todo anidado y escalonado hacia la derecha,
@@ -317,12 +305,6 @@
             </flux:sidebar.nav>
 
             <div class="institution-sidebar-collapsed-nav" aria-label="Navegacion compacta">
-                <flux:tooltip content="Inicio" position="right">
-                    <a href="{{ route('dashboard') }}" wire:navigate.hover title="Inicio">
-                        <flux:icon name="home" class="size-5" />
-                    </a>
-                </flux:tooltip>
-
                 @if ($rolActual === 'profesor')
                     <flux:tooltip content="Panel del docente" position="right">
                         <a href="{{ route('profesor.dashboard') }}" wire:navigate.hover title="Panel del docente">

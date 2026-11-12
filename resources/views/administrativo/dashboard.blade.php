@@ -7,6 +7,16 @@
                 <flux:subheading class="mt-1">Crea y administra las cuentas de profesores y estudiantes.</flux:subheading>
             </div>
 
+            <section class="relative isolate min-h-56 w-full overflow-hidden rounded-2xl bg-[#27313a] shadow-lg dark:bg-[#121212] sm:min-h-64">
+                <img src="{{ asset('images/aventura-salvatore.jpg') }}" alt="Niños compartiendo una actividad de aprendizaje" class="absolute inset-0 -z-20 size-full object-cover object-center opacity-75" />
+                <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#172028]/95 via-[#27313a]/65 to-[#27313a]/15 dark:from-[#121212]/95 dark:via-[#121212]/75 dark:to-[#121212]/35"></div>
+                <div class="flex min-h-56 w-full max-w-3xl flex-col justify-center p-6 text-white sm:min-h-64 sm:p-8">
+                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#e2c66f]">Comunidad educativa</p>
+                    <h2 class="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Una comunidad que aprende y crece unida.</h2>
+                    <p class="mt-3 max-w-md text-sm leading-6 text-white/80">Organiza las cuentas institucionales y acompaña el crecimiento de estudiantes y profesores.</p>
+                </div>
+            </section>
+
             <div class="grid gap-5 sm:grid-cols-3">
                 @foreach ([['Usuarios registrados', $totalUsuarios, 'users'], ['Profesores', $totalProfesores, 'user-group'], ['Estudiantes', $totalEstudiantes, 'academic-cap']] as [$label, $total, $icon])
                     <div class="rounded-2xl border border-[#e5e7eb] bg-white p-6 shadow-sm dark:border-[#3c4043] dark:bg-[#1e1f20]">

@@ -29,7 +29,14 @@ Volt::route('/formulario', 'formulario')->name('formulario');
 require __DIR__.'/settings.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', function () {
+        return match (strtolower((string) auth()->user()?->effective_role)) {
+            'administrador' => redirect()->route('dashboardAdmin'),
+            'administrativo' => redirect()->route('dashboardAdministrativo'),
+            'profesor' => redirect()->route('profesor.dashboard'),
+            default => view('dashboard'),
+        };
+    })->name('dashboard');
 
     Route::view('administrador/dashboard', 'administrador.dashboardAdmin')
         ->middleware('role:Administrador')
