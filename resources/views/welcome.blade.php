@@ -13,15 +13,6 @@
         @include('partials.theme')
 
         <style>
-            .welcome-twinkle {
-                animation: welcome-twinkle 4s ease-in-out infinite alternate;
-            }
-
-            @keyframes welcome-twinkle {
-                from { opacity: 0.3; }
-                to { opacity: 0.95; }
-            }
-
             @media (prefers-reduced-motion: reduce) {
                 *,
                 *::before,
@@ -46,6 +37,13 @@
                     </span>
                 </a>
 
+                <nav class="hidden items-center gap-6 text-sm font-medium text-[#59636c] lg:flex dark:text-zinc-300" aria-label="Secciones de la página">
+                    <a href="#inicio" class="transition hover:text-[#9a761f] dark:hover:text-[#e6c96f]">Inicio</a>
+                    <a href="#propuesta" class="transition hover:text-[#9a761f] dark:hover:text-[#e6c96f]">Nuestra propuesta</a>
+                    <a href="#experiencias" class="transition hover:text-[#9a761f] dark:hover:text-[#e6c96f]">Experiencias</a>
+                    <a href="#contacto" class="transition hover:text-[#9a761f] dark:hover:text-[#e6c96f]">Contacto</a>
+                </nav>
+
                 <div class="flex shrink-0 items-center gap-1.5 sm:gap-3">
                     <button id="theme-toggle" type="button" aria-label="Cambiar tema" class="inline-flex size-10 items-center justify-center rounded-full text-[#59636c] transition hover:bg-[#f3eee4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d6ad4b] dark:text-zinc-300 dark:hover:bg-[#2b2c2e]">
                         <svg id="theme-toggle-dark-icon" class="hidden size-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -66,7 +64,7 @@
                                 <a href="{{ route('login') }}" class="inline-flex min-h-10 items-center rounded-full px-4 text-[#46515b] transition hover:bg-[#f3eee4] dark:text-zinc-200 dark:hover:bg-[#2b2c2e]">
                                     Ingresar
                                 </a>
-                                @if (Route::has('register'))
+                                @if (Route::has('formulario'))
                                     <a href="{{ route('formulario') }}" class="inline-flex min-h-10 items-center rounded-full bg-[#d8b85c] px-5 font-semibold text-[#27313a] shadow-sm transition hover:-translate-y-0.5 hover:bg-[#e6c96f]">
                                         Registrarse
                                     </a>
@@ -86,12 +84,16 @@
             @if (Route::has('login'))
                 <div id="mobile-menu-panel" class="absolute inset-x-0 top-full hidden border-b border-[#eee8dc] bg-[#fffdf8] px-4 pb-4 shadow-xl dark:border-[#3c4043] dark:bg-[#1e1f20] sm:hidden">
                     <nav class="mx-auto flex w-full max-w-7xl flex-col gap-2 pt-3 text-sm font-semibold" aria-label="Navegación móvil">
+                        <a href="#inicio" class="rounded-2xl px-4 py-3 text-center transition hover:bg-[#f3eee4] dark:hover:bg-[#2b2c2e]">Inicio</a>
+                        <a href="#propuesta" class="rounded-2xl px-4 py-3 text-center transition hover:bg-[#f3eee4] dark:hover:bg-[#2b2c2e]">Nuestra propuesta</a>
+                        <a href="#experiencias" class="rounded-2xl px-4 py-3 text-center transition hover:bg-[#f3eee4] dark:hover:bg-[#2b2c2e]">Experiencias</a>
+                        <a href="#contacto" class="rounded-2xl px-4 py-3 text-center transition hover:bg-[#f3eee4] dark:hover:bg-[#2b2c2e]">Contacto</a>
                         @auth
                             <a href="{{ route('dashboard') }}" class="rounded-2xl border border-[#e7dfd0] px-4 py-3 text-center dark:border-[#3c4043]">Panel principal</a>
                         @else
                             <a href="{{ route('login') }}" class="rounded-2xl px-4 py-3 text-center transition hover:bg-[#f3eee4] dark:hover:bg-[#2b2c2e]">Ingresar</a>
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="rounded-2xl bg-[#d8b85c] px-4 py-3 text-center text-[#27313a] transition hover:bg-[#e6c96f]">Registrarse</a>
+                            @if (Route::has('formulario'))
+                                <a href="{{ route('formulario') }}" class="rounded-2xl bg-[#d8b85c] px-4 py-3 text-center text-[#27313a] transition hover:bg-[#e6c96f]">Registrarse</a>
                             @endif
                         @endauth
                     </nav>
@@ -99,130 +101,122 @@
             @endif
         </header>
 
-        <main class="flex-1 overflow-hidden">
-            <section class="relative isolate overflow-hidden bg-[#f5f1e8] transition-colors duration-500 dark:bg-[#121212]">
-                <div class="pointer-events-none absolute inset-0 text-[#111827]/45 dark:text-[#d8b85c]/55" aria-hidden="true">
-                    <svg class="absolute -left-20 top-8 h-64 w-64 sm:h-80 sm:w-80" viewBox="0 0 300 300" fill="none">
-                        <path d="m20 115 63-43 57 52 54-76 75 50m-129 26 7 83 54-83 68-26" stroke="currentColor" stroke-width="1.4"/>
-                        <g fill="currentColor"><circle cx="20" cy="115" r="3"/><circle cx="83" cy="72" r="3"/><circle cx="140" cy="124" r="3"/><circle cx="194" cy="48" r="3"/><circle cx="269" cy="98" r="3"/><circle cx="147" cy="207" r="2"/></g>
-                    </svg>
-                    <svg class="absolute -right-12 top-2 h-60 w-60 sm:right-[8%] sm:top-5 sm:h-80 sm:w-80" viewBox="0 0 300 300" fill="none">
-                        <path d="m30 123 48-72 52 46 61-37 79 64-54 74-69-32-63 45-54-88Z" stroke="currentColor" stroke-width="1.3"/>
-                        <path d="m78 51 52 46 61-37-44 106 69 32m-123-85-9 133" stroke="currentColor" stroke-width="1.3"/>
-                        <g fill="currentColor"><circle cx="30" cy="123" r="3"/><circle cx="78" cy="51" r="3"/><circle cx="130" cy="97" r="3"/><circle cx="191" cy="60" r="3"/><circle cx="270" cy="124" r="3"/><circle cx="216" cy="198" r="3"/><circle cx="147" cy="166" r="3"/><circle cx="84" cy="211" r="3"/></g>
-                    </svg>
-                    <span class="welcome-twinkle absolute left-[47%] top-[12%] text-2xl">✦</span>
-                    <span class="welcome-twinkle absolute right-[36%] top-[26%] text-lg">✧</span>
-                    <span class="welcome-twinkle absolute bottom-[18%] left-[29%] text-xl">✦</span>
-                    <span class="welcome-twinkle absolute bottom-[23%] right-[8%] text-2xl">✦</span>
-                    <span class="absolute left-[22%] top-[37%] text-xs">✦</span>
-                    <span class="absolute right-[23%] top-[10%] text-xs">✧</span>
-                </div>
-
-                <div class="relative mx-auto grid min-h-[620px] w-full max-w-7xl items-center gap-8 px-5 py-14 sm:px-8 sm:py-20 lg:min-h-[660px] lg:grid-cols-2 lg:gap-10 lg:px-12">
-                    <div class="relative z-10 mx-auto w-full max-w-xl text-center lg:mx-0 lg:text-left">
-                        <p class="inline-flex items-center gap-2 border-b border-[#d6ad4b]/50 pb-2 text-xs font-bold uppercase tracking-[0.2em] text-[#82631d] dark:text-[#e6c96f]">
-                            <span class="text-base">✦</span> Institución Educativa Salvatore
+        <main class="flex-1 overflow-hidden bg-[#fbfaf7] dark:bg-[#121212]">
+            <section id="inicio" class="scroll-mt-24 px-3 pt-3 sm:px-6 sm:pt-5">
+                <div class="mx-auto grid max-w-[1600px] overflow-hidden rounded-[1.75rem] bg-[#f2f0e9] dark:bg-[#1e1f20] lg:grid-cols-[0.92fr_1.08fr]">
+                    <div class="flex flex-col justify-center px-6 py-10 sm:px-10 sm:py-14 lg:px-14 xl:px-20">
+                        <p class="inline-flex w-fit items-center gap-2 rounded-full bg-white/70 px-3 py-2 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#82631d] dark:bg-white/10 dark:text-[#e6c96f]">
+                            <span aria-hidden="true">✦</span> Institución Educativa Salvatore
                         </p>
-                        <h1 class="mt-6 text-4xl font-extrabold leading-[1.08] tracking-tight text-[#27313a] sm:text-5xl lg:text-6xl dark:text-[#f1f3f4]">
-                            Bienvenidos a
-                            <span class="block text-[#9a761f] dark:text-[#e6c96f]">Institución Salvatore</span>
+                        <h1 class="mt-6 max-w-xl text-4xl font-semibold leading-[1.08] tracking-tight text-[#27313a] sm:text-5xl xl:text-6xl dark:text-[#f1f3f4]">
+                            Aprender hoy,
+                            <span class="text-[#8a681b] dark:text-[#e6c96f]">soñar en grande.</span>
                         </h1>
-                        <p class="mx-auto mt-5 max-w-lg text-base leading-7 text-[#53606b] sm:text-lg sm:leading-8 lg:mx-0 dark:text-[#bdc1c6]">
-                            Un lugar para imaginar en grande, descubrir el mundo y crecer con alegría.
+                        <p class="mt-5 max-w-lg text-base leading-7 text-[#59636c] sm:text-lg sm:leading-8 dark:text-[#bdc1c6]">
+                            Un lugar para imaginar, descubrir el mundo y crecer con alegría, acompañado por una comunidad que aprende unida.
                         </p>
-                        <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
-                            @if (Route::has('login'))
-                                @auth
-                                    <a href="{{ route('dashboard') }}" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#d8b85c] px-7 py-3 font-bold text-[#27313a] shadow-lg shadow-[#d8b85c]/20 transition hover:-translate-y-0.5 hover:bg-[#e6c96f]">
-                                        Ir a mi espacio <span aria-hidden="true">→</span>
-                                    </a>
-                                @else
-                                    <a href="{{ route('login') }}" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#d8b85c] px-7 py-3 font-bold text-[#27313a] shadow-lg shadow-[#d8b85c]/20 transition hover:-translate-y-0.5 hover:bg-[#e6c96f]">
-                                        Conoce tu espacio <span aria-hidden="true">→</span>
-                                    </a>
-                                @endauth
+                        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                            @if (Route::has('formulario'))
+                                <a href="{{ route('formulario') }}" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#d8b85c] px-6 py-3 text-sm font-bold text-[#27313a] shadow-sm transition hover:-translate-y-0.5 hover:bg-[#e6c96f] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9a761f]">
+                                    Conoce el proceso de inscripción <span aria-hidden="true">→</span>
+                                </a>
                             @endif
-                            <a href="#aventura" class="inline-flex min-h-12 items-center justify-center rounded-full border border-[#c7c2b8] bg-white/60 px-7 py-3 font-semibold text-[#35414d] transition hover:border-[#d6ad4b] hover:bg-white dark:border-[#56585a] dark:bg-[#292a2c] dark:text-zinc-200 dark:hover:bg-[#333537]">
-                                Explorar el colegio
+                            <a href="#propuesta" class="inline-flex min-h-12 items-center justify-center rounded-full border border-[#c7c2b8] bg-white/60 px-6 py-3 text-sm font-semibold text-[#35414d] transition hover:border-[#d6ad4b] hover:bg-white dark:border-[#56585a] dark:bg-[#292a2c] dark:text-zinc-200 dark:hover:bg-[#333537]">
+                                Explorar la propuesta
                             </a>
                         </div>
-                    </div>
-
-                    <div class="relative mx-auto w-full max-w-[500px]">
-                        <span class="pointer-events-none absolute -right-2 top-2 z-10 text-3xl text-[#a17b23] dark:text-[#e6c96f]" aria-hidden="true">✦</span>
-                        <span class="pointer-events-none absolute -bottom-3 left-2 z-10 text-2xl text-[#a17b23] dark:text-[#e6c96f]" aria-hidden="true">✧</span>
-                        <img src="{{ asset('images/aventura-salvatore.jpg') }}" alt="Niños leyendo, dibujando y explorando las estrellas junto a un telescopio" class="relative z-0 w-full rounded-[2rem] shadow-[0_24px_70px_rgba(39,49,58,0.20)] sm:rounded-[2.5rem]">
-                    </div>
-                </div>
-            </section>
-
-            <section id="aventura" class="scroll-mt-24 bg-[#fbfaf7] py-14 transition-colors duration-500 dark:bg-[#121212] sm:py-20">
-                <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10">
-                    <div class="mx-auto mb-9 max-w-2xl text-center sm:mb-12">
-                        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#9a761f] dark:text-[#e6c96f]">Nuestra aventura de aprendizaje</p>
-                        <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-[#27313a] sm:text-4xl dark:text-[#f1f3f4]">Un mundo por descubrir</h2>
-                        <p class="mx-auto mt-4 max-w-xl text-base leading-7 text-[#66717b] dark:text-[#9aa0a6]">
-                            Cada día trae una nueva oportunidad para explorar, crear y aprender en comunidad.
-                        </p>
-                    </div>
-
-                    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                        <article class="group overflow-hidden rounded-3xl border border-[#e8e2d8] bg-white shadow-[0_12px_35px_rgba(39,49,58,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(39,49,58,0.12)] dark:border-[#3c4043] dark:bg-[#1e1f20]">
-                            <div class="relative h-52 overflow-hidden sm:h-56">
-                                <img src="{{ asset('images/enfoque1.jpg') }}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Niño expresándose a través del arte">
-                                <span class="absolute left-4 top-4 rounded-xl bg-[#f6edcf] px-3 py-2 text-lg text-[#82631d] shadow-sm dark:bg-[#302d24] dark:text-[#e6c96f]" aria-hidden="true">✿</span>
-                            </div>
-                            <div class="p-5 sm:p-6">
-                                <h3 class="text-lg font-bold text-[#27313a] dark:text-zinc-100">Imaginamos y creamos</h3>
-                                <p class="mt-2 text-sm leading-6 text-[#66717b] dark:text-zinc-400">El arte y el juego abren la puerta a nuevas ideas y formas de expresarnos.</p>
-                            </div>
-                        </article>
-
-                        <article class="group overflow-hidden rounded-3xl border border-[#e8e2d8] bg-white shadow-[0_12px_35px_rgba(39,49,58,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(39,49,58,0.12)] dark:border-[#3c4043] dark:bg-[#1e1f20]">
-                            <div class="relative h-52 overflow-hidden sm:h-56">
-                                <img src="{{ asset('images/ninos-lectura.jpg') }}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Estudiantes leyendo y descubriendo nuevas ideas">
-                                <span class="absolute left-4 top-4 rounded-xl bg-[#e7edf4] px-3 py-2 text-lg text-[#50677f] shadow-sm dark:bg-[#272e36] dark:text-[#b1c6dc]" aria-hidden="true">✧</span>
-                            </div>
-                            <div class="p-5 sm:p-6">
-                                <h3 class="text-lg font-bold text-[#27313a] dark:text-zinc-100">Exploramos con curiosidad</h3>
-                                <p class="mt-2 text-sm leading-6 text-[#66717b] dark:text-zinc-400">Cada pregunta es una oportunidad para investigar, probar y descubrir.</p>
-                            </div>
-                        </article>
-
-                        <article class="group overflow-hidden rounded-3xl border border-[#e8e2d8] bg-white shadow-[0_12px_35px_rgba(39,49,58,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(39,49,58,0.12)] dark:border-[#3c4043] dark:bg-[#1e1f20] sm:col-span-2 lg:col-span-1">
-                            <div class="relative h-52 overflow-hidden sm:h-56">
-                                <img src="{{ asset('images/actividades-colegio.jpg') }}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt="Estudiantes compartiendo una actividad escolar">
-                                <span class="absolute left-4 top-4 rounded-xl bg-[#e7f0e5] px-3 py-2 text-lg text-[#54744d] shadow-sm dark:bg-[#273127] dark:text-[#a4c49a]" aria-hidden="true">♡</span>
-                            </div>
-                            <div class="p-5 sm:p-6">
-                                <h3 class="text-lg font-bold text-[#27313a] dark:text-zinc-100">Crecemos en comunidad</h3>
-                                <p class="mt-2 text-sm leading-6 text-[#66717b] dark:text-zinc-400">Aprendemos a convivir, colaborar y celebrar los logros de todos.</p>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-            </section>
-
-            <section class="relative isolate mx-auto my-14 w-full max-w-7xl overflow-hidden px-4 sm:my-20 sm:px-6 lg:px-10">
-                <div class="relative overflow-hidden rounded-3xl border border-[#e7dfd0] bg-[#f4edda] px-5 py-8 dark:border-[#3c4043] dark:bg-[#1e1f20] sm:px-10 sm:py-10">
-                    <div class="pointer-events-none absolute inset-y-0 right-0 w-1/2 text-[#111827]/20 dark:text-[#d8b85c]/20" aria-hidden="true">
-                        <svg class="absolute -right-4 -top-16 h-64 w-64" viewBox="0 0 300 300" fill="none">
-                            <path d="m24 112 68-54 61 67 49-82 73 56m-121 26 35 86 76-86" stroke="currentColor" stroke-width="1.5"/>
-                            <g fill="currentColor"><circle cx="24" cy="112" r="4"/><circle cx="92" cy="58" r="4"/><circle cx="153" cy="125" r="4"/><circle cx="202" cy="43" r="4"/><circle cx="275" cy="99" r="4"/></g>
-                        </svg>
-                    </div>
-                    <div class="relative flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
-                        <div class="max-w-2xl">
-                            <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#8a681b] dark:text-[#e6c96f]">Un camino que recorremos juntos</p>
-                            <h2 class="mt-2 text-2xl font-extrabold text-[#27313a] sm:text-3xl dark:text-zinc-100">El futuro empieza con una buena pregunta.</h2>
-                            <p class="mt-2 text-sm leading-6 text-[#66717b] dark:text-zinc-400">Nos alegra acompañar a cada estudiante y a su familia en esta aventura de aprendizaje.</p>
+                        <div class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium text-[#59636c] dark:text-zinc-300">
+                            <span class="inline-flex items-center gap-2"><span class="size-2 rounded-full bg-[#d8b85c]"></span> Aprendizaje activo</span>
+                            <span class="inline-flex items-center gap-2"><span class="size-2 rounded-full bg-[#d8b85c]"></span> Crecimiento en comunidad</span>
                         </div>
+                    </div>
+
+                    <div class="relative min-h-[360px] overflow-hidden sm:min-h-[460px] lg:min-h-[600px]">
+                        <img src="{{ asset('images/colegioinicio.jpg') }}" alt="Salón de clases preparado para el aprendizaje" class="absolute inset-0 size-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#172028]/55 via-transparent to-transparent"></div>
+                        <div class="absolute inset-x-4 bottom-4 grid gap-3 sm:inset-x-6 sm:bottom-6 sm:grid-cols-2">
+                            <div class="rounded-2xl border border-white/60 bg-white/90 p-4 shadow-lg backdrop-blur-md dark:border-white/10 dark:bg-[#1e1f20]/90">
+                                <p class="text-xs font-bold uppercase tracking-wider text-[#8a681b] dark:text-[#e6c96f]">Nuestra comunidad</p>
+                                <p class="mt-1 text-sm font-semibold text-[#27313a] dark:text-zinc-100">Un espacio para aprender y compartir.</p>
+                            </div>
+                            <div class="rounded-2xl border border-white/60 bg-white/90 p-4 shadow-lg backdrop-blur-md dark:border-white/10 dark:bg-[#1e1f20]/90">
+                                <p class="text-xs font-bold uppercase tracking-wider text-[#8a681b] dark:text-[#e6c96f]">Cada día cuenta</p>
+                                <p class="mt-1 text-sm font-semibold text-[#27313a] dark:text-zinc-100">Curiosidad, creatividad y nuevas ideas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="propuesta" class="scroll-mt-24 px-3 py-12 sm:px-6 sm:py-16">
+                <div class="mx-auto grid max-w-[1600px] gap-7 rounded-[1.75rem] bg-[#f4f4f1] p-5 sm:p-8 lg:grid-cols-[0.78fr_1.72fr] lg:items-center lg:gap-10 lg:p-10 dark:bg-[#1a1b1c]">
+                    <div class="flex flex-col items-start justify-center px-1 py-3 sm:px-3 lg:px-5">
+                        <p class="inline-flex items-center gap-2 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#82631d] dark:text-[#e6c96f]">
+                            <span aria-hidden="true">✦</span> Nuestra propuesta
+                        </p>
+                        <h2 class="mt-4 max-w-sm text-3xl font-semibold leading-tight tracking-tight text-[#27313a] sm:text-4xl dark:text-[#f1f3f4]">
+                            Formamos para aprender, convivir y crecer.
+                        </h2>
+                        <p class="mt-4 max-w-md text-sm leading-6 text-[#66717b] dark:text-zinc-400">
+                            Acompañamos a cada estudiante para que explore sus ideas, desarrolle sus capacidades y encuentre su manera de aportar.
+                        </p>
+                        <a href="#experiencias" class="mt-6 inline-flex min-h-10 items-center gap-2 rounded-full bg-[#647c48] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#52683b] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#647c48]">
+                            Conoce nuestras experiencias <span aria-hidden="true">→</span>
+                        </a>
+                    </div>
+
+                    <div class="grid gap-3 sm:grid-cols-3">
+                        <article class="group relative min-h-[300px] overflow-hidden rounded-2xl sm:min-h-[360px]">
+                            <img src="{{ asset('images/enfoque1.jpg') }}" alt="Estudiante creando una obra de arte" class="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+                            <div class="absolute inset-x-0 bottom-0 p-5 text-white">
+                                <span class="mb-3 inline-grid size-9 place-items-center rounded-full bg-white/90 text-lg text-[#647c48]" aria-hidden="true">✿</span>
+                                <h3 class="text-lg font-semibold leading-tight">Imaginamos y creamos</h3>
+                                <p class="mt-2 text-xs leading-5 text-white/85">El arte y el juego abren caminos para expresarnos.</p>
+                            </div>
+                        </article>
+
+                        <article class="group relative min-h-[300px] overflow-hidden rounded-2xl sm:min-h-[360px]">
+                            <img src="{{ asset('images/enfoque2.jpg') }}" alt="Estudiante explorando contenidos digitales" class="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+                            <div class="absolute inset-x-0 bottom-0 p-5 text-white">
+                                <span class="mb-3 inline-grid size-9 place-items-center rounded-full bg-white/90 text-lg text-[#647c48]" aria-hidden="true">✧</span>
+                                <h3 class="text-lg font-semibold leading-tight">Exploramos con curiosidad</h3>
+                                <p class="mt-2 text-xs leading-5 text-white/85">Cada pregunta invita a investigar y descubrir.</p>
+                            </div>
+                        </article>
+
+                        <article class="group relative min-h-[300px] overflow-hidden rounded-2xl sm:min-h-[360px]">
+                            <img src="{{ asset('images/ninos-aula.jpg') }}" alt="Estudiantes aprendiendo juntos en el aula" class="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+                            <div class="absolute inset-x-0 bottom-0 p-5 text-white">
+                                <span class="mb-3 inline-grid size-9 place-items-center rounded-full bg-white/90 text-lg text-[#647c48]" aria-hidden="true">♡</span>
+                                <h3 class="text-lg font-semibold leading-tight">Crecemos en comunidad</h3>
+                                <p class="mt-2 text-xs leading-5 text-white/85">Aprendemos a convivir, colaborar y compartir.</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experiencias" class="scroll-mt-24 px-3 pb-12 sm:px-6 sm:pb-16">
+                <div class="mx-auto grid max-w-[1600px] gap-6 rounded-[1.75rem] border border-[#eee9df] bg-white p-5 sm:p-8 lg:grid-cols-[1.35fr_0.65fr] lg:items-center lg:gap-10 lg:p-10 dark:border-[#3c4043] dark:bg-[#1e1f20]">
+                    <div>
+                        <p class="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#82631d] dark:text-[#e6c96f]">Una comunidad que acompaña</p>
+                        <h2 class="mt-3 max-w-2xl text-2xl font-semibold leading-tight tracking-tight text-[#27313a] sm:text-3xl dark:text-[#f1f3f4]">Cada historia de aprendizaje empieza con una oportunidad.</h2>
+                        <p class="mt-3 max-w-2xl text-sm leading-6 text-[#66717b] dark:text-zinc-400">Conoce más sobre nuestra institución y los pasos para acercarte a la comunidad Salvatore.</p>
+                    </div>
+                    <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+                        @if (Route::has('formulario'))
+                            <a href="{{ route('formulario') }}" class="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#d8b85c] px-5 py-3 text-sm font-bold text-[#27313a] transition hover:bg-[#e6c96f]">
+                                Conoce el proceso de inscripción <span aria-hidden="true">→</span>
+                            </a>
+                        @endif
                         @if (Route::has('login'))
                             @auth
-                                <a href="{{ route('dashboard') }}" class="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-[#27313a] px-6 py-3 font-semibold text-white transition hover:bg-[#3c4852] dark:bg-[#d8b85c] dark:text-[#27313a] dark:hover:bg-[#e6c96f]">Ir al panel</a>
+                                <a href="{{ route('dashboard') }}" class="inline-flex min-h-11 items-center justify-center rounded-full border border-[#d8dee8] px-5 py-3 text-sm font-semibold text-[#27313a] transition hover:bg-[#f5f6f8] dark:border-[#3c4043] dark:text-zinc-100 dark:hover:bg-[#292a2c]">Ir al panel</a>
                             @else
-                                <a href="{{ route('login') }}" class="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-[#27313a] px-6 py-3 font-semibold text-white transition hover:bg-[#3c4852] dark:bg-[#d8b85c] dark:text-[#27313a] dark:hover:bg-[#e6c96f]">Ingresar al sistema</a>
+                                <a href="{{ route('login') }}" class="inline-flex min-h-11 items-center justify-center rounded-full border border-[#d8dee8] px-5 py-3 text-sm font-semibold text-[#27313a] transition hover:bg-[#f5f6f8] dark:border-[#3c4043] dark:text-zinc-100 dark:hover:bg-[#292a2c]">Ingresar al sistema</a>
                             @endauth
                         @endif
                     </div>
@@ -230,7 +224,7 @@
             </section>
         </main>
 
-        <footer class="relative isolate mt-auto overflow-hidden border-t border-[#e8e0d0] bg-[#f5f1e8] transition-colors duration-500 dark:border-[#3c4043] dark:bg-[#1e1f20]">
+        <footer id="contacto" class="relative isolate mt-auto scroll-mt-24 overflow-hidden border-t border-[#e8e0d0] bg-[#f5f1e8] transition-colors duration-500 dark:border-[#3c4043] dark:bg-[#1e1f20]">
             <svg class="pointer-events-none absolute -right-10 top-0 h-72 w-72 text-[#111827]/20 dark:text-[#d8b85c]/25" viewBox="0 0 300 300" fill="none" aria-hidden="true">
                 <path d="m24 58 62 42 58-58 62 70 54-37m-174 25 25 87 57-62 45 51" stroke="currentColor" stroke-width="1.4"/>
                 <g fill="currentColor"><circle cx="24" cy="58" r="3"/><circle cx="86" cy="100" r="3"/><circle cx="144" cy="42" r="3"/><circle cx="206" cy="112" r="3"/><circle cx="260" cy="75" r="3"/><circle cx="115" cy="187" r="3"/><circle cx="172" cy="125" r="3"/></g>
@@ -255,7 +249,7 @@
 
                 <div class="flex flex-col items-center text-center md:items-start md:text-left">
                     <h2 class="mb-4 text-sm font-bold uppercase tracking-[0.16em] text-[#82631d] dark:text-[#e6c96f]">Explora</h2>
-                    <a href="#aventura" class="text-sm text-[#53606b] transition hover:text-[#27313a] hover:underline dark:text-zinc-300 dark:hover:text-white">Nuestra aventura de aprendizaje</a>
+                    <a href="#propuesta" class="text-sm text-[#53606b] transition hover:text-[#27313a] hover:underline dark:text-zinc-300 dark:hover:text-white">Nuestra propuesta educativa</a>
                     @if (Route::has('login'))
                         <a href="{{ route('login') }}" class="mt-2 text-sm text-[#53606b] transition hover:text-[#27313a] hover:underline dark:text-zinc-300 dark:hover:text-white">Ingresar al sistema</a>
                     @endif

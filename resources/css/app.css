@@ -947,14 +947,14 @@
         align-items: center;
         justify-content: center;
         border-radius: 0.75rem;
-        color: #e8edf2;
+        color: #53606b;
         transition: background-color 150ms ease, color 150ms ease;
     }
 
     .institution-sidebar-collapsed-nav a:hover,
     .institution-sidebar-collapsed-nav span:hover {
-        background-color: rgba(196, 154, 53, 0.15);
-        color: #f8ebc4;
+        background-color: #f3f5f7;
+        color: #27313a;
     }
 }
 
@@ -1014,6 +1014,17 @@ html.dark .institution-sidebar [data-flux-sidebar-item][data-active] {
 
 html.dark .institution-sidebar [data-flux-sidebar-item] svg {
     color: #bdc1c6;
+}
+
+html.dark .institution-sidebar-collapsed-nav a,
+html.dark .institution-sidebar-collapsed-nav span {
+    color: #bdc1c6;
+}
+
+html.dark .institution-sidebar-collapsed-nav a:hover,
+html.dark .institution-sidebar-collapsed-nav span:hover {
+    background-color: #2b2c2e;
+    color: #f1f3f4;
 }
 
 html.dark .institution-sidebar .border-white\/10 {

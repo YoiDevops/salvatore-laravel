@@ -2,9 +2,17 @@
 
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use App\Services\ColombiaLocations;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\RequestException;
 
 new #[Layout('layouts.auth.card')] class extends Component {
     public int $pasoActual = 1;
+    public array $departamentos = [];
+    public array $municipios = [];
+    public string $estudiante_departamento = '';
+    public string $estudiante_municipio = '';
+    public string $errorUbicaciones = '';
 
     // --- DATOS ACUDIENTE ---
     public string $acudiente_tipo_documento = '';
@@ -20,6 +28,9 @@ new #[Layout('layouts.auth.card')] class extends Component {
     public string $acudiente_direccion = '';
     public string $acudiente_telefono = '';
     public string $acudientecontacto_correo = '';
+    public string $acudientecontacto_usuario = '';
+    public string $acudientecontacto_dominio = '';
+    public string $acudientecontacto_otro_dominio = '';
     public string $acudiente_lugar_trabajo = '';
     public string $acudiente_ocupacion = '';
 
@@ -44,6 +55,15 @@ new #[Layout('layouts.auth.card')] class extends Component {
     public string $estudiante_permanencia_discapacidad = '';
     public string $estudiante_grado_atencion = '';
     public bool $registroCompletado = false;
+
+    public function mount(): void
+    {
+        try {
+            $this->departamentos = app(ColombiaLocations::class)->departments();
+        } catch (ConnectionException | RequestException | \UnexpectedValueException $exception) {
+            $this->reportarErrorUbicaciones($exception);
+        }
+    }
 
     public function cambiarPaso(int $paso): void
     {
@@ -86,11 +106,91 @@ new #[Layout('layouts.auth.card')] class extends Component {
             $this->acudiente_telefono = preg_replace('/\D+/', '', $this->acudiente_telefono) ?? '';
         }
 
+        if (in_array($property, [
+            'acudientecontacto_usuario',
+            'acudientecontacto_dominio',
+            'acudientecontacto_otro_dominio',
+        ], true)) {
+            $this->actualizarCorreoAcudiente();
+            $this->resetValidation('acudientecontacto_correo');
+        }
+
         $this->resetValidation($property);
+    }
+
+    public function updatedEstudianteDepartamento(string $departamentoId): void
+    {
+        $this->estudiante_municipio = '';
+        $this->municipios = [];
+        $this->estudiante_lugar_nacimiento = '';
+        $this->errorUbicaciones = '';
+        $this->resetValidation('estudiante_lugar_nacimiento');
+
+        if ($departamentoId === '') {
+            return;
+        }
+
+        if (! ctype_digit($departamentoId)) {
+            $this->addError('estudiante_departamento', 'Selecciona un departamento válido.');
+
+            return;
+        }
+
+        try {
+            $this->municipios = app(ColombiaLocations::class)->municipalities((int) $departamentoId);
+        } catch (ConnectionException | RequestException | \UnexpectedValueException $exception) {
+            $this->reportarErrorUbicaciones($exception);
+        }
+    }
+
+    public function updatedEstudianteMunicipio(string $municipioId): void
+    {
+        if ($municipioId === '') {
+            $this->estudiante_lugar_nacimiento = '';
+            $this->resetValidation('estudiante_lugar_nacimiento');
+
+            return;
+        }
+
+        $departamento = collect($this->departamentos)
+            ->firstWhere('id', (int) $this->estudiante_departamento);
+        $municipio = collect($this->municipios)->firstWhere('id', (int) $municipioId);
+
+        if (! $departamento || ! $municipio) {
+            $this->estudiante_lugar_nacimiento = '';
+            $this->addError('estudiante_lugar_nacimiento', 'Selecciona un municipio válido.');
+
+            return;
+        }
+
+        $this->estudiante_lugar_nacimiento = "{$municipio['name']}, {$departamento['name']}";
+        $this->resetValidation('estudiante_lugar_nacimiento');
+    }
+
+    private function reportarErrorUbicaciones(
+        ConnectionException | RequestException | \UnexpectedValueException $exception,
+    ): void {
+        report($exception);
+        $this->errorUbicaciones = 'No se pudieron cargar los departamentos y municipios. Escribe el lugar de nacimiento manualmente.';
+    }
+
+    private function actualizarCorreoAcudiente(): void
+    {
+        $dominio = $this->acudientecontacto_dominio === 'otro'
+            ? trim($this->acudientecontacto_otro_dominio)
+            : $this->acudientecontacto_dominio;
+        $dominio = ltrim($dominio, '@');
+        $usuario = trim($this->acudientecontacto_usuario);
+
+        $this->acudientecontacto_correo = $usuario !== '' && $dominio !== ''
+            ? "{$usuario}@{$dominio}"
+            : '';
     }
 
     public function siguientePaso(): void
     {
+        $this->actualizarCorreoAcudiente();
+
         $this->validate([
             'acudiente_tipo_documento' => ['required', 'string'],
             'acudiente_numero_documento' => ['required', 'string', 'max:12'],
@@ -149,6 +249,8 @@ new #[Layout('layouts.auth.card')] class extends Component {
 
     public function guardarAcudiente(): void
     {
+        $this->actualizarCorreoAcudiente();
+
         $this->validate([
             'acudiente_tipo_documento' => ['required', 'string'],
             'acudiente_numero_documento' => ['required', 'string', 'max:12'],
@@ -499,7 +601,28 @@ new #[Layout('layouts.auth.card')] class extends Component {
 
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Lugar Nacimiento *</label>
-                            <input type="text" wire:model.live="estudiante_lugar_nacimiento" placeholder="Ciudad / Municipio" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                            @if ($errorUbicaciones !== '' || $departamentos === [])
+                                @if ($errorUbicaciones !== '')
+                                    <p class="mb-2 text-sm text-amber-700 dark:text-amber-300" role="alert">{{ $errorUbicaciones }}</p>
+                                @endif
+                                <input type="text" wire:model.live="estudiante_lugar_nacimiento" placeholder="Ciudad / Municipio" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                            @else
+                                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                                    <select wire:model.live="estudiante_departamento" aria-label="Departamento de nacimiento" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                                        <option value="">Seleccione departamento...</option>
+                                        @foreach ($departamentos as $departamento)
+                                            <option value="{{ $departamento['id'] }}">{{ $departamento['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                    <select wire:model.live="estudiante_municipio" aria-label="Municipio de nacimiento" @disabled($estudiante_departamento === '') class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                                        <option value="">Seleccione municipio...</option>
+                                        @foreach ($municipios as $municipio)
+                                            <option value="{{ $municipio['id'] }}">{{ $municipio['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <p class="mt-1 text-xs text-stone-500 dark:text-stone-400">El lugar se guardará como municipio y departamento.</p>
+                            @endif
                             @error('estudiante_lugar_nacimiento') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
@@ -538,7 +661,19 @@ new #[Layout('layouts.auth.card')] class extends Component {
                         
                         <div class="md:col-span-2">
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Correo Electrónico de Contacto *</label>
-                            <input type="email" wire:model.live="acudientecontacto_correo" placeholder="acudiente@correo.com" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                            <div class="grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
+                                <input type="text" inputmode="email" autocomplete="off" wire:model.live="acudientecontacto_usuario" placeholder="acudiente" aria-label="Usuario del correo" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                                <select wire:model.live="acudientecontacto_dominio" aria-label="Dominio del correo" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 sm:min-w-44">
+                                    <option value="">Seleccione dominio...</option>
+                                    <option value="gmail.com">@gmail.com</option>
+                                    <option value="hotmail.com">@hotmail.com</option>
+                                    <option value="otro">Otro dominio...</option>
+                                </select>
+                            </div>
+                            @if ($acudientecontacto_dominio === 'otro')
+                                <input type="text" wire:model.blur="acudientecontacto_otro_dominio" placeholder="dominio.com" aria-label="Otro dominio de correo" class="mt-3 w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                                <p class="mt-1 text-xs text-stone-500 dark:text-stone-400">Escribe el dominio sin @; por ejemplo, sena.edu.co.</p>
+                            @endif
                             @error('acudientecontacto_correo') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
