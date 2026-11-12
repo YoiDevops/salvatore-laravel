@@ -16,9 +16,12 @@ class DashboardTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    public function test_non_student_users_can_visit_the_general_dashboard(): void
+    public function test_users_without_a_specific_role_can_visit_the_general_dashboard(): void
     {
-        $user = User::factory()->admin()->create();
+        $user = User::factory()->create([
+            'role' => 'Usuario',
+            'nom_rol' => 'Usuario',
+        ]);
 
         $response = $this
             ->actingAs($user)
@@ -40,7 +43,10 @@ class DashboardTest extends TestCase
 
     public function test_dashboard_theme_is_not_hardcoded_to_dark_mode(): void
     {
-        $user = User::factory()->admin()->create();
+        $user = User::factory()->create([
+            'role' => 'Usuario',
+            'nom_rol' => 'Usuario',
+        ]);
 
         $response = $this
             ->actingAs($user)

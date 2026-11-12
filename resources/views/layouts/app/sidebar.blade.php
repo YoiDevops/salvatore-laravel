@@ -32,16 +32,6 @@
 
             <flux:sidebar.nav>
 
-                @if ($rolActual !== 'estudiante')
-                    <flux:sidebar.group heading="INSTITUCION" class="grid text-[#c7d0df]">
-                        <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate.hover title="Inicio">
-                            Inicio
-                        </flux:sidebar.item>
-                    </flux:sidebar.group>
-                @endif
-
-
-
                 @if ($rolActual === 'profesor')
 
                     {{-- GESTION ACADEMICA: todo anidado y escalonado hacia la derecha,
@@ -192,8 +182,8 @@
                                     ['grados.index', 'Grados', 'bookmark'],
                                     ['asignaturas.index', 'Asignaturas', 'book-open'],
                                 ]);
-                                 $gestionItems[] = ['administrativo.solicitudes.index', 'Solicitudes', 'inbox-arrow-down'];
-                                 $gestionItems[] = ['administrativo.archivos-excel.index', 'Archivos Excel', 'document-arrow-up'];
+                                 $gestionItems[] = ['administrativo.solicitudes.index', 'Solicitudes en espera', 'inbox-arrow-down'];
+                                 $gestionItems[] = ['administrativo.archivos-excel.index', 'Todas las solicitudes', 'document-text'];
                             }
                         @endphp
 
@@ -309,12 +299,12 @@
                             Usuarios
                         </flux:sidebar.item>
 
-                        <flux:sidebar.item class="pl-9" icon="inbox-arrow-down" :href="route('administrativo.solicitudes.index')" :current="request()->routeIs('administrativo.solicitudes.*')" wire:navigate.hover>
-                            Solicitudes
+                        <flux:sidebar.item class="pl-9" icon="inbox-arrow-down" :href="route('administrativo.solicitudes.index')" :current="request()->routeIs('administrativo.solicitudes.index')" wire:navigate.hover>
+                            Solicitudes en espera
                         </flux:sidebar.item>
 
-                        <flux:sidebar.item class="pl-9" icon="document-arrow-up" :href="route('administrativo.archivos-excel.index')" :current="request()->routeIs('administrativo.archivos-excel.*')" wire:navigate.hover>
-                            Archivos Excel
+                        <flux:sidebar.item class="pl-9" icon="document-text" :href="route('administrativo.archivos-excel.index')" :current="request()->routeIs('administrativo.archivos-excel.*')" wire:navigate.hover>
+                            Todas las solicitudes
                         </flux:sidebar.item>
                     </flux:sidebar.group>
                 @endif
@@ -322,14 +312,6 @@
             </flux:sidebar.nav>
 
             <div class="institution-sidebar-collapsed-nav" aria-label="Navegacion compacta">
-                @if ($rolActual !== 'estudiante')
-                    <flux:tooltip content="Inicio" position="right">
-                        <a href="{{ route('dashboard') }}" wire:navigate.hover title="Inicio">
-                            <flux:icon name="home" class="size-5" />
-                        </a>
-                    </flux:tooltip>
-                @endif
-
                 @if ($rolActual === 'profesor')
                     <flux:tooltip content="Panel del docente" position="right">
                         <a href="{{ route('profesor.dashboard') }}" wire:navigate.hover title="Panel del docente">

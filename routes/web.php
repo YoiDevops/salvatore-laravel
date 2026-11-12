@@ -5,6 +5,7 @@ use App\Http\Controllers\Academico\AsignaturaController;
 use App\Http\Controllers\Academico\CursoController;
 use App\Http\Controllers\Academico\GradoController;
 use App\Http\Controllers\Administrativo\PanelController as AdministrativoPanelController;
+use App\Http\Controllers\Administrativo\UsuarioController as AdministrativoUsuarioController;
 use App\Http\Controllers\estudiante\AcudienteController;
 use App\Http\Controllers\estudiante\CaracterizacionDiscapacidadController;
 use App\Http\Controllers\estudiante\EstudianteController;
@@ -15,10 +16,9 @@ use App\Http\Controllers\Evaluacion\PeriodoController;
 use App\Http\Controllers\Institucional\SedeController;
 use App\Http\Controllers\profesor\PanelController as ProfesorPanelController;
 use App\Http\Controllers\profesor\ProfesorController;
+use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\Usuarios\RolController;
 use App\Http\Controllers\Usuarios\UserController;
-use App\Http\Controllers\Administrativo\UsuarioController as AdministrativoUsuarioController;
-use App\Http\Controllers\SolicitudController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -31,11 +31,13 @@ require __DIR__.'/settings.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
-        if (strtolower((string) auth()->user()?->effective_role) === 'estudiante') {
-            return redirect()->route('estudiante.dashboard');
-        }
-
-        return view('dashboard');
+        return match (strtolower((string) auth()->user()?->effective_role)) {
+            'administrador' => redirect()->route('dashboardAdmin'),
+            'administrativo' => redirect()->route('dashboardAdministrativo'),
+            'profesor' => redirect()->route('profesor.dashboard'),
+            'estudiante' => redirect()->route('estudiante.dashboard'),
+            default => view('dashboard'),
+        };
     })->name('dashboard');
 
     Route::view('administrador/dashboard', 'administrador.dashboardAdmin')
@@ -77,6 +79,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('role:Administrador,Administrativo')->prefix('administrativo')->name('administrativo.')->group(function () {
         Route::resource('usuarios', AdministrativoUsuarioController::class);
         Route::get('solicitudes', [SolicitudController::class, 'index'])->name('solicitudes.index');
+        Route::patch('solicitudes/{solicitud}/estado', [SolicitudController::class, 'updateStatus'])->name('solicitudes.estado');
         Route::get('solicitudes/exportar-estudiantes', [SolicitudController::class, 'exportStudents'])->name('solicitudes.export');
         Route::get('archivos-excel', [SolicitudController::class, 'files'])->name('archivos-excel.index');
         Route::post('solicitudes/archivos', [SolicitudController::class, 'upload'])->name('solicitudes.archivos.store');

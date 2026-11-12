@@ -205,6 +205,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
         // Lógica para guardar acudiente y estudiante en BD...
 
         Solicitud::create([
+            'estado' => Solicitud::ESTADO_EN_ESPERA,
             'estudiante_tipo_documento' => $this->estudiante_tipo_documento,
             'estudiante_numero_documento' => $this->estudiante_numero_documento,
             'estudiante_nombres' => $this->estudiante_nombres,
