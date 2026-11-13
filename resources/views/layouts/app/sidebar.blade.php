@@ -10,9 +10,13 @@
 
     <body class="min-h-screen overflow-x-hidden bg-[#f5f6f8] text-[#27313a] dark:bg-[#121212] dark:text-zinc-100">
 
+        @php
+            $rolActual = strtolower((string) auth()->user()?->effective_role);
+        @endphp
+
         <div class="flex min-h-screen w-full">
 
-            <flux:sidebar sticky collapsible="true" persist="false" class="institution-sidebar sticky min-h-screen shrink-0 border-e border-[#d8dee8] bg-white text-[#27313a] dark:border-[#3c4043] dark:bg-[#1e1f20] dark:text-white">
+            <flux:sidebar sticky collapsible="true" persist="false" class="institution-sidebar {{ $rolActual === 'administrador' ? 'institution-sidebar-always-open' : '' }} sticky min-h-screen shrink-0 border-e border-[#d8dee8] bg-white text-[#27313a] dark:border-[#3c4043] dark:bg-[#1e1f20] dark:text-white">
 
             <flux:sidebar.header>
 
@@ -22,16 +26,21 @@
 
             </flux:sidebar.header>
 
-
-
-            @php
-                $rolActual = strtolower((string) auth()->user()?->effective_role);
-            @endphp
-
-
-
             <flux:sidebar.nav>
 
+<<<<<<< HEAD
+=======
+                @if (! in_array($rolActual, ['estudiante', 'administrador'], true))
+                    <flux:sidebar.group heading="INSTITUCION" class="grid text-[#c7d0df]">
+                        <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate.hover title="Inicio">
+                            Inicio
+                        </flux:sidebar.item>
+                    </flux:sidebar.group>
+                @endif
+
+
+
+>>>>>>> Yoiner
                 @if ($rolActual === 'profesor')
 
                     {{-- GESTION ACADEMICA: todo anidado y escalonado hacia la derecha,
@@ -182,8 +191,11 @@
                                     ['grados.index', 'Grados', 'bookmark'],
                                     ['asignaturas.index', 'Asignaturas', 'book-open'],
                                 ]);
+<<<<<<< HEAD
                                  $gestionItems[] = ['administrativo.solicitudes.index', 'Solicitudes en espera', 'inbox-arrow-down'];
                                  $gestionItems[] = ['administrativo.archivos-excel.index', 'Todas las solicitudes', 'document-text'];
+=======
+>>>>>>> Yoiner
                             }
                         @endphp
 
@@ -312,6 +324,17 @@
             </flux:sidebar.nav>
 
             <div class="institution-sidebar-collapsed-nav" aria-label="Navegacion compacta">
+<<<<<<< HEAD
+=======
+                @if (! in_array($rolActual, ['estudiante', 'administrador'], true))
+                    <flux:tooltip content="Inicio" position="right">
+                        <a href="{{ route('dashboard') }}" wire:navigate.hover title="Inicio">
+                            <flux:icon name="home" class="size-5" />
+                        </a>
+                    </flux:tooltip>
+                @endif
+
+>>>>>>> Yoiner
                 @if ($rolActual === 'profesor')
                     <flux:tooltip content="Panel del docente" position="right">
                         <a href="{{ route('profesor.dashboard') }}" wire:navigate.hover title="Panel del docente">

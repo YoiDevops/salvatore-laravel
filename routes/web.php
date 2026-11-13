@@ -31,6 +31,7 @@ require __DIR__.'/settings.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
+<<<<<<< HEAD
         return match (strtolower((string) auth()->user()?->effective_role)) {
             'administrador' => redirect()->route('dashboardAdmin'),
             'administrativo' => redirect()->route('dashboardAdministrativo'),
@@ -38,6 +39,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'estudiante' => redirect()->route('estudiante.dashboard'),
             default => view('dashboard'),
         };
+=======
+        $role = strtolower((string) auth()->user()?->effective_role);
+
+        if ($role === 'estudiante') {
+            return redirect()->route('estudiante.dashboard');
+        }
+
+        if ($role === 'administrador') {
+            return redirect()->route('dashboardAdmin');
+        }
+
+        return view('dashboard');
+>>>>>>> Yoiner
     })->name('dashboard');
 
     Route::view('administrador/dashboard', 'administrador.dashboardAdmin')
