@@ -29,7 +29,11 @@
                         <flux:icon name="chevron-right" class="size-4 shrink-0 text-zinc-400" />
                     </a>
                 @empty
-                    <p class="p-6 text-center text-sm text-zinc-500">Este grado aún no tiene cursos asociados.</p>
+                    <x-profesor.empty-state
+                        icon="rectangle-stack"
+                        title="Sin cursos asociados"
+                        description="Los cursos de este grado aparecerán aquí cuando estén disponibles."
+                    />
                 @endforelse
             </div>
         </div>

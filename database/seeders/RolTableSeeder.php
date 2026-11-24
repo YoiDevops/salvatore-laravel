@@ -19,8 +19,8 @@ class RolTableSeeder extends Seeder
 
         DB::table('rol')->upsert(
             $roles,
-            ['id_rol'], // Columna unica de busqueda
-            ['nombre_rol'] // Columnas a actualizar si existe
+            ['id_rol'],
+            ['nombre_rol'],
         );
     }
 }

@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Usuarios\Rol;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,7 +11,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-       $this->call(RolTableSeeder::class);
-       $this->call(UsersTableSeeder::class);
+        $this->call([
+            RolTableSeeder::class,
+            UsuariosColegioTableSeeder::class,
+            InstitucionTableSeeder::class,
+            SedeTableSeeder::class,
+            GradoTableSeeder::class,
+            AcudienteTableSeeder::class,
+            CaracterizacionDiscapacidadTableSeeder::class,
+            AreaTableSeeder::class,
+            AsignaturaTableSeeder::class,
+            CursoTableSeeder::class,
+            PeriodoTableSeeder::class,
+            EscalaValoracionTableSeeder::class,
+            IndicadorLogroTableSeeder::class,
+            EstudianteTableSeeder::class,
+            ProfesorTableSeeder::class,
+            SolicitudesTableSeeder::class,
+        ]);
     }
 }

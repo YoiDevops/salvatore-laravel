@@ -26,7 +26,11 @@
                         <flux:icon name="chevron-right" class="size-4 shrink-0 text-zinc-400" />
                     </a>
                 @empty
-                    <p class="p-6 text-center text-sm text-zinc-500">Ningún indicador usa esta escala todavía.</p>
+                    <x-profesor.empty-state
+                        icon="clipboard-document-list"
+                        title="Sin indicadores asociados"
+                        description="Los indicadores que utilicen esta escala aparecerán aquí."
+                    />
                 @endforelse
             </div>
         </div>

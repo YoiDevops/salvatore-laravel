@@ -41,7 +41,13 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="p-6 text-center text-zinc-500">No hay escalas de valoración registradas.</td>
+                                <td colspan="5" class="p-0">
+                                    <x-profesor.empty-state
+                                        icon="clipboard-document-check"
+                                        title="Sin escalas de valoración"
+                                        description="Las escalas disponibles para evaluar aparecerán aquí."
+                                    />
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>

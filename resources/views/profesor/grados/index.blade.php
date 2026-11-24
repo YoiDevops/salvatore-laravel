@@ -24,9 +24,12 @@
                     <p class="mt-1 text-sm leading-5 text-zinc-500 dark:text-zinc-400">{{ $grado->cursos_count }} {{ Str::plural('curso', $grado->cursos_count) }} asociados.</p>
                 </a>
             @empty
-                <div class="col-span-full rounded-2xl border border-dashed border-zinc-200 bg-white p-10 text-center text-sm text-zinc-500 dark:border-zinc-800 dark:bg-zinc-900">
-                    No hay grados registrados todavía.
-                </div>
+                <x-profesor.empty-state
+                    class="col-span-full rounded-2xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800"
+                    icon="bookmark"
+                    title="Sin grados registrados"
+                    description="Cuando haya grados disponibles, aparecerán aquí."
+                />
             @endforelse
         </div>
     </div>

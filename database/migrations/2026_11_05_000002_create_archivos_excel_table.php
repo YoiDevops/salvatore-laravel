@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('ruta');
             $table->string('mime_type')->nullable();
             $table->unsignedBigInteger('tamano')->default(0);
-            $table->unsignedBigInteger('id_usuario')->nullable();
+            $table->unsignedBigInteger('id_usuario')->nullable()->index();
             $table->timestamps();
         });
     }
