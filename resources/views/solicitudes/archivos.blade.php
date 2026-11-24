@@ -7,7 +7,7 @@
                     <flux:heading size="xl" class="mt-2">Todas las solicitudes</flux:heading>
                     <p class="mt-1 text-sm text-zinc-500">Consulta, filtra y descarga las solicitudes según su estado.</p>
                 </div>
-                <a href="{{ route('administrativo.solicitudes.export', ['estado' => $estadoFiltro]) }}" class="inline-flex items-center justify-center rounded-lg bg-[#d4a017] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#b8860b]">
+                <a href="{{ route('administrativo.solicitudes.export', ['estado' => $estadoFiltro]) }}" aria-label="Descargar las solicitudes filtradas como archivo Excel" title="Descargar una copia de las solicitudes" class="inline-flex items-center justify-center rounded-lg bg-[#d4a017] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#b8860b]">
                     Descargar Excel
                 </a>
             </div>
@@ -19,8 +19,8 @@
                 </div>
                 <form method="POST" action="{{ route('administrativo.solicitudes.archivos.store') }}" enctype="multipart/form-data" class="flex flex-col gap-3 sm:flex-row sm:items-center">
                     @csrf
-                    <input type="file" name="archivo" accept=".xls,.xlsx,.csv" required class="block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-600 file:mr-3 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:file:text-zinc-200">
-                    <button type="submit" class="rounded-lg bg-zinc-800 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 dark:bg-zinc-200 dark:text-zinc-900 dark:hover:bg-white">
+                    <input type="file" name="archivo" accept=".xls,.xlsx,.csv" required aria-label="Elegir archivo Excel o CSV para importar solicitudes" class="block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-600 file:mr-3 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:file:text-zinc-200">
+                    <button type="submit" aria-label="Importar solicitudes desde el archivo seleccionado" title="Guardar las solicitudes del archivo" class="rounded-lg bg-zinc-800 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 dark:bg-zinc-200 dark:text-zinc-900 dark:hover:bg-white">
                         Importar
                     </button>
                 </form>
@@ -29,9 +29,9 @@
                 @enderror
             </section>
 
-            <form method="GET" action="{{ route('administrativo.archivos-excel.index') }}" class="mb-5">
+            <form method="GET" action="{{ route('administrativo.archivos-excel.index') }}" class="mb-5" aria-label="Filtrar las solicitudes por estado">
                 <details class="relative w-fit">
-                    <summary class="inline-flex cursor-pointer list-none items-center justify-center gap-2 rounded-xl bg-[#c49a35] px-4 py-2.5 text-sm font-semibold text-[#1f2529] transition hover:bg-[#d8b85c] focus:outline-none focus:ring-2 focus:ring-[#c49a35]/40">
+                    <summary aria-label="Mostrar filtros por estado" title="Elegir el estado de las solicitudes" class="inline-flex cursor-pointer list-none items-center justify-center gap-2 rounded-xl bg-[#c49a35] px-4 py-2.5 text-sm font-semibold text-[#1f2529] transition hover:bg-[#d8b85c] focus:outline-none focus:ring-2 focus:ring-[#c49a35]/40">
                         <flux:icon name="funnel" class="size-4" />
                         Filtros
                     </summary>
@@ -46,7 +46,7 @@
                             </select>
                         </label>
                         <div class="flex items-center justify-between gap-2 border-t border-zinc-100 pt-3 dark:border-zinc-800">
-                            <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-[#c49a35] px-3 py-2 text-sm font-semibold text-[#1f2529] hover:bg-[#d8b85c]">
+                            <button type="submit" aria-label="Aplicar el filtro por estado" class="inline-flex items-center gap-2 rounded-xl bg-[#c49a35] px-3 py-2 text-sm font-semibold text-[#1f2529] hover:bg-[#d8b85c]">
                                 <flux:icon name="check" class="size-4" /> Aplicar
                             </button>
                             @if ($estadoFiltro !== 'todos')
@@ -62,7 +62,8 @@
             @if ($archivos->isNotEmpty())
                 <section class="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
                     <h2 class="font-semibold">Archivos cargados</h2>
-                    <div class="mt-4 overflow-x-auto">
+                    <p class="mb-2 text-xs text-zinc-500 lg:hidden dark:text-zinc-400">Desliza la tabla hacia los lados para ver todas las columnas.</p>
+                    <div class="mt-4 overflow-x-auto" role="region" aria-label="Archivos cargados; desliza horizontalmente para ver más columnas" tabindex="0">
                         <table class="w-full text-left text-sm">
                             <thead class="border-b border-zinc-200 text-xs uppercase text-zinc-500 dark:border-zinc-800"><tr><th class="p-3">Archivo</th><th class="p-3">Tamaño</th><th class="p-3">Acciones</th></tr></thead>
                             <tbody>
@@ -70,7 +71,7 @@
                                     <tr class="border-b border-zinc-100 dark:border-zinc-800">
                                         <td class="p-3">{{ $archivo->nombre_original }}</td>
                                         <td class="p-3">{{ number_format($archivo->tamano / 1024, 1) }} KB</td>
-                                        <td class="p-3"><div class="flex gap-2"><a class="text-sm font-semibold text-[#9a761f] hover:underline" href="{{ route('administrativo.solicitudes.archivos.download', $archivo) }}">Descargar</a><form method="POST" action="{{ route('administrativo.solicitudes.archivos.destroy', $archivo) }}">@csrf @method('DELETE')<button type="submit" class="text-sm font-semibold text-red-600 hover:underline">Eliminar</button></form></div></td>
+                                        <td class="p-3"><div class="flex flex-wrap gap-2"><a class="text-sm font-semibold text-[#9a761f] hover:underline" href="{{ route('administrativo.solicitudes.archivos.download', $archivo) }}" aria-label="Descargar {{ $archivo->nombre_original }}">Descargar</a><form method="POST" action="{{ route('administrativo.solicitudes.archivos.destroy', $archivo) }}">@csrf @method('DELETE')<button type="submit" aria-label="Eliminar {{ $archivo->nombre_original }}" class="text-sm font-semibold text-red-600 hover:underline">Eliminar</button></form></div></td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -805,10 +805,6 @@
         width: min(18rem, calc(100vw - 2rem)) !important;
     }
 
-    .institution-sidebar-always-open [data-flux-sidebar-collapse] {
-        display: none !important;
-    }
-
     .institution-sidebar [data-flux-sidebar-header] {
         gap: 0.5rem;
     }
@@ -1317,6 +1313,116 @@ button {
     .academic-table td:last-child,
     .academic-table th:last-child {
         min-width: 11rem;
+    }
+}
+
+@media (max-width: 1023px) {
+    .overflow-x-auto {
+        max-width: 100%;
+        overscroll-behavior-x: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+@media (max-width: 639px) {
+    input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+    select,
+    textarea,
+    .custom-select__trigger {
+        min-height: 2.75rem;
+        font-size: 16px !important;
+    }
+
+    textarea {
+        min-height: 7rem;
+    }
+
+    [data-flux-button],
+    [data-flux-sidebar-toggle],
+    [data-flux-sidebar-collapse],
+    button[type="button"],
+    button[type="submit"],
+    input[type="submit"],
+    .crud-action-button,
+    .crud-action-button-danger {
+        min-height: 2.75rem;
+    }
+
+    .crud-action-button,
+    .crud-action-button-danger {
+        min-height: 2.75rem !important;
+    }
+
+    [data-flux-sidebar-toggle],
+    [data-flux-sidebar-collapse] {
+        min-width: 2.75rem;
+    }
+
+    [data-flux-main] {
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (min-width: 1600px) {
+    html {
+        font-size: clamp(1rem, calc(0.75vw + 0.25rem), 1.25rem);
+    }
+}
+
+@media (max-width: 1023px) {
+    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] {
+        display: flex !important;
+        position: sticky !important;
+        top: 0 !important;
+        inset-inline-start: auto !important;
+        z-index: 1 !important;
+        flex: 0 0 3.5rem !important;
+        width: 3.5rem !important;
+        min-width: 3.5rem !important;
+        max-width: 3.5rem !important;
+        height: 100dvh;
+        min-height: 100dvh !important;
+        max-height: 100dvh !important;
+        padding: 0.5rem 0.25rem !important;
+        overflow-x: hidden !important;
+        translate: 0 0 !important;
+    }
+
+    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] [data-flux-sidebar-header] {
+        justify-content: center;
+        padding-inline: 0;
+    }
+
+    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] [data-flux-sidebar-brand] {
+        flex: 0 0 2.5rem;
+        width: 2.5rem;
+        justify-content: center;
+        padding-inline: 0;
+    }
+
+    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] [data-flux-sidebar-brand] > div:last-of-type,
+    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] [data-flux-sidebar-nav],
+    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] [data-flux-sidebar-toggle],
+    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] [data-flux-sidebar-collapse] {
+        display: none !important;
+    }
+
+    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] .institution-sidebar-collapsed-nav {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.25rem;
+    }
+
+    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] .institution-sidebar-collapsed-nav a,
+    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] .institution-sidebar-collapsed-nav span {
+        display: flex;
+        width: 2.5rem;
+        height: 2.5rem;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.75rem;
     }
 }
 

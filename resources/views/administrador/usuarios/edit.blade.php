@@ -2,6 +2,9 @@
     <flux:main>
         <div class="max-w-xl mx-auto bg-white dark:bg-zinc-900 rounded-lg shadow p-6 border border-zinc-200 dark:border-zinc-800">
             <h1 class="text-xl font-bold mb-4 text-zinc-800 dark:text-zinc-100">Editar Usuario</h1>
+            <x-action-help class="mb-4">
+                Actualiza los datos necesarios. Deja la contraseña vacía si no deseas cambiarla.
+            </x-action-help>
 
             <form action="{{ route('usuarios.update', $usuario->id_users) }}" method="POST" class="space-y-4">
                 @csrf

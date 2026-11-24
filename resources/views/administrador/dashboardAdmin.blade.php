@@ -1,7 +1,7 @@
 <x-layouts::app title="Panel administrativo">
     <div class="mx-auto w-full max-w-[96rem] min-w-0 space-y-6 px-4 py-5 sm:space-y-8 sm:px-6 sm:py-8 lg:px-8">
         <section class="relative isolate overflow-hidden rounded-3xl bg-[#172028] shadow-lg">
-            <img src="{{ asset('images/mesaconcosas.jpg') }}" alt="Aula de la Institución Educativa Salvatore" class="absolute inset-0 -z-20 size-full object-cover object-center" />
+            <img src="{{ asset('images/banneradmin.jpg') }}" alt="Aula de la Institución Educativa Salvatore" class="absolute inset-0 -z-20 size-full object-cover object-center" />
             <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#172028]/95 via-[#172028]/75 to-[#172028]/20"></div>
             <div class="flex min-h-[19rem] max-w-3xl flex-col justify-center p-6 text-white sm:min-h-[22rem] sm:p-10 lg:p-12">
                 <p class="w-fit rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#f2d783] backdrop-blur-sm">Administración escolar</p>
@@ -10,6 +10,10 @@
                 <div class="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-black/20 px-4 py-2 text-sm text-white/90 backdrop-blur-sm"><span class="size-2 shrink-0 rounded-full bg-[#e2c66f]"></span> Ciclo escolar en curso</div>
             </div>
         </section>
+
+        <x-action-help>
+            Elige un área o una herramienta para consultar y actualizar la información del colegio.
+        </x-action-help>
 
         <div class="grid w-full gap-5 sm:grid-cols-2 xl:grid-cols-4">
             @foreach([['Comunidad escolar','Usuarios, roles y perfiles.','usuarios.index','users','bg-[#e8f2e8] text-[#2f6f48]'],['Equipo docente','Profesores y asignaturas.','profesores.index','user-group','bg-[#edf1fa] text-[#526da8]'],['Estructura academica','Grados, cursos y sedes.','cursos.index','building-library','bg-[#fbf1df] text-[#a46b21]'],['Evaluacion','Periodos y escalas de valoracion.','indicadores.index','chart-bar','bg-[#f5eaf2] text-[#985278]']] as [$title,$description,$routeName,$icon,$color])

@@ -125,6 +125,9 @@
                                 Explorar la propuesta
                             </a>
                         </div>
+                        <x-action-help class="mt-4">
+                            Para iniciar una inscripción, elige Conoce el proceso; para recorrer el sitio, usa Explorar la propuesta.
+                        </x-action-help>
                         <div class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium text-[#59636c] dark:text-zinc-300">
                             <span class="inline-flex items-center gap-2"><span class="size-2 rounded-full bg-[#d8b85c]"></span> Aprendizaje activo</span>
                             <span class="inline-flex items-center gap-2"><span class="size-2 rounded-full bg-[#d8b85c]"></span> Crecimiento en comunidad</span>

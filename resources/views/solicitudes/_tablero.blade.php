@@ -9,7 +9,7 @@
 @endphp
 
 <section class="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
-    <div class="flex items-center justify-between gap-3">
+    <div class="flex flex-wrap items-center justify-between gap-3">
         <h2 class="font-semibold">Solicitudes</h2>
         @if (($estadoFiltro ?? null) && $estadoFiltro !== 'todos')
             <span class="rounded-full px-3 py-1 text-xs font-semibold {{ $estadoClases[$estadoFiltro] ?? 'bg-zinc-100 text-zinc-700' }}">
@@ -17,8 +17,9 @@
             </span>
         @endif
     </div>
+    <p class="mt-2 text-xs text-zinc-500 lg:hidden dark:text-zinc-400">Desliza la tabla hacia los lados para ver todas las columnas.</p>
 
-    <div class="mt-4 overflow-x-auto">
+    <div class="mt-4 overflow-x-auto" role="region" aria-label="Solicitudes; desliza horizontalmente para ver más columnas" tabindex="0">
         <table class="w-full min-w-[620px] text-left text-sm">
             <thead class="border-b border-zinc-200 text-xs uppercase text-zinc-500 dark:border-zinc-800">
                 <tr>
@@ -37,9 +38,12 @@
                         class="cursor-pointer border-b border-zinc-100 transition hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/60"
                         role="button"
                         tabindex="0"
+                        aria-label="Ver detalle de la solicitud de {{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }}"
+                        aria-haspopup="dialog"
+                        aria-controls="{{ $modalId }}"
                         title="Ver detalles de la solicitud"
                         onclick="document.getElementById('{{ $modalId }}').showModal()"
-                        onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); document.getElementById('{{ $modalId }}').showModal(); }"
+                        onkeydown="if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); document.getElementById('{{ $modalId }}').showModal(); }"
                     >
                         <td class="p-3 font-medium">{{ $s->estudiante_tipo_documento }} {{ $s->estudiante_numero_documento }}</td>
                         <td class="p-3">{{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }}</td>
@@ -51,13 +55,13 @@
                                         @csrf
                                         @method('PATCH')
                                         <input type="hidden" name="estado" value="aprobado">
-                                        <button type="submit" class="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-emerald-700">Aceptar</button>
+                                        <button type="submit" aria-label="Aprobar la solicitud de {{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }}" class="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-emerald-700">Aceptar</button>
                                     </form>
                                     <form method="POST" action="{{ route('administrativo.solicitudes.estado', $s) }}">
                                         @csrf
                                         @method('PATCH')
                                         <input type="hidden" name="estado" value="denegado">
-                                        <button type="submit" class="rounded-lg bg-red-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-red-700">Denegar</button>
+                                        <button type="submit" aria-label="Denegar la solicitud de {{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }}" class="rounded-lg bg-red-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-red-700">Denegar</button>
                                     </form>
                                 </div>
                             </td>
@@ -76,12 +80,12 @@
 
 @foreach($solicitudes as $s)
     @php($modalId = 'solicitud-detalle-'.$s->getKey())
-    <dialog id="{{ $modalId }}" class="m-auto max-h-[90vh] w-[min(58rem,calc(100vw-2rem))] max-w-none rounded-2xl border border-zinc-200 bg-white p-0 text-zinc-900 shadow-2xl backdrop:bg-zinc-950/70 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100">
+    <dialog id="{{ $modalId }}" aria-labelledby="{{ $modalId }}-title" class="m-auto max-h-[90vh] w-[min(58rem,calc(100vw-2rem))] max-w-none rounded-2xl border border-zinc-200 bg-white p-0 text-zinc-900 shadow-2xl backdrop:bg-zinc-950/70 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100">
         <div class="flex max-h-[90vh] flex-col">
             <div class="flex items-start justify-between gap-4 border-b border-zinc-200 px-5 py-4 dark:border-zinc-800">
                 <div>
                     <p class="text-xs font-semibold uppercase tracking-[0.14em] text-[#9a761f]">Detalle de solicitud</p>
-                    <h2 class="mt-1 text-lg font-semibold">{{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }}</h2>
+                    <h2 id="{{ $modalId }}-title" class="mt-1 break-words text-lg font-semibold">{{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }}</h2>
                 </div>
                 <button type="button" class="rounded-lg p-2 text-xl leading-none text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-800 dark:hover:bg-zinc-800 dark:hover:text-zinc-100" onclick="document.getElementById('{{ $modalId }}').close()" aria-label="Cerrar ventana">&times;</button>
             </div>
@@ -134,16 +138,16 @@
                             @csrf
                             @method('PATCH')
                             <input type="hidden" name="estado" value="aprobado">
-                            <button type="submit" class="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-emerald-700">Aprobar</button>
+                            <button type="submit" aria-label="Aprobar la solicitud de {{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }}" class="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-emerald-700">Aprobar</button>
                         </form>
                         <form method="POST" action="{{ route('administrativo.solicitudes.estado', $s) }}">
                             @csrf
                             @method('PATCH')
                             <input type="hidden" name="estado" value="denegado">
-                            <button type="submit" class="rounded-lg bg-red-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-red-700">Denegar</button>
+                            <button type="submit" aria-label="Denegar la solicitud de {{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }}" class="rounded-lg bg-red-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-red-700">Denegar</button>
                         </form>
                     @endif
-                    <button type="button" class="rounded-lg border border-zinc-300 px-3 py-2 text-xs font-semibold text-zinc-700 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-800" onclick="document.getElementById('{{ $modalId }}').close()">Cerrar</button>
+                    <button type="button" aria-label="Cerrar los detalles de la solicitud" class="rounded-lg border border-zinc-300 px-3 py-2 text-xs font-semibold text-zinc-700 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-800" onclick="document.getElementById('{{ $modalId }}').close()">Cerrar</button>
                 </div>
             </div>
         </div>

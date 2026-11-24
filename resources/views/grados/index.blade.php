@@ -16,7 +16,8 @@
     'filterFields' => [['name' => 'filter', 'label' => 'Cursos asociados', 'options' => ['con_cursos' => 'Con cursos', 'sin_cursos' => 'Sin cursos']]],
 ])
 
-<div class="bg-white rounded-lg shadow overflow-x-auto">
+<div class="bg-white rounded-lg shadow overflow-x-auto" role="region" aria-label="Listado de grados; desliza horizontalmente para ver más columnas" tabindex="0">
+    <p class="mb-2 px-4 pt-4 text-xs text-gray-500 lg:hidden">Desliza la tabla hacia los lados para ver todas las columnas.</p>
     <table class="w-full text-left border-collapse">
         <thead class="bg-gray-50 border-b">
             <tr>

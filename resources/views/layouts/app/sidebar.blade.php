@@ -23,13 +23,15 @@
 
         <div class="flex min-h-screen w-full">
 
-            <flux:sidebar sticky collapsible="true" persist="false" class="institution-sidebar {{ $rolActual === 'administrador' ? 'institution-sidebar-always-open' : '' }} sticky min-h-screen shrink-0 border-e border-[#d8dee8] bg-white text-[#27313a] dark:border-[#3c4043] dark:bg-[#1e1f20] dark:text-white">
+            <flux:sidebar sticky :collapsible="true" persist="false" class="institution-sidebar sticky min-h-screen shrink-0 border-e border-[#d8dee8] bg-white text-[#27313a] dark:border-[#3c4043] dark:bg-[#1e1f20] dark:text-white">
 
             <flux:sidebar.header>
 
                 <x-app-logo :sidebar="true" href="{{ route($homeRoute) }}" wire:navigate.hover />
 
-                <flux:sidebar.collapse class="!ml-auto hidden lg:flex" />
+                <flux:sidebar.toggle class="ml-auto lg:hidden" icon="x-mark" aria-label="Cerrar menú de navegación" />
+
+                <flux:sidebar.collapse class="!ml-auto hidden lg:flex" aria-label="Contraer la barra lateral" />
 
             </flux:sidebar.header>
 
@@ -401,7 +403,7 @@
 
                 <flux:header data-profile-scroll-header class="lg:hidden">
 
-            <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
+            <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" aria-label="Abrir o cerrar el menú de navegación" />
 
 
 
@@ -504,7 +506,6 @@
             </flux:dropdown>
 
                 </flux:header>
-
                 <div class="min-w-0 flex-1">
                     {{ $slot }}
                 </div>

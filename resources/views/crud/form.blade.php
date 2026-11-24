@@ -1,7 +1,10 @@
 <x-layouts::app.sidebar :title="$title">
     <flux:main>
-        <div class="max-w-2xl mx-auto">
-            <flux:heading size="xl" class="mb-6">{{ $title }}</flux:heading>
+        <div class="mx-auto w-full min-w-0 max-w-2xl">
+            <flux:heading size="xl" class="mb-3 break-words">{{ $title }}</flux:heading>
+            <x-action-help class="mb-6">
+                Completa la información y selecciona Guardar. Si vuelves sin guardar, los cambios no se conservarán.
+            </x-action-help>
 
             {{-- Errores de validacion --}}
             @if ($errors->any())
@@ -14,7 +17,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ $action }}" class="space-y-4">
+            <form method="POST" action="{{ $action }}" class="space-y-4" aria-label="{{ $item ? 'Editar registro' : 'Crear registro' }}">
                 @csrf
                 @if($method)<input type="hidden" name="_method" value="{{ $method }}">@endif
 
@@ -54,9 +57,9 @@
                     @endif
                 @endforeach
 
-                <div class="flex justify-end gap-2">
-                    <flux:button variant="ghost" href="{{ route($resource.'.index') }}">Cancelar</flux:button>
-                    <flux:button type="submit" variant="primary">Guardar</flux:button>
+                <div class="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+                    <flux:button class="w-full sm:w-auto" variant="ghost" href="{{ route($resource.'.index') }}" aria-label="Cancelar y volver al listado">Cancelar</flux:button>
+                    <flux:button class="w-full sm:w-auto" type="submit" variant="primary" aria-label="Guardar los datos del registro">Guardar</flux:button>
                 </div>
             </form>
         </div>

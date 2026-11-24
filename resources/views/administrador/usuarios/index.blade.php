@@ -4,8 +4,11 @@
             <div>
                 <h1 class="text-2xl font-bold text-zinc-800 dark:text-zinc-100">Gestión de Usuarios</h1>
                 <p class="text-sm text-zinc-500">Administración de cuentas registradas en la plataforma.</p>
+                <x-action-help class="mt-3 max-w-3xl">
+                    Busca una cuenta para revisar sus datos o cambiar su acceso.
+                </x-action-help>
             </div>
-            <flux:button class="w-full sm:w-auto" variant="primary" icon="plus" href="{{ route('usuarios.create') }}">
+            <flux:button class="w-full sm:w-auto" variant="primary" icon="plus" href="{{ route('usuarios.create') }}" aria-label="Agregar una cuenta de usuario" title="Crear una cuenta nueva">
                 Agregar Usuario
             </flux:button>
         </div>
@@ -17,7 +20,8 @@
                 'filterOptions' => ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'],
             ])
 
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto" role="region" aria-label="Listado de usuarios; desliza horizontalmente para ver más columnas" tabindex="0">
+                <p class="mb-2 text-xs text-zinc-500 lg:hidden dark:text-zinc-400">Desliza la tabla hacia los lados para ver todas las columnas.</p>
                 <table class="w-full text-left text-sm text-zinc-600 dark:text-zinc-300">
                     <thead class="bg-zinc-100 dark:bg-zinc-800 uppercase text-xs">
                         <tr>
@@ -32,7 +36,7 @@
                     <tbody>
                         @forelse($usuarios as $usuario)
                             <tr class="border-b border-zinc-200 dark:border-zinc-800">
-                                <td class="p-3"><input type="checkbox" name="selected[]" value="{{ $usuario->id_users }}"></td>
+                                <td class="p-3"><input type="checkbox" name="selected[]" value="{{ $usuario->id_users }}" aria-label="Seleccionar la cuenta de {{ $usuario->name }}"></td>
                                 <td class="p-3">{{ $usuario->name ?? 'N/D' }}</td>
                                 <td class="p-3">{{ $usuario->email }}</td>
                                 <td class="p-3">{{ $usuario->role }}</td>

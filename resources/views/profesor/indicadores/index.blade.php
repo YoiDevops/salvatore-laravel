@@ -20,7 +20,8 @@
         ])
 
         <div class="rounded-2xl border border-[#d8dee8] bg-white shadow-[0_8px_24px_rgba(16,33,59,0.07)] dark:border-zinc-800 dark:bg-zinc-900">
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto" role="region" aria-label="Listado de indicadores; desliza horizontalmente para ver más columnas" tabindex="0">
+                <p class="mb-2 px-4 pt-4 text-xs text-zinc-500 lg:hidden dark:text-zinc-400">Desliza la tabla hacia los lados para ver todas las columnas.</p>
                 <table class="w-full text-left text-sm">
                     <thead class="bg-zinc-50 dark:bg-zinc-800/60">
                         <tr>

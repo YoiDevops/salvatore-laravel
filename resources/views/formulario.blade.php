@@ -353,7 +353,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
         }
     }"
 >
-    <div class="max-w-4xl mx-auto space-y-6">
+    <div class="mx-auto w-full min-w-0 max-w-4xl space-y-6">
 
         <!-- CABECERA DE LA PÁGINA -->
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md p-6 rounded-2xl border border-stone-200/80 dark:border-stone-800 shadow-sm">
@@ -375,6 +375,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
                 @click="toggleTheme()" 
                 class="p-2.5 rounded-xl bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition-all focus:outline-none focus:ring-2 focus:ring-[#D4A017]/50"
                 title="Cambiar tema"
+                aria-label="Cambiar entre tema claro y oscuro"
             >
                 <svg x-show="darkMode" class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
                 <svg x-show="!darkMode" class="w-5 h-5 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
@@ -395,21 +396,26 @@ new #[Layout('layouts.auth.card')] class extends Component {
             </div>
         @else
         <!-- INDICADOR DE PASOS -->
+        <x-action-help>
+            Completa primero los datos del estudiante y continúa con la información del padre o acudiente.
+        </x-action-help>
         <div class="grid grid-cols-2 gap-4">
             <!-- Indicador Paso 1 -->
-            <button type="button" wire:click="cambiarPaso(1)" class="w-full text-left flex items-center gap-3 p-4 rounded-xl border transition-all cursor-pointer {{ $pasoActual === 1 ? 'bg-amber-500/10 border-[#D4A017] text-[#D4A017]' : 'bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-800 text-stone-400' }}">
+            <button type="button" wire:click="cambiarPaso(1)" aria-label="Ir al paso 1: datos del estudiante" aria-pressed="{{ $pasoActual === 1 ? 'true' : 'false' }}" class="w-full min-w-0 text-left flex items-center gap-3 p-4 rounded-xl border transition-all cursor-pointer {{ $pasoActual === 1 ? 'bg-amber-500/10 border-[#D4A017] text-[#D4A017]' : 'bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-800 text-stone-400' }}">
                 <span class="w-8 h-8 flex items-center justify-center rounded-lg font-bold text-sm {{ $pasoActual === 1 ? 'bg-[#D4A017] text-white' : 'bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400' }}">1</span>
                 <div>
                     <p class="text-xs uppercase font-bold tracking-wider">Paso 1</p>
+                    <p class="text-xs font-semibold sm:hidden">Estudiante</p>
                     <p class="text-sm font-semibold hidden sm:block">Datos del Estudiante</p>
                 </div>
             </button>
 
             <!-- Indicador Paso 2 -->
-            <button type="button" wire:click="cambiarPaso(2)" class="w-full text-left flex items-center gap-3 p-4 rounded-xl border transition-all cursor-pointer {{ $pasoActual === 2 ? 'bg-amber-500/10 border-[#D4A017] text-[#D4A017]' : 'bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-800 text-stone-400' }}">
+            <button type="button" wire:click="cambiarPaso(2)" aria-label="Ir al paso 2: datos del acudiente" aria-pressed="{{ $pasoActual === 2 ? 'true' : 'false' }}" class="w-full min-w-0 text-left flex items-center gap-3 p-4 rounded-xl border transition-all cursor-pointer {{ $pasoActual === 2 ? 'bg-amber-500/10 border-[#D4A017] text-[#D4A017]' : 'bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-800 text-stone-400' }}">
                 <span class="w-8 h-8 flex items-center justify-center rounded-lg font-bold text-sm {{ $pasoActual === 2 ? 'bg-[#D4A017] text-white' : 'bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400' }}">2</span>
                 <div>
                     <p class="text-xs uppercase font-bold tracking-wider">Paso 2</p>
+                    <p class="text-xs font-semibold sm:hidden">Acudiente</p>
                     <p class="text-sm font-semibold hidden sm:block">Datos del Acudiente</p>
                 </div>
             </button>
@@ -431,7 +437,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Tipo de Documento Acudiente *</label>
-                            <select wire:model.live="acudiente_tipo_documento" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                            <select wire:model.live="acudiente_tipo_documento" aria-label="Tipo de documento del acudiente" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                 <option value="">Seleccione tipo...</option>
                                 <option value="CC">Cédula de Ciudadanía (CC)</option>
                                 <option value="CE">Cédula de Extranjería (CE)</option>
@@ -445,6 +451,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Número de Documento Acudiente *</label>
                             <input type="number" 
                                    wire:model.live="acudiente_numero_documento" 
+                                   aria-label="Número de documento del acudiente"
                                    oninput="if(this.value.length > 12) this.value = this.value.slice(0, 12);"
                                    placeholder="1000123456" 
                                    class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
@@ -453,32 +460,32 @@ new #[Layout('layouts.auth.card')] class extends Component {
 
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Nombres Acudiente *</label>
-                            <input type="text" wire:model.live="acudiente_nombres" placeholder="Ej: Carlos Alberto" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                            <input type="text" wire:model.live="acudiente_nombres" aria-label="Nombres del acudiente" placeholder="Ej: Carlos Alberto" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                             @error('acudiente_nombres') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Apellidos Acudiente *</label>
-                            <input type="text" wire:model.live="acudiente_apellidos" placeholder="Ej: Gómez Pérez" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                            <input type="text" wire:model.live="acudiente_apellidos" aria-label="Apellidos del acudiente" placeholder="Ej: Gómez Pérez" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                             @error('acudiente_apellidos') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Fecha de Nacimiento Acudiente *</label>
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
-                                <select wire:model.live="acudiente_dia_nacimiento" wire:change="actualizarFechaAcudiente" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                                <select wire:model.live="acudiente_dia_nacimiento" wire:change="actualizarFechaAcudiente" aria-label="Día de nacimiento del acudiente" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                     <option value="">Día</option>
                                     @for ($dia = 1; $dia <= 31; $dia++)
                                         <option value="{{ str_pad($dia, 2, '0', STR_PAD_LEFT) }}">{{ $dia }}</option>
                                     @endfor
                                 </select>
-                                <select wire:model.live="acudiente_mes_nacimiento" wire:change="actualizarFechaAcudiente" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                                <select wire:model.live="acudiente_mes_nacimiento" wire:change="actualizarFechaAcudiente" aria-label="Mes de nacimiento del acudiente" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                     <option value="">Mes</option>
                                     @foreach ([1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto', 9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'] as $mes => $nombreMes)
                                         <option value="{{ str_pad($mes, 2, '0', STR_PAD_LEFT) }}">{{ $nombreMes }}</option>
                                     @endforeach
                                 </select>
-                                <select wire:model.live="acudiente_anio_nacimiento" wire:change="actualizarFechaAcudiente" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                                <select wire:model.live="acudiente_anio_nacimiento" wire:change="actualizarFechaAcudiente" aria-label="Año de nacimiento del acudiente" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                     <option value="">Año</option>
                                     @for ($anio = now()->subYears(18)->year; $anio >= now()->subYears(150)->year; $anio--)
                                         <option value="{{ $anio }}">{{ $anio }}</option>
@@ -490,7 +497,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
 
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Género Acudiente *</label>
-                            <select wire:model.live="acudiente_genero" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                            <select wire:model.live="acudiente_genero" aria-label="Género del acudiente" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                 <option value="">Seleccione género...</option>
                                 <option value="Masculino">Masculino</option>
                                 <option value="Femenino">Femenino</option>
@@ -501,7 +508,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
 
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Parentesco Acudiente *</label>
-                            <select wire:model.live="acudiente_parentesco" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                            <select wire:model.live="acudiente_parentesco" aria-label="Parentesco del acudiente con el estudiante" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                 <option value="">Seleccione parentesco...</option>
                                 <option value="Padre">Padre</option>
                                 <option value="Madre">Madre</option>
@@ -517,6 +524,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Teléfono Acudiente *</label>
                             <input type="number" 
                                    wire:model.live="acudiente_telefono" 
+                                   aria-label="Teléfono del acudiente"
                                    oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);"
                                    placeholder="3001234567" 
                                    class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
@@ -525,18 +533,18 @@ new #[Layout('layouts.auth.card')] class extends Component {
 
                         <div class="md:col-span-2">
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Dirección Acudiente *</label>
-                            <input type="text" wire:model.live="acudiente_direccion" placeholder="Calle 12 # 34 - 56, Barrio Centro" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                            <input type="text" wire:model.live="acudiente_direccion" aria-label="Dirección del acudiente" placeholder="Calle 12 # 34 - 56, Barrio Centro" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                             @error('acudiente_direccion') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Lugar de Trabajo</label>
-                            <input type="text" wire:model.live="acudiente_lugar_trabajo" placeholder="Empresa S.A.S." class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                            <input type="text" wire:model.live="acudiente_lugar_trabajo" aria-label="Lugar de trabajo del acudiente" placeholder="Empresa S.A.S." class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                         </div>
 
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Ocupación</label>
-                            <input type="text" wire:model.live="acudiente_ocupacion" placeholder="Comerciante, Ingeniero, etc." class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                            <input type="text" wire:model.live="acudiente_ocupacion" aria-label="Ocupación del acudiente" placeholder="Comerciante, Ingeniero, etc." class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                         </div>
                     </div>
 
@@ -575,7 +583,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Tipo de Documento *</label>
-                            <select wire:model.live="estudiante_tipo_documento" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                            <select wire:model.live="estudiante_tipo_documento" aria-label="Tipo de documento del estudiante" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                 <option value="">Seleccione tipo...</option>
                                 <option value="TI">Tarjeta de Identidad (TI)</option>
                                 <option value="RC">Registro Civil (RC)</option>
@@ -589,6 +597,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Documento Estudiante *</label>
                             <input type="number" 
                                    wire:model.live="estudiante_numero_documento" 
+                                   aria-label="Número de documento del estudiante"
                                    oninput="if(this.value.length > 12) this.value = this.value.slice(0, 12);"
                                    placeholder="1011223344" 
                                    class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
@@ -597,32 +606,32 @@ new #[Layout('layouts.auth.card')] class extends Component {
 
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Nombre Estudiante *</label>
-                            <input type="text" wire:model.live="estudiante_nombres" placeholder="Ej: Mateo" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                            <input type="text" wire:model.live="estudiante_nombres" aria-label="Nombres del estudiante" placeholder="Ej: Mateo" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                             @error('estudiante_nombres') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Apellidos *</label>
-                            <input type="text" wire:model.live="estudiante_apellidos" placeholder="Ej: Gómez López" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                            <input type="text" wire:model.live="estudiante_apellidos" aria-label="Apellidos del estudiante" placeholder="Ej: Gómez López" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                             @error('estudiante_apellidos') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Fecha de Nacimiento Estudiante*</label>
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
-                                <select wire:model.live="estudiante_dia_nacimiento" wire:change="actualizarFechaEstudiante" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                                <select wire:model.live="estudiante_dia_nacimiento" wire:change="actualizarFechaEstudiante" aria-label="Día de nacimiento del estudiante" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                     <option value="">Día</option>
                                     @for ($dia = 1; $dia <= 31; $dia++)
                                         <option value="{{ str_pad($dia, 2, '0', STR_PAD_LEFT) }}">{{ $dia }}</option>
                                     @endfor
                                 </select>
-                                <select wire:model.live="estudiante_mes_nacimiento" wire:change="actualizarFechaEstudiante" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                                <select wire:model.live="estudiante_mes_nacimiento" wire:change="actualizarFechaEstudiante" aria-label="Mes de nacimiento del estudiante" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                     <option value="">Mes</option>
                                     @foreach ([1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto', 9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'] as $mes => $nombreMes)
                                         <option value="{{ str_pad($mes, 2, '0', STR_PAD_LEFT) }}">{{ $nombreMes }}</option>
                                     @endforeach
                                 </select>
-                                <select wire:model.live="estudiante_anio_nacimiento" wire:change="actualizarFechaEstudiante" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                                <select wire:model.live="estudiante_anio_nacimiento" wire:change="actualizarFechaEstudiante" aria-label="Año de nacimiento del estudiante" class="w-full px-3 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                     <option value="">Año</option>
                                     @for ($anio = 2021; $anio >= now()->subYears(150)->year; $anio--)
                                         <option value="{{ $anio }}">{{ $anio }}</option>
@@ -638,7 +647,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
                                 @if ($errorUbicaciones !== '')
                                     <p class="mb-2 text-sm text-amber-700 dark:text-amber-300" role="alert">{{ $errorUbicaciones }}</p>
                                 @endif
-                                <input type="text" wire:model.live="estudiante_lugar_nacimiento" placeholder="Ciudad / Municipio" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                                <input type="text" wire:model.live="estudiante_lugar_nacimiento" aria-label="Lugar de nacimiento del estudiante" placeholder="Ciudad / Municipio" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                             @else
                                 <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
                                     <select wire:model.live="estudiante_departamento" aria-label="Departamento de nacimiento" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
@@ -661,7 +670,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
 
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Género *</label>
-                            <select wire:model.live="estudiante_genero" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                            <select wire:model.live="estudiante_genero" aria-label="Género del estudiante" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                 <option value="">Seleccione género...</option>
                                 <option value="Masculino">Masculino</option>
                                 <option value="Femenino">Femenino</option>
@@ -672,7 +681,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
 
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Tipo de Sangre *</label>
-                            <select wire:model.live="estudiante_tipo_sangre" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                            <select wire:model.live="estudiante_tipo_sangre" aria-label="Tipo de sangre del estudiante" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                 <option value="">Seleccione grupo...</option>
                                 <option value="O+">O+</option>
                                 <option value="O-">O-</option>
@@ -688,7 +697,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
 
                         <div>
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">EPS *</label>
-                            <input type="text" wire:model.live="estudiante_eps" placeholder="Ej: Sanitas, Sura" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                            <input type="text" wire:model.live="estudiante_eps" aria-label="EPS del estudiante" placeholder="Ej: Sanitas, Sura" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                             @error('estudiante_eps') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
                         
@@ -712,7 +721,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
 
                         <div class="md:col-span-2 border-t border-stone-100 dark:border-stone-800 pt-5">
                             <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">¿Tiene alguna discapacidad? *</label>
-                            <select wire:model.live="estudiante_tiene_discapacidad" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                            <select wire:model.live="estudiante_tiene_discapacidad" aria-label="Indicar si el estudiante tiene alguna discapacidad" class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                 <option value="">Seleccione una opción...</option>
                                 <option value="No">No</option>
                                 <option value="Si">Sí</option>
@@ -724,33 +733,33 @@ new #[Layout('layouts.auth.card')] class extends Component {
                             <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-5 rounded-xl border border-amber-200 bg-amber-50/50 p-5 dark:border-amber-900/50 dark:bg-amber-950/20">
                                 <div>
                                     <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Tipo de discapacidad *</label>
-                                    <select wire:model.live="estudiante_tipo_discapacidad" class="w-full px-4 py-3 text-sm bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                                    <select wire:model.live="estudiante_tipo_discapacidad" aria-label="Tipo de discapacidad del estudiante" class="w-full px-4 py-3 text-sm bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                         <option value="">Seleccione tipo...</option><option value="Física">Física</option><option value="Visual">Visual</option><option value="Auditiva">Auditiva</option><option value="Intelectual">Intelectual</option><option value="Psicosocial">Psicosocial</option><option value="Múltiple">Múltiple</option><option value="Otra">Otra</option>
                                     </select>
                                     @error('estudiante_tipo_discapacidad') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Diagnóstico *</label>
-                                    <input type="text" wire:model.live="estudiante_diagnostico_discapacidad" maxlength="150" placeholder="Escribe el diagnóstico" class="w-full px-4 py-3 text-sm bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
+                                    <input type="text" wire:model.live="estudiante_diagnostico_discapacidad" aria-label="Diagnóstico de discapacidad del estudiante" maxlength="150" placeholder="Escribe el diagnóstico" class="w-full px-4 py-3 text-sm bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100 placeholder-stone-400">
                                     @error('estudiante_diagnostico_discapacidad') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Grado de discapacidad *</label>
-                                    <select wire:model.live="estudiante_grado_discapacidad" class="w-full px-4 py-3 text-sm bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                                    <select wire:model.live="estudiante_grado_discapacidad" aria-label="Grado de discapacidad del estudiante" class="w-full px-4 py-3 text-sm bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                         <option value="">Seleccione grado...</option><option value="Leve">Leve</option><option value="Moderada">Moderada</option><option value="Severa">Severa</option>
                                     </select>
                                     @error('estudiante_grado_discapacidad') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Permanencia *</label>
-                                    <select wire:model.live="estudiante_permanencia_discapacidad" class="w-full px-4 py-3 text-sm bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                                    <select wire:model.live="estudiante_permanencia_discapacidad" aria-label="Permanencia de la discapacidad del estudiante" class="w-full px-4 py-3 text-sm bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                         <option value="">Seleccione permanencia...</option><option value="Temporal">Temporal</option><option value="Permanente">Permanente</option>
                                     </select>
                                     @error('estudiante_permanencia_discapacidad') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                                 </div>
                                 <div class="md:col-span-2">
                                     <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">Grado de atención *</label>
-                                    <select wire:model.live="estudiante_grado_atencion" class="w-full px-4 py-3 text-sm bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
+                                    <select wire:model.live="estudiante_grado_atencion" aria-label="Grado de atención requerido por el estudiante" class="w-full px-4 py-3 text-sm bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl focus:outline-none focus:border-[#D4A017] text-stone-800 dark:text-stone-100">
                                         <option value="">Seleccione grado de atención...</option><option value="Aula regular">Aula regular</option><option value="Apoyo especializado">Apoyo especializado</option><option value="Atención integral">Atención integral</option>
                                     </select>
                                     @error('estudiante_grado_atencion') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror

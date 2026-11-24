@@ -47,7 +47,8 @@
                     <p class="mt-1 text-sm text-zinc-500">Listado de estudiantes matriculados.</p>
                 </div>
             </div>
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto" role="region" aria-label="Información del curso; desliza horizontalmente para ver más columnas" tabindex="0">
+                <p class="mb-2 px-4 pt-4 text-xs text-zinc-500 lg:hidden dark:text-zinc-400">Desliza la tabla hacia los lados para ver todas las columnas.</p>
                 <table class="w-full text-left text-sm">
                     <thead class="bg-zinc-50 dark:bg-zinc-800/60">
                         <tr>

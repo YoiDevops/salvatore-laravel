@@ -11,8 +11,11 @@
                     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#c49a35]">Administración de cuentas</p>
                     <flux:heading size="xl" class="mt-2">Profesores y estudiantes</flux:heading>
                     <p class="mt-1 max-w-2xl text-sm text-zinc-500 dark:text-zinc-400">Administra el acceso de las cuentas vinculadas a la institución.</p>
+                    <x-action-help class="mt-3 max-w-3xl">
+                        Busca una cuenta para consultar sus datos o cambiar su acceso.
+                    </x-action-help>
                 </div>
-                <flux:button class="w-full sm:w-auto" variant="primary" icon="plus" href="{{ route('administrativo.usuarios.create') }}">
+                <flux:button class="w-full sm:w-auto" variant="primary" icon="plus" href="{{ route('administrativo.usuarios.create') }}" aria-label="Crear una cuenta de estudiante o profesor" title="Registrar una cuenta nueva">
                     Crear cuenta
                 </flux:button>
             </div>
@@ -57,18 +60,19 @@
                         <h2 class="font-semibold text-zinc-900 dark:text-white">Listado de cuentas</h2>
                         <p class="mt-1 text-sm text-zinc-500">Busca por nombre de usuario o correo electrónico.</p>
                     </div>
-                    <form method="GET" action="{{ route('administrativo.usuarios.index') }}" class="flex w-full gap-2 sm:w-auto">
+                    <form method="GET" action="{{ route('administrativo.usuarios.index') }}" class="flex w-full gap-2 sm:w-auto" aria-label="Buscar cuentas de profesores y estudiantes">
                         <div class="relative min-w-0 flex-1 sm:w-72">
                             <flux:icon name="magnifying-glass" class="pointer-events-none absolute left-3 top-1/2 z-10 size-4 -translate-y-1/2 text-[#c49a35]" />
-                            <input name="search" type="search" value="{{ request('search') }}" placeholder="Buscar cuenta..." class="w-full rounded-xl border border-zinc-300 bg-white py-2.5 pl-10 pr-3 text-sm text-zinc-800 outline-none transition placeholder:text-zinc-400 focus:border-[#c49a35] focus:ring-2 focus:ring-[#c49a35]/20 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100" />
+                            <input name="search" type="search" value="{{ request('search') }}" aria-label="Buscar por nombre o correo" placeholder="Buscar cuenta..." class="w-full rounded-xl border border-zinc-300 bg-white py-2.5 pl-10 pr-3 text-sm text-zinc-800 outline-none transition placeholder:text-zinc-400 focus:border-[#c49a35] focus:ring-2 focus:ring-[#c49a35]/20 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100" />
                         </div>
-                        <button type="submit" class="inline-flex items-center justify-center rounded-xl border border-zinc-300 px-3 text-sm font-semibold text-zinc-700 transition hover:border-[#c49a35] hover:text-[#8a681b] dark:border-zinc-700 dark:text-zinc-200">
+                        <button type="submit" aria-label="Buscar cuentas" class="inline-flex items-center justify-center rounded-xl border border-zinc-300 px-3 text-sm font-semibold text-zinc-700 transition hover:border-[#c49a35] hover:text-[#8a681b] dark:border-zinc-700 dark:text-zinc-200">
                             Buscar
                         </button>
                     </form>
                 </div>
 
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto" role="region" aria-label="Listado de cuentas; desliza horizontalmente para ver más columnas" tabindex="0">
+                    <p class="mb-2 px-5 pt-4 text-xs text-zinc-500 lg:hidden dark:text-zinc-400">Desliza la tabla hacia los lados para ver todas las columnas.</p>
                     <table class="w-full min-w-[760px] text-left text-sm">
                         <thead class="bg-zinc-50 text-xs uppercase tracking-wide text-zinc-500 dark:bg-zinc-950/60 dark:text-zinc-400">
                             <tr>
@@ -102,12 +106,12 @@
                                     </td>
                                     <td class="px-5 py-4">
                                         <div class="flex flex-wrap justify-end gap-2">
-                                            <flux:button class="crud-action-button" size="sm" href="{{ route('administrativo.usuarios.show', $usuario) }}">Ver</flux:button>
-                                            <flux:button class="crud-action-button" size="sm" href="{{ route('administrativo.usuarios.edit', $usuario) }}">Editar</flux:button>
+                                            <flux:button class="crud-action-button" size="sm" href="{{ route('administrativo.usuarios.show', $usuario) }}" aria-label="Ver la cuenta de {{ $usuario->name }}">Ver</flux:button>
+                                            <flux:button class="crud-action-button" size="sm" href="{{ route('administrativo.usuarios.edit', $usuario) }}" aria-label="Editar la cuenta de {{ $usuario->name }}">Editar</flux:button>
                                             <form method="POST" action="{{ route('administrativo.usuarios.destroy', $usuario) }}" class="inline-flex" onsubmit="return confirm('¿Está seguro de eliminar esta cuenta?');">
                                                 @csrf
                                                 @method('DELETE')
-                                                <flux:button class="crud-action-button-danger" size="sm" variant="danger" type="submit">Eliminar</flux:button>
+                                                <flux:button class="crud-action-button-danger" size="sm" variant="danger" type="submit" aria-label="Eliminar la cuenta de {{ $usuario->name }}">Eliminar</flux:button>
                                             </form>
                                         </div>
                                     </td>

@@ -188,7 +188,7 @@
 
         .student-board > .relative > section:has(.student-subject-grid) > div:first-child {
             border: 0;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             padding-bottom: 0;
         }
 
@@ -214,6 +214,10 @@
                     <p class="mt-3 max-w-3xl text-lg font-bold leading-7 text-[#5e4a78] sm:text-xl">Bienvenido a tu espacio personal de aprendizaje. Aqu&iacute; puedes encontrar tu curso, tus materias y tu progreso.</p>
                 </div>
             </section>
+
+            <x-action-help>
+                Elige una tarjeta para conocer tus materias, curso o progreso. Si falta información, consulta a tu acudiente o docente.
+            </x-action-help>
 
             <section class="student-panel bg-[#fffdf7] p-6 sm:p-8">
                 <div class="flex flex-wrap items-end justify-between gap-4 border-b-2 border-dashed border-[#d7c7f0] pb-5">

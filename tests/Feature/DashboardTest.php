@@ -52,7 +52,11 @@ class DashboardTest extends TestCase
         $response->assertOk();
         $response->assertSee('Bienvenido al panel administrativo');
         $response->assertSee('alt="Aula de la Institución Educativa Salvatore"', false);
-        $response->assertSee('institution-sidebar-always-open');
+        $response->assertDontSee('institution-sidebar-always-open');
+        $response->assertSee('data-flux-sidebar-on-mobile', false);
+        $response->assertSee('data-flux-sidebar-collapsed-mobile', false);
+        $response->assertSee('Cerrar menú de navegación');
+        $response->assertDontSee('¿Necesitas ayuda en esta pantalla?');
         $response->assertDontSee('title="Inicio"', false);
         $response->assertDontSee(route('administrativo.solicitudes.index'), false);
         $response->assertDontSee(route('administrativo.archivos-excel.index'), false);
@@ -67,6 +71,18 @@ class DashboardTest extends TestCase
             ->get(route('dashboard'));
 
         $response->assertRedirect(route('estudiante.dashboard'));
+    }
+
+    public function test_student_dashboard_displays_contextual_help(): void
+    {
+        $user = User::factory()->estudiante()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->get(route('estudiante.dashboard'));
+
+        $response->assertOk();
+        $response->assertSee('Elige una tarjeta para conocer tus materias, curso o progreso.');
     }
 
     public function test_dashboard_theme_is_not_hardcoded_to_dark_mode(): void
