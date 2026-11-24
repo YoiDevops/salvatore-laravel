@@ -18,9 +18,11 @@
 
             <flux:sidebar sticky collapsible="true" persist="false" class="institution-sidebar {{ $rolActual === 'administrador' ? 'institution-sidebar-always-open' : '' }} sticky min-h-screen shrink-0 border-e border-[#d8dee8] bg-white text-[#27313a] dark:border-[#3c4043] dark:bg-[#1e1f20] dark:text-white">
 
-            <flux:sidebar.header>
+            <flux:sidebar.header class="institution-sidebar-header">
 
                 <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate.hover />
+
+                <flux:sidebar.toggle class="institution-sidebar-logo-expand-toggle" icon="bars-2" aria-label="Abrir barra lateral" />
 
                 <flux:sidebar.collapse class="!ml-auto hidden lg:flex" />
 
@@ -28,8 +30,6 @@
 
             <flux:sidebar.nav>
 
-<<<<<<< HEAD
-=======
                 @if (! in_array($rolActual, ['estudiante', 'administrador'], true))
                     <flux:sidebar.group heading="INSTITUCION" class="grid text-[#c7d0df]">
                         <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate.hover title="Inicio">
@@ -37,10 +37,6 @@
                         </flux:sidebar.item>
                     </flux:sidebar.group>
                 @endif
-
-
-
->>>>>>> Yoiner
                 @if ($rolActual === 'profesor')
 
                     {{-- GESTION ACADEMICA: todo anidado y escalonado hacia la derecha,
@@ -191,11 +187,6 @@
                                     ['grados.index', 'Grados', 'bookmark'],
                                     ['asignaturas.index', 'Asignaturas', 'book-open'],
                                 ]);
-<<<<<<< HEAD
-                                 $gestionItems[] = ['administrativo.solicitudes.index', 'Solicitudes en espera', 'inbox-arrow-down'];
-                                 $gestionItems[] = ['administrativo.archivos-excel.index', 'Todas las solicitudes', 'document-text'];
-=======
->>>>>>> Yoiner
                             }
                         @endphp
 
@@ -324,69 +315,65 @@
             </flux:sidebar.nav>
 
             <div class="institution-sidebar-collapsed-nav" aria-label="Navegacion compacta">
-<<<<<<< HEAD
-=======
                 @if (! in_array($rolActual, ['estudiante', 'administrador'], true))
                     <flux:tooltip content="Inicio" position="right">
-                        <a href="{{ route('dashboard') }}" wire:navigate.hover title="Inicio">
+                        <button type="button" x-on:click="$dispatch('flux-sidebar-toggle')" title="Inicio">
                             <flux:icon name="home" class="size-5" />
-                        </a>
+                        </button>
                     </flux:tooltip>
                 @endif
-
->>>>>>> Yoiner
                 @if ($rolActual === 'profesor')
                     <flux:tooltip content="Panel del docente" position="right">
-                        <a href="{{ route('profesor.dashboard') }}" wire:navigate.hover title="Panel del docente">
+                        <button type="button" x-on:click="$dispatch('flux-sidebar-toggle')" title="Panel del docente">
                             <flux:icon name="squares-2x2" class="size-5" />
-                        </a>
+                        </button>
                     </flux:tooltip>
 
                     <flux:tooltip content="Gestion" position="right">
-                        <span role="button" tabindex="0" x-on:click="$dispatch('flux-sidebar-toggle')" title="Gestion"><flux:icon name="academic-cap" class="size-5" /></span>
+                        <button type="button" x-on:click="$dispatch('flux-sidebar-toggle')" title="Gestion"><flux:icon name="academic-cap" class="size-5" /></button>
                     </flux:tooltip>
 
                     <flux:tooltip content="Evaluacion" position="right">
-                        <span role="button" tabindex="0" x-on:click="$dispatch('flux-sidebar-toggle')" title="Evaluacion"><flux:icon name="clipboard-document-list" class="size-5" /></span>
+                        <button type="button" x-on:click="$dispatch('flux-sidebar-toggle')" title="Evaluacion"><flux:icon name="clipboard-document-list" class="size-5" /></button>
                     </flux:tooltip>
                 @elseif ($rolActual === 'administrador')
                     <flux:tooltip content="Panel administrativo" position="right">
-                        <a href="{{ route('dashboardAdmin') }}" wire:navigate.hover title="Panel administrativo">
+                        <button type="button" x-on:click="$dispatch('flux-sidebar-toggle')" title="Panel administrativo">
                             <flux:icon name="squares-2x2" class="size-5" />
-                        </a>
+                        </button>
                     </flux:tooltip>
 
                     <flux:tooltip content="Gestion institucional" position="right">
-                        <span role="button" tabindex="0" x-on:click="$dispatch('flux-sidebar-toggle')" title="Gestion institucional"><flux:icon name="shield-check" class="size-5" /></span>
+                        <button type="button" x-on:click="$dispatch('flux-sidebar-toggle')" title="Gestion institucional"><flux:icon name="shield-check" class="size-5" /></button>
                     </flux:tooltip>
 
                     <flux:tooltip content="Gestion" position="right">
-                        <span role="button" tabindex="0" x-on:click="$dispatch('flux-sidebar-toggle')" title="Gestion"><flux:icon name="academic-cap" class="size-5" /></span>
+                        <button type="button" x-on:click="$dispatch('flux-sidebar-toggle')" title="Gestion"><flux:icon name="academic-cap" class="size-5" /></button>
                     </flux:tooltip>
 
                     <flux:tooltip content="Evaluacion" position="right">
-                        <span role="button" tabindex="0" x-on:click="$dispatch('flux-sidebar-toggle')" title="Evaluacion"><flux:icon name="clipboard-document-list" class="size-5" /></span>
+                        <button type="button" x-on:click="$dispatch('flux-sidebar-toggle')" title="Evaluacion"><flux:icon name="clipboard-document-list" class="size-5" /></button>
                     </flux:tooltip>
 
                     <flux:tooltip content="Administracion" position="right">
-                        <span role="button" tabindex="0" x-on:click="$dispatch('flux-sidebar-toggle')" title="Administracion"><flux:icon name="cog-6-tooth" class="size-5" /></span>
+                        <button type="button" x-on:click="$dispatch('flux-sidebar-toggle')" title="Administracion"><flux:icon name="cog-6-tooth" class="size-5" /></button>
                     </flux:tooltip>
                 @elseif ($rolActual === 'estudiante')
                     <flux:tooltip content="Mi información" position="right">
-                        <a href="{{ route('estudiante.dashboard') }}" wire:navigate.hover title="Mi información">
+                        <button type="button" x-on:click="$dispatch('flux-sidebar-toggle')" title="Mi información">
                             <flux:icon name="academic-cap" class="size-5" />
-                        </a>
+                        </button>
                     </flux:tooltip>
                 @elseif ($rolActual === 'administrativo')
                     <flux:tooltip content="Panel del administrativo" position="right">
-                        <a href="{{ route('dashboardAdministrativo') }}" wire:navigate.hover title="Panel del administrativo">
+                        <button type="button" x-on:click="$dispatch('flux-sidebar-toggle')" title="Panel del administrativo">
                             <flux:icon name="squares-2x2" class="size-5" />
-                        </a>
+                        </button>
                     </flux:tooltip>
                     <flux:tooltip content="Usuarios" position="right">
-                        <a href="{{ route('administrativo.usuarios.index') }}" wire:navigate.hover title="Usuarios">
+                        <button type="button" x-on:click="$dispatch('flux-sidebar-toggle')" title="Usuarios">
                             <flux:icon name="users" class="size-5" />
-                        </a>
+                        </button>
                     </flux:tooltip>
                 @endif
             </div>

@@ -32,6 +32,9 @@ class AdministrativeUserManagementTest extends TestCase
 
         $response->assertOk()
             ->assertSee('Panel del administrativo')
+            ->assertSee('title="Panel del administrativo"', false)
+            ->assertSee('title="Usuarios"', false)
+            ->assertSee('institution-sidebar-logo-expand-toggle')
             ->assertDontSee($administrador->name);
     }
 
