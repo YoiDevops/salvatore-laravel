@@ -806,7 +806,25 @@
     }
 
     .institution-sidebar [data-flux-sidebar-header] {
+        position: relative;
         gap: 0.5rem;
+    }
+
+    .institution-sidebar [data-flux-sidebar-header] .institution-sidebar-logo-expand-toggle {
+        display: none !important;
+    }
+
+    .institution-sidebar[data-flux-sidebar-collapsed-desktop] [data-flux-sidebar-header] .institution-sidebar-logo-expand-toggle {
+        display: inline-flex !important;
+        position: absolute !important;
+        top: 0;
+        inset-inline-start: 0;
+        z-index: 20;
+        opacity: 0 !important;
+    }
+
+    .institution-sidebar[data-flux-sidebar-collapsed-desktop] [data-flux-sidebar-header] .institution-sidebar-logo-expand-toggle:focus-within {
+        opacity: 1 !important;
     }
 
     .institution-sidebar .institution-sidebar-brand {
@@ -956,6 +974,7 @@
     }
 
     .institution-sidebar-collapsed-nav a,
+    .institution-sidebar-collapsed-nav button,
     .institution-sidebar-collapsed-nav span {
         display: flex;
         width: 2.5rem;
@@ -967,7 +986,15 @@
         transition: background-color 150ms ease, color 150ms ease;
     }
 
+    .institution-sidebar-collapsed-nav button {
+        padding: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+    }
+
     .institution-sidebar-collapsed-nav a:hover,
+    .institution-sidebar-collapsed-nav button:hover,
     .institution-sidebar-collapsed-nav span:hover {
         background-color: #f3f5f7;
         color: #27313a;
