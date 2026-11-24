@@ -16,16 +16,23 @@ class DashboardTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-<<<<<<< HEAD
     public function test_users_without_a_specific_role_can_visit_the_general_dashboard(): void
-=======
-    public function test_administrators_are_redirected_to_their_administrative_dashboard(): void
->>>>>>> Yoiner
     {
         $user = User::factory()->create([
             'role' => 'Usuario',
             'nom_rol' => 'Usuario',
         ]);
+
+        $response = $this
+            ->actingAs($user)
+            ->get(route('dashboard'));
+
+        $response->assertOk();
+    }
+
+    public function test_administrators_are_redirected_to_their_administrative_dashboard(): void
+    {
+        $user = User::factory()->admin()->create();
 
         $response = $this
             ->actingAs($user)
@@ -64,10 +71,7 @@ class DashboardTest extends TestCase
 
     public function test_dashboard_theme_is_not_hardcoded_to_dark_mode(): void
     {
-        $user = User::factory()->create([
-            'role' => 'Usuario',
-            'nom_rol' => 'Usuario',
-        ]);
+        $user = User::factory()->admin()->create();
 
         $response = $this
             ->actingAs($user)
