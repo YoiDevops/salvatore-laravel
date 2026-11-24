@@ -16,6 +16,20 @@ class DashboardTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
+    public function test_users_without_a_specific_role_can_visit_the_general_dashboard(): void
+    {
+        $user = User::factory()->create([
+            'role' => 'Usuario',
+            'nom_rol' => 'Usuario',
+        ]);
+
+        $response = $this
+            ->actingAs($user)
+            ->get(route('dashboard'));
+
+        $response->assertOk();
+    }
+
     public function test_administrators_are_redirected_to_their_administrative_dashboard(): void
     {
         $user = User::factory()->admin()->create();
