@@ -247,10 +247,8 @@
     }
 
     .custom-select__menu {
-        position: absolute;
-        z-index: 50;
-        top: calc(100% + 0.35rem);
-        left: 0;
+        position: relative;
+        margin-top: 0.35rem;
         display: none;
         width: 100%;
         max-height: 16rem;

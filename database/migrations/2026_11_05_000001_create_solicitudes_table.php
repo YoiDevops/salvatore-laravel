@@ -38,7 +38,7 @@ return new class extends Migration
             $table->string('acudiente_correo', 150);
             $table->string('acudiente_lugar_trabajo', 150)->nullable();
             $table->string('acudiente_ocupacion', 100)->nullable();
-            $table->string('estado', 20)->default('en espera')->index();
+            $table->string('estado', 20)->default('en espera');
             $table->timestamps();
         });
     }
