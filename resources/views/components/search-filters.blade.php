@@ -4,7 +4,7 @@
     @php($filterFields = [['name' => 'filter', 'label' => $filterLabel ?? 'Filtrar por', 'options' => $filterOptions]])
 @endif
 
-<form method="GET" action="{{ url()->current() }}" class="mb-5 min-w-0 rounded-2xl border border-zinc-200 bg-transparent p-4 dark:border-zinc-800" aria-label="{{ $ariaLabel ?? 'Buscar y filtrar registros' }}">
+<form method="GET" action="{{ url()->current() }}" class="school-card mb-5 min-w-0 rounded-2xl border border-zinc-200 bg-transparent p-4 dark:border-zinc-800" aria-label="{{ $ariaLabel ?? 'Buscar y filtrar registros' }}">
     <div class="flex flex-col gap-3 sm:flex-row sm:items-end">
         <div class="min-w-0 flex-1">
             <label for="list-search" class="mb-1.5 block text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-400">Buscar</label>

@@ -29,6 +29,8 @@
 
                 <x-app-logo :sidebar="true" href="{{ route($homeRoute) }}" wire:navigate.hover />
 
+                <flux:sidebar.toggle class="institution-sidebar-logo-expand-toggle" icon="bars-2" aria-label="Abrir barra lateral" />
+
                 <flux:sidebar.toggle class="ml-auto lg:hidden" icon="x-mark" aria-label="Cerrar menú de navegación" />
 
                 <flux:sidebar.collapse class="!ml-auto hidden lg:flex" aria-label="Contraer la barra lateral" />

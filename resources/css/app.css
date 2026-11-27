@@ -1396,63 +1396,6 @@ button {
     }
 }
 
-@media (max-width: 1023px) {
-    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] {
-        display: flex !important;
-        position: sticky !important;
-        top: 0 !important;
-        inset-inline-start: auto !important;
-        z-index: 1 !important;
-        flex: 0 0 3.5rem !important;
-        width: 3.5rem !important;
-        min-width: 3.5rem !important;
-        max-width: 3.5rem !important;
-        height: 100dvh;
-        min-height: 100dvh !important;
-        max-height: 100dvh !important;
-        padding: 0.5rem 0.25rem !important;
-        overflow-x: hidden !important;
-        translate: 0 0 !important;
-    }
-
-    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] [data-flux-sidebar-header] {
-        justify-content: center;
-        padding-inline: 0;
-    }
-
-    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] [data-flux-sidebar-brand] {
-        flex: 0 0 2.5rem;
-        width: 2.5rem;
-        justify-content: center;
-        padding-inline: 0;
-    }
-
-    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] [data-flux-sidebar-brand] > div:last-of-type,
-    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] [data-flux-sidebar-nav],
-    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] [data-flux-sidebar-toggle],
-    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] [data-flux-sidebar-collapse] {
-        display: none !important;
-    }
-
-    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] .institution-sidebar-collapsed-nav {
-        display: flex !important;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 0.25rem;
-    }
-
-    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] .institution-sidebar-collapsed-nav a,
-    .institution-sidebar[data-flux-sidebar-on-mobile][data-flux-sidebar-collapsed-mobile] .institution-sidebar-collapsed-nav span {
-        display: flex;
-        width: 2.5rem;
-        height: 2.5rem;
-        align-items: center;
-        justify-content: center;
-        border-radius: 0.75rem;
-    }
-}
-
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
@@ -1470,4 +1413,20 @@ button {
         scroll-behavior: auto !important;
         transition-duration: 0.01ms !important;
     }
+}
+
+:is(div, section, article, nav)[class*="rounded-"][class*="border"]:not([class*="rounded-full"]):not([class*="border-dashed"]):not([class*="border-red"]):not([class*="border-green"]):not([class*="border-emerald"]):not([class*="border-amber"]):not([class*="border-yellow"]),
+:is(div, section, article, nav)[class*="rounded-"][class*="shadow"]:not([class*="rounded-full"]):not([class*="border-red"]):not([class*="border-green"]):not([class*="border-emerald"]):not([class*="border-amber"]):not([class*="border-yellow"]),
+a[class*="rounded-"][class*="shadow"]:not([class*="rounded-full"]):not([class*="border-red"]):not([class*="border-green"]):not([class*="border-emerald"]):not([class*="border-amber"]):not([class*="border-yellow"]),
+.school-card {
+    border: 1px solid #e8d6a8;
+    border-top: 4px solid #d8b85c;
+}
+
+html.dark :is(div, section, article, nav)[class*="rounded-"][class*="border"]:not([class*="rounded-full"]):not([class*="border-dashed"]):not([class*="border-red"]):not([class*="border-green"]):not([class*="border-emerald"]):not([class*="border-amber"]):not([class*="border-yellow"]),
+html.dark :is(div, section, article, nav)[class*="rounded-"][class*="shadow"]:not([class*="rounded-full"]):not([class*="border-red"]):not([class*="border-green"]):not([class*="border-emerald"]):not([class*="border-amber"]):not([class*="border-yellow"]),
+html.dark a[class*="rounded-"][class*="shadow"]:not([class*="rounded-full"]):not([class*="border-red"]):not([class*="border-green"]):not([class*="border-emerald"]):not([class*="border-amber"]):not([class*="border-yellow"]),
+html.dark .school-card {
+    border-color: #665322;
+    border-top-color: #d8b85c;
 }

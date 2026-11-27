@@ -142,7 +142,8 @@
         .student-panel {
             position: relative;
             z-index: 2;
-            border: 2px solid #d7c7f0;
+            border: 1px solid #e8d6a8;
+            border-top: 4px solid #d8b85c;
             border-radius: 1rem 2.75rem 1rem 2.75rem;
             box-shadow: 5px 5px 0 rgba(95, 72, 139, .12);
         }
@@ -193,6 +194,8 @@
         }
 
         .student-panel-small {
+            border: 1px solid #e8d6a8;
+            border-top: 3px solid #d8b85c;
             border-radius: .8rem 1.8rem .8rem 1.8rem;
             box-shadow: 3px 3px 0 rgba(95, 72, 139, .1);
         }
@@ -227,7 +230,7 @@
                 <div class="student-subject-grid mt-6 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
                     @forelse ($asignaturas as $indice => $asignatura)
                         @php($color = $coloresMaterias[$indice % count($coloresMaterias)])
-                        <article class="student-subject student-panel-small border-2 p-5" style="background: {{ $color['fondo'] }}; border-color: {{ $color['borde'] }}">
+                        <article class="student-subject student-panel-small border-2 p-5" style="background: {{ $color['fondo'] }}; border-color: #e8d6a8; border-top-color: #d8b85c">
                             <div class="flex items-start justify-between gap-3"><span class="flex size-12 items-center justify-center rounded-xl bg-white/75 text-2xl">{{ $color['icono'] }}</span><span class="rounded-lg bg-white/75 px-2 py-1 text-[11px] font-black" style="color: {{ $color['texto'] }}">MATERIA</span></div>
                             <h3 class="mt-5 text-xl font-black" style="color: {{ $color['texto'] }}">{{ $asignatura->nombre_asignatura }}</h3>
                             @if ($asignatura->area?->nombre_area)<p class="mt-2 text-sm font-bold opacity-80" style="color: {{ $color['texto'] }}">&Aacute;rea: {{ $asignatura->area->nombre_area }}</p>@endif

@@ -356,7 +356,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
     <div class="mx-auto w-full min-w-0 max-w-4xl space-y-6">
 
         <!-- CABECERA DE LA PÁGINA -->
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md p-6 rounded-2xl border border-stone-200/80 dark:border-stone-800 shadow-sm">
+        <div class="flex flex-col items-start justify-between gap-4 rounded-2xl border border-stone-200/80 bg-white/80 p-4 shadow-sm backdrop-blur-md sm:flex-row sm:items-center sm:p-6 dark:border-stone-800 dark:bg-stone-900/80">
             <div class="flex items-center gap-4">
                 <div class="inline-flex items-center justify-center w-12 h-12 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200/60 dark:border-amber-800/40 shadow-xs">
                     <svg class="w-7 h-7 text-[#D4A017]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -369,21 +369,35 @@ new #[Layout('layouts.auth.card')] class extends Component {
                 </div>
             </div>
 
-            <!-- Botón Modo Claro / Oscuro -->
-            <button 
-                type="button" 
-                @click="toggleTheme()" 
-                class="p-2.5 rounded-xl bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition-all focus:outline-none focus:ring-2 focus:ring-[#D4A017]/50"
-                title="Cambiar tema"
-                aria-label="Cambiar entre tema claro y oscuro"
-            >
+            <div class="flex w-full items-center gap-2 self-stretch sm:w-auto sm:self-auto">
+                <a
+                    href="{{ route('home') }}"
+                    wire:navigate
+                    class="inline-flex min-h-11 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl border border-stone-200 px-3 text-sm font-semibold text-stone-700 transition hover:border-[#D4A017] hover:text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#D4A017]/50 dark:border-stone-700 dark:text-stone-200 dark:hover:text-white sm:flex-none"
+                    aria-label="Volver al inicio"
+                >
+                    <svg class="size-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <span>Volver al inicio</span>
+                </a>
+
+                <!-- Botón Modo Claro / Oscuro -->
+                <button
+                    type="button"
+                    @click="toggleTheme()"
+                    class="inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-stone-100 text-stone-600 transition-all hover:text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#D4A017]/50 dark:bg-stone-800 dark:text-stone-300 dark:hover:text-white"
+                    title="Cambiar tema"
+                    aria-label="Cambiar entre tema claro y oscuro"
+                >
                 <svg x-show="darkMode" class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
                 <svg x-show="!darkMode" class="w-5 h-5 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
-            </button>
+                </button>
+            </div>
         </div>
 
         @if ($registroCompletado)
-            <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-center shadow-sm dark:border-emerald-900/50 dark:bg-emerald-950/20">
+            <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-center shadow-sm sm:p-8 dark:border-emerald-900/50 dark:bg-emerald-950/20">
                 <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
                     <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 12 4 4L19 6"/></svg>
                 </div>
@@ -422,7 +436,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
         </div>
 
         <!-- FORMULARIO PRINCIPAL -->
-        <div class="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/80 dark:border-stone-800 shadow-xl p-6 sm:p-8 transition-colors duration-300">
+        <div class="rounded-2xl border border-stone-200/80 bg-white p-4 shadow-xl transition-colors duration-300 sm:p-8 dark:border-stone-800 dark:bg-stone-900">
 
             @if ($pasoActual === 2)
                 <!-- PASO 2: DATOS ACUDIENTE -->

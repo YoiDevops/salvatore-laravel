@@ -99,7 +99,7 @@
 @endif
 
 <div @class(['student-settings' => $esEstudiante, 'flex w-full min-w-0 items-start gap-6 max-md:flex-col'])>
-    <nav aria-label="Secciones de configuración" class="w-full shrink-0 rounded-2xl border border-zinc-200 bg-white p-3 shadow-sm dark:border-[#3c4043] dark:bg-[#1e1f20] md:w-[220px]">
+    <nav aria-label="Secciones de configuración" class="school-card w-full shrink-0 rounded-2xl border border-zinc-200 bg-white p-3 shadow-sm dark:border-[#3c4043] dark:bg-[#1e1f20] md:w-[220px]">
         <p class="px-3 pb-2 pt-1 text-xs font-semibold uppercase tracking-[0.16em] text-zinc-400 dark:text-zinc-500">Tu cuenta</p>
         <flux:navlist>
             <flux:navlist.item icon="user-circle" :href="route('profile.edit')" :current="request()->routeIs('profile.edit')" wire:navigate>

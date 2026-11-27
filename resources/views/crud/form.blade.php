@@ -17,7 +17,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ $action }}" class="space-y-4" aria-label="{{ $item ? 'Editar registro' : 'Crear registro' }}">
+            <form method="POST" action="{{ $action }}" class="school-card space-y-4 rounded-2xl bg-white p-4 shadow-sm dark:bg-[#1e1f20] sm:p-6" aria-label="{{ $item ? 'Editar registro' : 'Crear registro' }}">
                 @csrf
                 @if($method)<input type="hidden" name="_method" value="{{ $method }}">@endif
 

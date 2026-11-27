@@ -3,7 +3,7 @@
         <div class="mx-auto w-full min-w-0 max-w-2xl space-y-4">
             <flux:heading size="xl" class="break-words">{{ $title }}</flux:heading>
             <x-action-help>Consulta los datos de esta ficha. Usa Volver para regresar al listado.</x-action-help>
-            <div class="min-w-0 space-y-2 overflow-hidden rounded-lg border p-4">
+            <div class="school-card min-w-0 space-y-2 overflow-hidden rounded-2xl bg-white p-4 shadow-sm dark:bg-[#1e1f20]">
                 @foreach($columns as $column)
                     <p class="break-words"><strong>{{ $column[1] }}:</strong> {{ data_get($item, $column[0]) ?? 'N/D' }}</p>
                 @endforeach

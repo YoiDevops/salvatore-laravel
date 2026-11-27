@@ -25,9 +25,9 @@
                     <option value="Inactivo" {{ old('status', $usuario->status) == 'Inactivo' ? 'selected' : '' }}>Inactivo</option>
                 </flux:select>
 
-                <div class="flex justify-end gap-2 mt-6">
-                    <flux:button variant="ghost" href="{{ route('usuarios.index') }}">Cancelar</flux:button>
-                    <flux:button type="submit" variant="primary">Actualizar Usuario</flux:button>
+                <div class="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+                    <flux:button class="w-full sm:w-auto" variant="ghost" href="{{ route('usuarios.index') }}">Cancelar</flux:button>
+                    <flux:button class="w-full sm:w-auto" type="submit" variant="primary">Actualizar Usuario</flux:button>
                 </div>
             </form>
         </div>

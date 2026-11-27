@@ -10,6 +10,14 @@ class FormularioCorreoTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_registration_form_has_a_link_back_to_the_home_page(): void
+    {
+        $this->get(route('formulario'))
+            ->assertOk()
+            ->assertSee(route('home'), false)
+            ->assertSee('Volver al inicio');
+    }
+
     public function test_email_username_is_combined_with_selected_domain_before_validation(): void
     {
         foreach ([

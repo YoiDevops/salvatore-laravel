@@ -4,13 +4,19 @@ namespace App\Models\Academico;
 
 use App\Models\Evaluacion\IndicadorLogro;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Asignatura extends Model
 {
     protected $table = 'asignatura';
+
     protected $primaryKey = 'id_asignatura';
+
     public $incrementing = true;
+
     protected $keyType = 'int';
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -21,12 +27,14 @@ class Asignatura extends Model
         'descripcion',
     ];
 
-    public function area()
+    /** @return BelongsTo<Area, $this> */
+    public function area(): BelongsTo
     {
         return $this->belongsTo(Area::class, 'id_area', 'id_area');
     }
 
-    public function indicadoresLogro()
+    /** @return HasMany<IndicadorLogro, $this> */
+    public function indicadoresLogro(): HasMany
     {
         return $this->hasMany(IndicadorLogro::class, 'id_asignatura', 'id_asignatura');
     }

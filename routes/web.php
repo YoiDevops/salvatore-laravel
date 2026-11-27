@@ -14,6 +14,7 @@ use App\Http\Controllers\Evaluacion\EscalaValoracionController;
 use App\Http\Controllers\Evaluacion\IndicadorLogroController;
 use App\Http\Controllers\Evaluacion\PeriodoController;
 use App\Http\Controllers\Institucional\SedeController;
+use App\Http\Controllers\profesor\CalificacionController as ProfesorCalificacionController;
 use App\Http\Controllers\profesor\PanelController as ProfesorPanelController;
 use App\Http\Controllers\profesor\ProfesorController;
 use App\Http\Controllers\SolicitudController;
@@ -94,6 +95,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('cursos', [ProfesorPanelController::class, 'cursos'])->name('cursos.index');
         Route::get('cursos/{curso}', [ProfesorPanelController::class, 'cursoShow'])->name('cursos.show');
+        Route::get('cursos/{curso}/estudiantes/{estudiante}/calificaciones/create', [ProfesorCalificacionController::class, 'create'])
+            ->name('cursos.estudiantes.calificaciones.create');
+        Route::post('cursos/{curso}/estudiantes/{estudiante}/calificaciones', [ProfesorCalificacionController::class, 'store'])
+            ->name('cursos.estudiantes.calificaciones.store');
 
         Route::get('estudiantes', [ProfesorPanelController::class, 'estudiantes'])->name('estudiantes.index');
         Route::get('estudiantes/{estudiante}', [ProfesorPanelController::class, 'estudianteShow'])->name('estudiantes.show');

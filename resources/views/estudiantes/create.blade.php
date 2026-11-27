@@ -33,7 +33,7 @@
 
 <x-layouts::app.sidebar title="Nuevo estudiante">
     <flux:main>
-        <div class="max-w-2xl mx-auto">
+        <div class="mx-auto w-full min-w-0 max-w-2xl">
             <flux:heading size="xl" class="mb-6">Nuevo estudiante</flux:heading>
 
             @if ($errors->any())
@@ -162,9 +162,9 @@
                     </div>
                 </div>
 
-                <div class="flex justify-end gap-2 pt-4">
-                    <flux:button variant="ghost" href="{{ route('estudiantes.index') }}">Cancelar</flux:button>
-                    <flux:button type="submit" variant="primary">Guardar</flux:button>
+                <div class="flex flex-col-reverse gap-2 pt-4 sm:flex-row sm:justify-end">
+                    <flux:button class="w-full sm:w-auto" variant="ghost" href="{{ route('estudiantes.index') }}">Cancelar</flux:button>
+                    <flux:button class="w-full sm:w-auto" type="submit" variant="primary">Guardar</flux:button>
                 </div>
             </form>
         </div>
