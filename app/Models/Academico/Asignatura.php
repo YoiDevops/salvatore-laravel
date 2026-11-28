@@ -38,4 +38,10 @@ class Asignatura extends Model
     {
         return $this->hasMany(IndicadorLogro::class, 'id_asignatura', 'id_asignatura');
     }
+
+    /** @return HasMany<Carga, $this> */
+    public function cargas(): HasMany
+    {
+        return $this->hasMany(Carga::class, 'id_asignatura', 'id_asignatura');
+    }
 }

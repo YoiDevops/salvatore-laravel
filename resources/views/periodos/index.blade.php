@@ -31,7 +31,7 @@
                 <td class="p-4">
                     <div class="flex flex-wrap items-center gap-2">
                     <a href="{{ route('periodos.edit', [$periodo->id_periodo ?? $periodo->id]) }}" class="crud-action-button">Editar</a>
-                    <form action="{{ route('periodos.destroy', [$periodo->id_periodo ?? $periodo->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este periodo?');" class="inline-flex">
+                    <form action="{{ route('periodos.destroy', [$periodo->id_periodo ?? $periodo->id]) }}" method="POST" class="inline-flex" data-confirm-title="Eliminar periodo" data-confirm-message="Se eliminará el periodo académico {{ $periodo->nombre_periodo }}. Esta acción no se puede deshacer." data-confirm-label="Eliminar" data-confirm-tone="danger">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="crud-action-button-danger">Eliminar</button>

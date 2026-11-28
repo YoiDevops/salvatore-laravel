@@ -11,11 +11,8 @@
                     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#c49a35]">Administración de cuentas</p>
                     <flux:heading size="xl" class="mt-2">Profesores y estudiantes</flux:heading>
                     <p class="mt-1 max-w-2xl text-sm text-zinc-500 dark:text-zinc-400">Administra el acceso de las cuentas vinculadas a la institución.</p>
-                    <x-action-help class="mt-3 max-w-3xl">
-                        Busca una cuenta para consultar sus datos o cambiar su acceso.
-                    </x-action-help>
                 </div>
-                <flux:button class="w-full sm:w-auto" variant="primary" icon="plus" href="{{ route('administrativo.usuarios.create') }}" aria-label="Crear una cuenta de estudiante o profesor" title="Registrar una cuenta nueva">
+                <flux:button class="w-full sm:w-auto" variant="primary" icon="plus" href="{{ route('administrativo.usuarios.create') }}" aria-label="Crear una cuenta de estudiante o profesor">
                     Crear cuenta
                 </flux:button>
             </div>
@@ -108,7 +105,7 @@
                                         <div class="flex flex-wrap justify-end gap-2">
                                             <flux:button class="crud-action-button" size="sm" href="{{ route('administrativo.usuarios.show', $usuario) }}" aria-label="Ver la cuenta de {{ $usuario->name }}">Ver</flux:button>
                                             <flux:button class="crud-action-button" size="sm" href="{{ route('administrativo.usuarios.edit', $usuario) }}" aria-label="Editar la cuenta de {{ $usuario->name }}">Editar</flux:button>
-                                            <form method="POST" action="{{ route('administrativo.usuarios.destroy', $usuario) }}" class="inline-flex" onsubmit="return confirm('¿Está seguro de eliminar esta cuenta?');">
+                                            <form method="POST" action="{{ route('administrativo.usuarios.destroy', $usuario) }}" class="inline-flex" data-confirm-title="Eliminar cuenta" data-confirm-message="Se eliminará la cuenta de {{ $usuario->name }}. Esta acción no se puede deshacer." data-confirm-label="Eliminar" data-confirm-tone="danger">
                                                 @csrf
                                                 @method('DELETE')
                                                 <flux:button class="crud-action-button-danger" size="sm" variant="danger" type="submit" aria-label="Eliminar la cuenta de {{ $usuario->name }}">Eliminar</flux:button>

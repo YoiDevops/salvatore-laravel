@@ -17,23 +17,71 @@ class AuthenticationTest extends TestCase
     {
         $response = $this->get(route('login'));
 
-        $response->assertOk();
+        $response->assertOk()
+            ->assertSee('Número de documento, usuario o correo')
+            ->assertSee('la contraseña enviada al correo');
     }
 
-    public function test_users_can_authenticate_using_the_login_screen(): void
+    public function test_administrators_can_authenticate_with_email_and_username(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
 
-        $response = $this->post(route('login.store'), [
-            'email' => $user->email,
-            'password' => 'password',
+        foreach ([$user->email, $user->name] as $identifier) {
+            $response = $this->post(route('login.store'), [
+                'email' => $identifier,
+                'password' => 'password',
+            ]);
+
+            $response
+                ->assertSessionHasNoErrors()
+                ->assertRedirect(route('dashboardAdmin', absolute: false));
+
+            $this->assertAuthenticatedAs($user);
+            $this->post(route('logout'));
+        }
+    }
+
+    public function test_team_test_accounts_can_authenticate_with_their_username(): void
+    {
+        foreach (['andres', 'yoiner', 'YOJHAN'] as $username) {
+            $user = User::factory()->create(['name' => $username]);
+
+            $this->post(route('login.store'), [
+                'email' => mb_strtolower($username),
+                'password' => 'password',
+            ])->assertSessionHasNoErrors();
+
+            $this->assertAuthenticatedAs($user);
+            $this->post(route('logout'));
+        }
+    }
+
+    public function test_administrative_accounts_can_authenticate_with_email(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'secretaria@example.test',
+            'nom_rol' => 'Administrativo',
         ]);
 
-        $response
-            ->assertSessionHasNoErrors()
-            ->assertRedirect(route('estudiante.dashboard', absolute: false));
+        $this->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ])->assertSessionHasNoErrors()
+            ->assertRedirect(route('dashboardAdministrativo', absolute: false));
 
-        $this->assertAuthenticated();
+        $this->assertAuthenticatedAs($user);
+    }
+
+    public function test_students_cannot_authenticate_with_their_email(): void
+    {
+        $user = User::factory()->estudiante()->create();
+
+        $this->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ])->assertSessionHasErrorsIn('email');
+
+        $this->assertGuest();
     }
 
     public function test_passkey_login_response_redirects_students_to_their_portal(): void
@@ -56,7 +104,7 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_not_authenticate_with_invalid_password(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->admin()->create();
 
         $response = $this->post(route('login.store'), [
             'email' => $user->email,
@@ -79,7 +127,7 @@ class AuthenticationTest extends TestCase
             'confirmPassword' => true,
         ]);
 
-        $user = User::factory()->withTwoFactor()->create();
+        $user = User::factory()->admin()->withTwoFactor()->create();
 
         $response = $this->post(route('login.store'), [
             'email' => $user->email,

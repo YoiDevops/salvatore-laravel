@@ -125,9 +125,6 @@
                                 Explorar la propuesta
                             </a>
                         </div>
-                        <x-action-help class="mt-4">
-                            Para iniciar una inscripción, elige Conoce el proceso; para recorrer el sitio, usa Explorar la propuesta.
-                        </x-action-help>
                         <div class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium text-[#59636c] dark:text-zinc-300">
                             <span class="inline-flex items-center gap-2"><span class="size-2 rounded-full bg-[#d8b85c]"></span> Aprendizaje activo</span>
                             <span class="inline-flex items-center gap-2"><span class="size-2 rounded-full bg-[#d8b85c]"></span> Crecimiento en comunidad</span>
@@ -222,6 +219,86 @@
                                 <a href="{{ route('login') }}" class="inline-flex min-h-11 items-center justify-center rounded-full border border-[#d8dee8] px-5 py-3 text-sm font-semibold text-[#27313a] transition hover:bg-[#f5f6f8] dark:border-[#3c4043] dark:text-zinc-100 dark:hover:bg-[#292a2c]">Ingresar al sistema</a>
                             @endauth
                         @endif
+                    </div>
+                </div>
+            </section>
+
+            <section id="preguntas-frecuentes" class="scroll-mt-24 px-3 pb-12 sm:px-6 sm:pb-16" aria-labelledby="faq-title">
+                <div class="mx-auto max-w-5xl rounded-[1.75rem] border border-[#e8dfcb] border-t-4 border-t-[#d8b85c] bg-[#fffdf8] p-5 shadow-sm sm:p-8 lg:p-10 dark:border-[#3c4043] dark:border-t-[#d8b85c] dark:bg-[#1e1f20]">
+                    <div class="mx-auto mb-7 max-w-2xl text-center">
+                        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#82631d] dark:text-[#e6c96f]">Te acompañamos</p>
+                        <h2 id="faq-title" class="mt-2 text-2xl font-semibold tracking-tight text-[#27313a] sm:text-3xl dark:text-[#f1f3f4]">Preguntas frecuentes</h2>
+                        <p class="mt-3 text-sm leading-6 text-[#66717b] dark:text-zinc-400">Respuestas sencillas para encontrar lo que necesitas en el sitio.</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <details class="group rounded-2xl border border-[#e8e2d8] bg-white open:border-[#d8b85c] dark:border-[#3c4043] dark:bg-[#202124] dark:open:border-[#d8b85c]">
+                            <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-4 py-4 text-left font-semibold text-[#27313a] outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#c49a35] dark:text-zinc-100 sm:px-5">
+                                <span>¿Cómo puedo iniciar una inscripción?</span>
+                                <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#f7f1df] text-lg text-[#82631d] transition-transform group-open:rotate-45 dark:bg-[#3a3322] dark:text-[#e6c96f]" aria-hidden="true">+</span>
+                            </summary>
+                            <div class="border-t border-[#eee9df] px-4 py-4 text-sm leading-6 text-[#59636c] dark:border-[#3c4043] dark:text-zinc-300 sm:px-5">
+                                @if (Route::has('formulario'))
+                                    Selecciona <a href="{{ route('formulario') }}" class="font-semibold text-[#82631d] underline decoration-[#d8b85c] underline-offset-4 hover:text-[#5d4611] dark:text-[#e6c96f] dark:hover:text-white">Conoce el proceso de inscripción</a> y completa los datos del estudiante y su acudiente. Al terminar, la institución revisará la información y enviará un correo con los siguientes pasos.
+                                @else
+                                    Comunícate con la institución usando el correo o teléfono que aparecen al final de esta página para conocer el proceso de inscripción.
+                                @endif
+                            </div>
+                        </details>
+
+                        <details class="group rounded-2xl border border-[#e8e2d8] bg-white open:border-[#d8b85c] dark:border-[#3c4043] dark:bg-[#202124] dark:open:border-[#d8b85c]">
+                            <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-4 py-4 text-left font-semibold text-[#27313a] outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#c49a35] dark:text-zinc-100 sm:px-5">
+                                <span>¿Cómo ingreso a mi cuenta?</span>
+                                <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#f7f1df] text-lg text-[#82631d] transition-transform group-open:rotate-45 dark:bg-[#3a3322] dark:text-[#e6c96f]" aria-hidden="true">+</span>
+                            </summary>
+                            <div class="border-t border-[#eee9df] px-4 py-4 text-sm leading-6 text-[#59636c] dark:border-[#3c4043] dark:text-zinc-300 sm:px-5">
+                                @if (Route::has('login'))
+                                    Pulsa <a href="{{ route('login') }}" class="font-semibold text-[#82631d] underline decoration-[#d8b85c] underline-offset-4 hover:text-[#5d4611] dark:text-[#e6c96f] dark:hover:text-white">Ingresar</a> y escribe el correo y la contraseña de tu cuenta institucional. Si aún no tienes acceso, comunícate con la institución para recibir orientación.
+                                @else
+                                    Para recibir ayuda con el acceso a tu cuenta, comunícate con la institución mediante los datos de contacto al final de esta página.
+                                @endif
+                            </div>
+                        </details>
+
+                        <details class="group rounded-2xl border border-[#e8e2d8] bg-white open:border-[#d8b85c] dark:border-[#3c4043] dark:bg-[#202124] dark:open:border-[#d8b85c]">
+                            <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-4 py-4 text-left font-semibold text-[#27313a] outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#c49a35] dark:text-zinc-100 sm:px-5">
+                                <span>¿Olvidé mi contraseña o usuario, qué hago?</span>
+                                <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#f7f1df] text-lg text-[#82631d] transition-transform group-open:rotate-45 dark:bg-[#3a3322] dark:text-[#e6c96f]" aria-hidden="true">+</span>
+                            </summary>
+                            <div class="border-t border-[#eee9df] px-4 py-4 text-sm leading-6 text-[#59636c] dark:border-[#3c4043] dark:text-zinc-300 sm:px-5">
+                                Para proteger tu cuenta, solicita ayuda a la institución usando el correo o teléfono que aparece al final de esta página. No compartas tu contraseña con otras personas.
+                            </div>
+                        </details>
+
+                        <details class="group rounded-2xl border border-[#e8e2d8] bg-white open:border-[#d8b85c] dark:border-[#3c4043] dark:bg-[#202124] dark:open:border-[#d8b85c]">
+                            <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-4 py-4 text-left font-semibold text-[#27313a] outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#c49a35] dark:text-zinc-100 sm:px-5">
+                                <span>¿Dónde encuentro la información de mi curso o mis gestiones?</span>
+                                <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#f7f1df] text-lg text-[#82631d] transition-transform group-open:rotate-45 dark:bg-[#3a3322] dark:text-[#e6c96f]" aria-hidden="true">+</span>
+                            </summary>
+                            <div class="border-t border-[#eee9df] px-4 py-4 text-sm leading-6 text-[#59636c] dark:border-[#3c4043] dark:text-zinc-300 sm:px-5">
+                                Después de ingresar, abre el panel principal. El menú lateral muestra las secciones disponibles para tu cuenta; selecciona una opción para consultar cursos, estudiantes o gestiones.
+                            </div>
+                        </details>
+
+                        <details class="group rounded-2xl border border-[#e8e2d8] bg-white open:border-[#d8b85c] dark:border-[#3c4043] dark:bg-[#202124] dark:open:border-[#d8b85c]">
+                            <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-4 py-4 text-left font-semibold text-[#27313a] outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#c49a35] dark:text-zinc-100 sm:px-5">
+                                <span>¿Cómo cambio entre las secciones de esta página?</span>
+                                <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#f7f1df] text-lg text-[#82631d] transition-transform group-open:rotate-45 dark:bg-[#3a3322] dark:text-[#e6c96f]" aria-hidden="true">+</span>
+                            </summary>
+                            <div class="border-t border-[#eee9df] px-4 py-4 text-sm leading-6 text-[#59636c] dark:border-[#3c4043] dark:text-zinc-300 sm:px-5">
+                                Usa los enlaces del menú superior —o abre el menú desde el botón en tu celular— para ir al inicio, conocer nuestra propuesta, ver experiencias o encontrar los datos de contacto.
+                            </div>
+                        </details>
+
+                        <details class="group rounded-2xl border border-[#e8e2d8] bg-white open:border-[#d8b85c] dark:border-[#3c4043] dark:bg-[#202124] dark:open:border-[#d8b85c]">
+                            <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-4 py-4 text-left font-semibold text-[#27313a] outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#c49a35] dark:text-zinc-100 sm:px-5">
+                                <span>¿Cómo me comunico con la institución?</span>
+                                <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#f7f1df] text-lg text-[#82631d] transition-transform group-open:rotate-45 dark:bg-[#3a3322] dark:text-[#e6c96f]" aria-hidden="true">+</span>
+                            </summary>
+                            <div class="border-t border-[#eee9df] px-4 py-4 text-sm leading-6 text-[#59636c] dark:border-[#3c4043] dark:text-zinc-300 sm:px-5">
+                                En la sección <a href="#contacto" class="font-semibold text-[#82631d] underline decoration-[#d8b85c] underline-offset-4 hover:text-[#5d4611] dark:text-[#e6c96f] dark:hover:text-white">Hablemos</a>, al final de esta página, encontrarás el correo y el teléfono de la institución.
+                            </div>
+                        </details>
                     </div>
                 </div>
             </section>

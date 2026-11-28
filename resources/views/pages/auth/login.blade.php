@@ -1,10 +1,6 @@
 <x-layouts::auth :title="__('Log in')">
     <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
-
-        <x-action-help>
-            Escribe el correo y la contraseña de tu cuenta. Si no recuerdas la clave, usa el enlace para recuperarla.
-        </x-action-help>
+        <x-auth-header :title="'Ingresa a tu cuenta'" :description="'Usa tus datos de acceso para continuar en el portal.'" />
 
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
@@ -14,23 +10,27 @@
         <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-6">
             @csrf
 
-            <!-- Email Address -->
+            <!-- Identificador -->
             <flux:input
                 name="email"
-                :label="__('Email address')"
+                :label="'Número de documento, usuario o correo'"
                 :value="old('email')"
-                type="email"
+                type="text"
                 required
                 autofocus
-                autocomplete="email"
-                placeholder="email@example.com"
+                autocomplete="username"
+                aria-describedby="login-identifier-help"
+                placeholder="Documento, usuario o correo"
             />
+            <p id="login-identifier-help" class="-mt-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                Si tu cuenta fue aprobada, ingresa el documento del estudiante y la contraseña enviada al correo. Administradores y cuentas de prueba pueden usar su usuario o correo.
+            </p>
 
             <!-- Password -->
             <div class="relative">
                 <flux:input
                     name="password"
-                    :label="__('Password')"
+                    :label="'Contraseña'"
                     type="password"
                     required
                     autocomplete="current-password"
@@ -50,7 +50,7 @@
 
             <div class="flex items-center justify-end">
                 <flux:button variant="primary" type="submit" class="w-full" data-test="login-button">
-                    {{ __('Log in') }}
+                    Ingresar al sistema
                 </flux:button>
             </div>
         </form>

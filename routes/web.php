@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Academico\AreaController;
 use App\Http\Controllers\Academico\AsignaturaController;
+use App\Http\Controllers\Academico\CargaController;
 use App\Http\Controllers\Academico\CursoController;
 use App\Http\Controllers\Academico\GradoController;
 use App\Http\Controllers\Administrativo\PanelController as AdministrativoPanelController;
@@ -57,6 +58,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('acudientes', AcudienteController::class);
         Route::resource('areas', AreaController::class);
         Route::resource('asignaturas', AsignaturaController::class);
+        Route::resource('cargas', CargaController::class);
         Route::resource('caracterizaciones', CaracterizacionDiscapacidadController::class);
         Route::resource('grados', GradoController::class);
         Route::resource('cursos', CursoController::class);

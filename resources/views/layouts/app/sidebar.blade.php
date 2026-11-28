@@ -41,7 +41,7 @@
 
                 @if (! in_array($rolActual, ['estudiante', 'administrador'], true))
                     <flux:sidebar.group heading="INSTITUCION" class="grid text-[#c7d0df]">
-                        <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate.hover title="Inicio">
+                        <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate.hover>
                             Inicio
                         </flux:sidebar.item>
                     </flux:sidebar.group>
@@ -97,7 +97,7 @@
 
                             @if (Route::has($routeName))
 
-                                <flux:sidebar.item class="pl-9" icon="{{ $icon }}" :href="route($routeName)" :current="request()->routeIs($routeName.'*')" wire:navigate.hover title="{{ $label }}">
+                                <flux:sidebar.item class="pl-9" icon="{{ $icon }}" :href="route($routeName)" :current="request()->routeIs($routeName.'*')" wire:navigate.hover>
 
                                     {{ $label }}
 
@@ -124,7 +124,7 @@
                         ] as [$routeName, $label, $icon])
                             @if (Route::has($routeName))
 
-                                <flux:sidebar.item class="pl-9" icon="{{ $icon }}" :href="route($routeName)" :current="request()->routeIs($routeName.'*')" wire:navigate title="{{ $label }}">
+                                <flux:sidebar.item class="pl-9" icon="{{ $icon }}" :href="route($routeName)" :current="request()->routeIs($routeName.'*')" wire:navigate>
 
                                     {{ $label }}
 
@@ -184,6 +184,7 @@
                                 ['estudiantes.index', 'Estudiantes', 'academic-cap'],
                                 ['profesores.index', 'Profesores', 'user-group'],
                                 ['acudientes.index', 'Acudientes', 'users'],
+                                ['cargas.index', 'Cargas académicas', 'clipboard-document-list'],
                             ];
 
                             if ($rolActual !== 'administrativo') {
@@ -272,7 +273,7 @@
 
                             @if (Route::has($routeName))
 
-                                <flux:sidebar.item class="pl-9" icon="cog-6-tooth" :href="route($routeName)" :current="request()->routeIs($routeName)" wire:navigate.hover title="{{ $label }}">
+                                <flux:sidebar.item class="pl-9" icon="cog-6-tooth" :href="route($routeName)" :current="request()->routeIs($routeName)" wire:navigate.hover>
 
                                     {{ $label }}
 
@@ -313,6 +314,14 @@
 
                         <flux:sidebar.item class="pl-9" icon="document-text" :href="route('administrativo.archivos-excel.index')" :current="request()->routeIs('administrativo.archivos-excel.*')" wire:navigate.hover>
                             Todas las solicitudes
+                        </flux:sidebar.item>
+
+                        <div class="mt-4 flex items-center gap-2 pl-3 text-xs font-semibold uppercase tracking-wide text-[#8b96a3] dark:text-zinc-400">
+                            <flux:icon name="academic-cap" class="size-4" />
+                            Asignaciones académicas
+                        </div>
+                        <flux:sidebar.item class="pl-9" icon="clipboard-document-list" :href="route('cargas.index')" :current="request()->routeIs('cargas.*')" wire:navigate.hover>
+                            Cargas académicas
                         </flux:sidebar.item>
                     </flux:sidebar.group>
                 @endif

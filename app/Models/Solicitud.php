@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class Solicitud extends Model
@@ -23,6 +24,11 @@ class Solicitud extends Model
     protected $primaryKey = 'id_solicitud';
 
     protected $guarded = [];
+
+    public function usuario(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id_usuario', 'id_users');
+    }
 
     protected function casts(): array
     {

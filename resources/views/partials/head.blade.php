@@ -7,10 +7,12 @@
 
 <link rel="icon" href="/images/logopequeno.ico" sizes="any">
 <link rel="apple-touch-icon" href="/images/logopequeno.ico">
+<link rel="stylesheet" href="{{ asset('css/confirmation-modal.css') }}">
 
 @fonts
 
 @include('partials.theme')
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+<script src="{{ asset('js/confirmation-modal.js') }}" defer></script>
 @fluxAppearance

@@ -7,7 +7,7 @@
                     <flux:heading size="xl" class="mt-2">Todas las solicitudes</flux:heading>
                     <p class="mt-1 text-sm text-zinc-500">Consulta, filtra y descarga las solicitudes según su estado.</p>
                 </div>
-                <a href="{{ route('administrativo.solicitudes.export', ['estado' => $estadoFiltro]) }}" aria-label="Descargar las solicitudes filtradas como archivo Excel" title="Descargar una copia de las solicitudes" class="inline-flex items-center justify-center rounded-lg bg-[#d4a017] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#b8860b]">
+                <a href="{{ route('administrativo.solicitudes.export', ['estado' => $estadoFiltro]) }}" aria-label="Descargar las solicitudes filtradas como archivo Excel" class="inline-flex items-center justify-center rounded-lg bg-[#d4a017] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#b8860b]">
                     Descargar Excel
                 </a>
             </div>
@@ -20,7 +20,7 @@
                 <form method="POST" action="{{ route('administrativo.solicitudes.archivos.store') }}" enctype="multipart/form-data" class="flex flex-col gap-3 sm:flex-row sm:items-center">
                     @csrf
                     <input type="file" name="archivo" accept=".xls,.xlsx,.csv" required aria-label="Elegir archivo Excel o CSV para importar solicitudes" class="block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-600 file:mr-3 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:file:text-zinc-200">
-                    <button type="submit" aria-label="Importar solicitudes desde el archivo seleccionado" title="Guardar las solicitudes del archivo" class="rounded-lg bg-zinc-800 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 dark:bg-zinc-200 dark:text-zinc-900 dark:hover:bg-white">
+                    <button type="submit" aria-label="Importar solicitudes desde el archivo seleccionado" class="rounded-lg bg-zinc-800 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 dark:bg-zinc-200 dark:text-zinc-900 dark:hover:bg-white">
                         Importar
                     </button>
                 </form>
@@ -31,7 +31,7 @@
 
             <form method="GET" action="{{ route('administrativo.archivos-excel.index') }}" class="mb-5" aria-label="Filtrar las solicitudes por estado">
                 <details class="relative w-fit">
-                    <summary aria-label="Mostrar filtros por estado" title="Elegir el estado de las solicitudes" class="inline-flex cursor-pointer list-none items-center justify-center gap-2 rounded-xl bg-[#c49a35] px-4 py-2.5 text-sm font-semibold text-[#1f2529] transition hover:bg-[#d8b85c] focus:outline-none focus:ring-2 focus:ring-[#c49a35]/40">
+                    <summary aria-label="Mostrar filtros por estado" class="inline-flex cursor-pointer list-none items-center justify-center gap-2 rounded-xl bg-[#c49a35] px-4 py-2.5 text-sm font-semibold text-[#1f2529] transition hover:bg-[#d8b85c] focus:outline-none focus:ring-2 focus:ring-[#c49a35]/40">
                         <flux:icon name="funnel" class="size-4" />
                         Filtros
                     </summary>

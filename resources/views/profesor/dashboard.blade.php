@@ -27,10 +27,6 @@
             </div>
         </section>
 
-        <x-action-help>
-            Abre una herramienta para gestionar cursos, estudiantes o evaluación; cada tarjeta muestra qué información encontrarás.
-        </x-action-help>
-
         <section aria-label="Gestión docente" class="pt-4">
             {{-- Encabezado Centrado --}}
             <div class="mb-8 text-center">

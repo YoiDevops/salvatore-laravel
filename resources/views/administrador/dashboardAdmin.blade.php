@@ -11,10 +11,6 @@
             </div>
         </section>
 
-        <x-action-help>
-            Elige un área o una herramienta para consultar y actualizar la información del colegio.
-        </x-action-help>
-
         <div class="grid w-full gap-5 sm:grid-cols-2 xl:grid-cols-4">
             @foreach([['Comunidad escolar','Usuarios, roles y perfiles.','usuarios.index','users','bg-[#e8f2e8] text-[#2f6f48]'],['Equipo docente','Profesores y asignaturas.','profesores.index','user-group','bg-[#edf1fa] text-[#526da8]'],['Estructura academica','Grados, cursos y sedes.','cursos.index','building-library','bg-[#fbf1df] text-[#a46b21]'],['Evaluacion','Periodos y escalas de valoracion.','indicadores.index','chart-bar','bg-[#f5eaf2] text-[#985278]']] as [$title,$description,$routeName,$icon,$color])
                 @if(Route::has($routeName))<a href="{{ route($routeName) }}" wire:navigate class="group min-w-0 rounded-xl border border-[#d8dee8] bg-white p-4 shadow-md transition hover:-translate-y-0.5 hover:border-[#c49a35] hover:shadow-lg sm:p-6 dark:border-[#3c4043] dark:bg-[#1e1f20]"><div class="flex items-center justify-between"><span class="flex size-11 shrink-0 items-center justify-center rounded-xl {{ $color }}"><flux:icon :name="$icon" class="size-5" /></span><flux:icon name="arrow-up-right" class="size-4 text-zinc-400 transition group-hover:text-[#9a761f]" /></div><h2 class="mt-5 font-semibold text-zinc-900 dark:text-zinc-100">{{ $title }}</h2><p class="mt-1 text-sm leading-5 text-zinc-500 dark:text-zinc-400">{{ $description }}</p></a>@endif

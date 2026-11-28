@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -39,6 +40,21 @@ class User extends Authenticatable
     public function passkeys(): HasMany
     {
         return $this->hasMany(Passkey::class, 'id_users', 'id_users');
+    }
+
+    public function estudiante(): HasOne
+    {
+        return $this->hasOne(\App\Models\Estudiante\Estudiante::class, 'id_usuario', 'id_users');
+    }
+
+    public function profesor(): HasOne
+    {
+        return $this->hasOne(\App\Models\Profesor\Profesor::class, 'id_usuario', 'id_users');
+    }
+
+    public function solicitudes(): HasMany
+    {
+        return $this->hasMany(Solicitud::class, 'id_usuario', 'id_users');
     }
 
     protected function casts(): array

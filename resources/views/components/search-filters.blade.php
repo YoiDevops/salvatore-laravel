@@ -15,13 +15,13 @@
         </div>
 
         <div class="flex gap-2">
-            <button type="submit" aria-label="Buscar en el listado" title="Buscar registros" class="inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 transition hover:border-[#c49a35] hover:text-[#8a681b] focus:outline-none focus:ring-2 focus:ring-[#c49a35]/40 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
+            <button type="submit" aria-label="Buscar en el listado" class="inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 transition hover:border-[#c49a35] hover:text-[#8a681b] focus:outline-none focus:ring-2 focus:ring-[#c49a35]/40 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
                 <flux:icon name="magnifying-glass" class="size-4" />
                 Buscar
             </button>
 
             <details class="relative">
-                <summary aria-label="Mostrar opciones de filtro" title="Elegir cómo filtrar los registros" class="inline-flex cursor-pointer list-none items-center justify-center gap-2 rounded-xl bg-[#c49a35] px-4 py-2.5 text-sm font-semibold text-[#1f2529] transition hover:bg-[#d8b85c] focus:outline-none focus:ring-2 focus:ring-[#c49a35]/40">
+                <summary aria-label="Mostrar opciones de filtro" class="inline-flex cursor-pointer list-none items-center justify-center gap-2 rounded-xl bg-[#c49a35] px-4 py-2.5 text-sm font-semibold text-[#1f2529] transition hover:bg-[#d8b85c] focus:outline-none focus:ring-2 focus:ring-[#c49a35]/40">
                     <flux:icon name="funnel" class="size-4" />
                     Filtros
                 </summary>

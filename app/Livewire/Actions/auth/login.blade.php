@@ -1,77 +1,9 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Schema;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
-new #[Layout('layouts.auth')] class extends Component {
-    public string $usuario = '';
-    public string $password = '';
-
-    public function login(): void
-    {
-        $this->validate([
-            'usuario' => ['required', 'string'],
-            'password' => ['required', 'string'],
-        ]);
-
-        $usernameColumn = Schema::hasColumn('users', 'usuario') ? 'usuario' : 'name';
-        $emailColumn = Schema::hasColumn('users', 'correo') ? 'correo' : 'email';
-        $user = User::where($usernameColumn, $this->usuario)
-            ->orWhere($emailColumn, $this->usuario)
-            ->first();
-
-        if (! $user) {
-            $this->addError('usuario', 'Las credenciales no coinciden con nuestros registros.');
-            return;
-        }
-
-        $status = $user->status ?? $user->estado;
-        if ($status !== null && $status !== 'Activo') {
-            $this->addError('usuario', 'El usuario se encuentra inactivo.');
-            return;
-        }
-
-        $loginColumn = filter_var($this->usuario, FILTER_VALIDATE_EMAIL)
-            ? $emailColumn
-            : $usernameColumn;
-
-        $password = $user->getRawOriginal('password');
-        $validPassword = false;
-
-        try {
-            $validPassword = Hash::check($this->password, $password);
-        } catch (RuntimeException) {
-            $validPassword = password_verify($this->password, $password)
-                || hash_equals((string) $password, $this->password);
-
-            if ($validPassword) {
-                $user->forceFill(['password' => Hash::make($this->password)])->save();
-            }
-        }
-
-        if (! $validPassword) {
-            $this->addError('usuario', 'Las credenciales no coinciden con nuestros registros.');
-            return;
-        }
-
-        Auth::login($user);
-
-        request()->session()->regenerate();
-
-        $role = strtolower($user->effective_role);
-        $this->redirect(match ($role) {
-            'administrador' => '/administrador/dashboard',
-            'administrativo' => '/administrativo/dashboard',
-            'profesor', '2' => '/profesor/dashboard',
-            'estudiante', '3' => '/estudiante/dashboard',
-            default => '/',
-        });
-    }
-}; ?>
+new #[Layout('layouts.auth')] class extends Component {}; ?>
 
 <div class="relative w-full"
     x-data="{
@@ -144,35 +76,47 @@ new #[Layout('layouts.auth')] class extends Component {
             </div>
 
             <!-- Formulario -->
-            <form wire:submit="login" class="space-y-5">
+            <form method="POST" action="{{ route('login.store') }}" class="space-y-5">
+                @csrf
                 <!-- Campo Usuario o Correo -->
                 <div>
-                    <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">
-                        Usuario o correo
+                    <label for="email" class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">
+                        Número de documento, usuario o correo
                     </label>
                     <input 
+                        id="email"
+                        name="email"
                         type="text" 
-                        wire:model="usuario" 
                         required 
                         autofocus
-                        placeholder="ejemplo@colegio.edu.co"
+                        autocomplete="username"
+                        value="{{ old('email') }}"
+                        aria-describedby="login-identifier-help"
+                        aria-invalid="{{ $errors->has('email') ? 'true' : 'false' }}"
+                        placeholder="Escribe tu documento, usuario o correo"
                         class="w-full px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] dark:focus:border-[#D4A017] focus:ring-2 focus:ring-[#D4A017]/20 transition-all text-stone-800 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500"
                     >
-                    @error('usuario') 
-                        <span class="text-xs text-red-500 dark:text-red-400 mt-1.5 block font-medium">{{ $message }}</span> 
+                    <p id="login-identifier-help" class="mt-2 text-xs leading-relaxed text-stone-500 dark:text-stone-400">
+                        Si tu cuenta fue aprobada, usa el documento del estudiante y la contraseña enviada al correo. Administradores y cuentas de prueba pueden usar su usuario o correo.
+                    </p>
+                    @error('email')
+                        <span id="login-identifier-error" class="text-xs text-red-500 dark:text-red-400 mt-1.5 block font-medium">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <!-- Campo Contraseña -->
                 <div x-data="{ showPassword: false }">
-                    <label class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">
+                    <label for="password" class="block text-xs font-semibold text-stone-600 dark:text-stone-300 uppercase tracking-wider mb-2">
                         Contraseña
                     </label>
                     <div class="relative">
                         <input 
+                            id="password"
+                            name="password"
                             :type="showPassword ? 'text' : 'password'"
-                            wire:model="password" 
                             required
+                            autocomplete="current-password"
+                            aria-invalid="{{ $errors->has('password') ? 'true' : 'false' }}"
                             placeholder="••••••••"
                             class="w-full pr-11 px-4 py-3 text-sm bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:border-[#D4A017] dark:focus:border-[#D4A017] focus:ring-2 focus:ring-[#D4A017]/20 transition-all text-stone-800 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-500"
                         >

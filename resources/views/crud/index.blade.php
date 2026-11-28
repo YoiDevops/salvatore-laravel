@@ -4,9 +4,6 @@
         <div class="mb-6 flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div class="min-w-0">
                 <flux:heading size="xl" class="break-words">{{ $title }}</flux:heading>
-                <x-action-help class="mt-3 max-w-3xl">
-                    Busca el registro que necesitas y usa sus acciones para revisar, cambiar o eliminar la información.
-                </x-action-help>
             </div>
             <flux:button
                 class="w-full shrink-0 sm:w-auto"
@@ -14,7 +11,6 @@
                 icon="plus"
                 href="{{ route($resource.'.create') }}"
                 aria-label="Crear un nuevo registro de {{ mb_strtolower($title) }}"
-                title="Agregar un registro nuevo"
             >
                 Nuevo
             </flux:button>
@@ -34,9 +30,9 @@
                             @foreach($columns as $column)<td class="p-3">{{ data_get($item, $column[0]) ?? 'N/D' }}</td>@endforeach
                             <td class="p-3">
                                 <div class="flex flex-wrap items-center justify-end gap-2">
-                                    <flux:button class="crud-action-button" size="sm" href="{{ route($resource.'.show', $item->getKey()) }}" aria-label="Ver registro {{ $item->getKey() }}" title="Consultar el registro">Ver</flux:button>
-                                    <flux:button class="crud-action-button" size="sm" href="{{ route($resource.'.edit', $item->getKey()) }}" aria-label="Editar registro {{ $item->getKey() }}" title="Cambiar los datos del registro">Editar</flux:button>
-                                    <form class="inline-flex" method="POST" action="{{ route($resource.'.destroy', $item->getKey()) }}">@csrf @method('DELETE')<flux:button class="crud-action-button-danger" size="sm" variant="danger" type="submit" aria-label="Eliminar registro {{ $item->getKey() }}" title="Eliminar este registro">Eliminar</flux:button></form>
+                                    <flux:button class="crud-action-button" size="sm" href="{{ route($resource.'.show', $item->getKey()) }}" aria-label="Ver registro {{ $item->getKey() }}">Ver</flux:button>
+                                    <flux:button class="crud-action-button" size="sm" href="{{ route($resource.'.edit', $item->getKey()) }}" aria-label="Editar registro {{ $item->getKey() }}">Editar</flux:button>
+                                    <form class="inline-flex" method="POST" action="{{ route($resource.'.destroy', $item->getKey()) }}">@csrf @method('DELETE')<flux:button class="crud-action-button-danger" size="sm" variant="danger" type="submit" aria-label="Eliminar registro {{ $item->getKey() }}">Eliminar</flux:button></form>
                                 </div>
                             </td>
                         </tr>

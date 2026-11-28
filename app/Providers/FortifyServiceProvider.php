@@ -9,6 +9,8 @@ use App\Http\Responses\PasskeyLoginResponse;
 use App\Http\Responses\RegisterResponse;
 use App\Http\Responses\TwoFactorLoginResponse;
 use App\Http\Responses\VerifyEmailResponse;
+use App\Models\User;
+use App\Services\Auth\PortalAuthenticator;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -43,6 +45,11 @@ class FortifyServiceProvider extends ServiceProvider
         $this->configureActions();
         $this->configureViews();
         $this->configureRateLimiting();
+
+        Fortify::authenticateUsing(fn (Request $request): ?User => app(PortalAuthenticator::class)->authenticate(
+            (string) $request->input(Fortify::username()),
+            (string) $request->input('password'),
+        ));
     }
 
     /**

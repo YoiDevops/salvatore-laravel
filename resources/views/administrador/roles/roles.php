@@ -20,9 +20,10 @@ $resultado = $mysqli->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/form.css">
+    <link rel="stylesheet" href="/css/confirmation-modal.css">
     <title>Dashboard Usuarios</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/confirmation-modal.js" defer></script>
 </head>
 <body>
 
@@ -115,7 +116,7 @@ $resultado = $mysqli->query($sql);
     <input type="hidden" name="id" id="idSeleccionado">
 </form>
 
-<form id="formEliminar" action="borrar.php" method="POST" style="display:none;">
+<form id="formEliminar" action="borrar.php" method="POST" style="display:none;" data-confirm-title="Eliminar rol" data-confirm-message="Se eliminará este rol. Asegúrate de que ninguna cuenta lo necesite; esta acción no se puede deshacer." data-confirm-label="Eliminar" data-confirm-tone="danger">
     <input type="hidden" name="id" id="idEliminar">
 </form>
 
@@ -133,13 +134,11 @@ function editarRol(){
 function eliminarRol(){
     let seleccionado = document.querySelector('input[name="id"]:checked');
     if(!seleccionado){
-        Swal.fire({ title: "Debe seleccionar un Rol.", icon: "error" });
+        window.showAppNotice({ title: "Selecciona un rol", message: "Elige un rol de la lista antes de continuar." });
         return;
     }
-    if(confirm("¿Está seguro de eliminar este rol?")){
-        document.getElementById("idEliminar").value = seleccionado.value;
-        document.getElementById("formEliminar").submit();
-    }
+    document.getElementById("idEliminar").value = seleccionado.value;
+    document.getElementById("formEliminar").requestSubmit();
 }
 </script>
 </body>

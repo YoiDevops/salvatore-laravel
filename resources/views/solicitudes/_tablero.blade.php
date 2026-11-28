@@ -26,38 +26,37 @@
                     <th class="p-3">Documento</th>
                     <th class="p-3">Nombre</th>
                     <th class="p-3">Género</th>
+                    <th class="p-3">Fecha de solicitud</th>
+                    <th class="p-3">Detalle</th>
                     @if ($mostrarAcciones)
-                        <th class="p-3"></th>
+                        <th class="p-3 text-right">Acciones</th>
                     @endif
                 </tr>
             </thead>
             <tbody>
                 @forelse($solicitudes as $s)
                     @php($modalId = 'solicitud-detalle-'.$s->getKey())
-                    <tr
-                        class="cursor-pointer border-b border-zinc-100 transition hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/60"
-                        role="button"
-                        tabindex="0"
-                        aria-label="Ver detalle de la solicitud de {{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }}"
-                        aria-haspopup="dialog"
-                        aria-controls="{{ $modalId }}"
-                        title="Ver detalles de la solicitud"
-                        onclick="document.getElementById('{{ $modalId }}').showModal()"
-                        onkeydown="if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); document.getElementById('{{ $modalId }}').showModal(); }"
-                    >
+                    <tr class="border-b border-zinc-100 transition hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800/60">
                         <td class="p-3 font-medium">{{ $s->estudiante_tipo_documento }} {{ $s->estudiante_numero_documento }}</td>
                         <td class="p-3">{{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }}</td>
                         <td class="p-3">{{ $s->estudiante_genero }}</td>
+                        <td class="p-3 whitespace-nowrap">{{ $s->created_at?->format('d/m/Y H:i') ?? 'No registrada' }}</td>
+                        <td class="p-3">
+                            <button type="button" aria-haspopup="dialog" aria-controls="{{ $modalId }}" onclick="document.getElementById('{{ $modalId }}').showModal()" class="rounded-lg border border-zinc-300 px-3 py-2 text-xs font-semibold text-zinc-700 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-800">
+                                Ver detalle
+                            </button>
+                        </td>
                         @if ($mostrarAcciones)
-                            <td class="p-3 text-right" onclick="event.stopPropagation()">
+                            <td class="p-3 text-right">
                                 <div class="flex flex-wrap justify-end gap-2">
-                                    <form method="POST" action="{{ route('administrativo.solicitudes.estado', $s) }}">
+                                    <form method="POST" action="{{ route('administrativo.solicitudes.estado', $s) }}" data-confirm-title="Aprobar solicitud" data-confirm-message="Se aprobará la inscripción de {{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }} con el rol Estudiante. Su cuenta quedará activa; el curso o grado se asignará posteriormente desde la institución." data-confirm-label="Aprobar" data-confirm-tone="neutral">
                                         @csrf
                                         @method('PATCH')
                                         <input type="hidden" name="estado" value="aprobado">
+                                        <input type="hidden" name="role" value="Estudiante">
                                         <button type="submit" aria-label="Aprobar la solicitud de {{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }}" class="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-emerald-700">Aceptar</button>
                                     </form>
-                                    <form method="POST" action="{{ route('administrativo.solicitudes.estado', $s) }}">
+                                    <form method="POST" action="{{ route('administrativo.solicitudes.estado', $s) }}" data-confirm-title="Denegar solicitud" data-confirm-message="La solicitud de {{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }} se marcará como denegada y no se creará una cuenta." data-confirm-label="Denegar" data-confirm-tone="danger">
                                         @csrf
                                         @method('PATCH')
                                         <input type="hidden" name="estado" value="denegado">
@@ -69,7 +68,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="{{ $mostrarAcciones ? 4 : 3 }}" class="p-6 text-center text-zinc-500">No hay solicitudes en esta categoría.</td>
+                        <td colspan="{{ $mostrarAcciones ? 6 : 5 }}" class="p-6 text-center text-zinc-500">No hay solicitudes en esta categoría.</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -101,6 +100,7 @@
                             <div><dt class="text-xs text-zinc-500">Tipo de sangre</dt><dd class="mt-1 text-sm">{{ $valor($s->estudiante_tipo_sangre) }}</dd></div>
                             <div><dt class="text-xs text-zinc-500">Lugar de nacimiento</dt><dd class="mt-1 text-sm">{{ $valor($s->estudiante_lugar_nacimiento) }}</dd></div>
                             <div><dt class="text-xs text-zinc-500">EPS</dt><dd class="mt-1 text-sm">{{ $valor($s->estudiante_eps) }}</dd></div>
+                            <div><dt class="text-xs text-zinc-500">Estado reportado</dt><dd class="mt-1 text-sm">{{ $valor($s->estudiante_estado) }}</dd></div>
                             <div><dt class="text-xs text-zinc-500">Discapacidad</dt><dd class="mt-1 text-sm">{{ $valor($s->estudiante_tiene_discapacidad) }}</dd></div>
                             <div><dt class="text-xs text-zinc-500">Tipo de discapacidad</dt><dd class="mt-1 text-sm">{{ $valor($s->estudiante_tipo_discapacidad) }}</dd></div>
                             <div><dt class="text-xs text-zinc-500">Diagnóstico</dt><dd class="mt-1 text-sm">{{ $valor($s->estudiante_diagnostico_discapacidad) }}</dd></div>
@@ -126,6 +126,27 @@
                         </dl>
                     </section>
                 </div>
+
+                <section class="mt-6 rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-700 dark:bg-zinc-800/60">
+                    <h3 class="mb-3 text-sm font-semibold">Datos de la solicitud y acceso</h3>
+                    <dl class="grid gap-3 sm:grid-cols-2">
+                        <div><dt class="text-xs text-zinc-500">Número de solicitud</dt><dd class="mt-1 text-sm">#{{ $s->id_solicitud }}</dd></div>
+                        <div><dt class="text-xs text-zinc-500">Fecha de recepción</dt><dd class="mt-1 text-sm">{{ $s->created_at?->format('d/m/Y H:i') ?? 'No registrada' }}</dd></div>
+                        <div><dt class="text-xs text-zinc-500">Tipo de registro</dt><dd class="mt-1 text-sm">Inscripción de estudiante con acudiente</dd></div>
+                        <div><dt class="text-xs text-zinc-500">Rol al aprobar</dt><dd class="mt-1 text-sm">Estudiante</dd></div>
+                        <div><dt class="text-xs text-zinc-500">Asignación académica</dt><dd class="mt-1 text-sm">Pendiente. La solicitud no recopila el curso o grado; la institución lo asignará después.</dd></div>
+                        <div class="sm:col-span-2">
+                            <dt class="text-xs text-zinc-500">Cuenta de acceso</dt>
+                            <dd class="mt-1 break-words text-sm">
+                                @if ($s->usuario)
+                                    {{ $s->usuario->email }} · {{ $s->usuario->effective_role }} · {{ $s->usuario->status ?? $s->usuario->estado }}
+                                @else
+                                    Se creará al aprobar la solicitud.
+                                @endif
+                            </dd>
+                        </div>
+                    </dl>
+                </section>
             </div>
 
             <div class="flex flex-wrap items-center justify-between gap-3 border-t border-zinc-200 px-5 py-4 dark:border-zinc-800">
@@ -134,13 +155,14 @@
                 </span>
                 <div class="flex flex-wrap justify-end gap-2">
                     @if ($mostrarAcciones)
-                        <form method="POST" action="{{ route('administrativo.solicitudes.estado', $s) }}">
+                        <form method="POST" action="{{ route('administrativo.solicitudes.estado', $s) }}" data-confirm-title="Aprobar solicitud" data-confirm-message="Se aprobará la inscripción de {{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }} con el rol Estudiante. Su cuenta quedará activa; el curso o grado se asignará posteriormente desde la institución." data-confirm-label="Aprobar" data-confirm-tone="neutral">
                             @csrf
                             @method('PATCH')
                             <input type="hidden" name="estado" value="aprobado">
+                            <input type="hidden" name="role" value="Estudiante">
                             <button type="submit" aria-label="Aprobar la solicitud de {{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }}" class="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-emerald-700">Aprobar</button>
                         </form>
-                        <form method="POST" action="{{ route('administrativo.solicitudes.estado', $s) }}">
+                        <form method="POST" action="{{ route('administrativo.solicitudes.estado', $s) }}" data-confirm-title="Denegar solicitud" data-confirm-message="La solicitud de {{ $s->estudiante_nombres }} {{ $s->estudiante_apellidos }} se marcará como denegada y no se creará una cuenta." data-confirm-label="Denegar" data-confirm-tone="danger">
                             @csrf
                             @method('PATCH')
                             <input type="hidden" name="estado" value="denegado">

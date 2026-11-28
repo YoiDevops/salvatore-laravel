@@ -2,10 +2,6 @@
     <flux:main>
         <div class="mx-auto w-full min-w-0 max-w-2xl">
             <flux:heading size="xl" class="mb-3 break-words">{{ $title }}</flux:heading>
-            <x-action-help class="mb-6">
-                Completa la información y selecciona Guardar. Si vuelves sin guardar, los cambios no se conservarán.
-            </x-action-help>
-
             {{-- Errores de validacion --}}
             @if ($errors->any())
                 <div class="mb-4 rounded-lg border border-red-500 p-3 text-sm text-red-400">

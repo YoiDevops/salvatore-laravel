@@ -25,7 +25,9 @@ if(isset($_POST["botregistrar"])){
 
     $stmt->bind_param('iiiss', $Sede, $Grado, $Jornada, $Nombrecur, $cupomax);
     if($stmt->execute()){
-        echo "<script> alert('Curso registrado con éxito: $Nombrecur'); window.location='cursos.php'</script>";
+        $stmt->close();
+        header('Location: cursos.php?estado=creado');
+        exit();
     } else {
         die('Error en la ejecución: ' . $stmt->error);
     }

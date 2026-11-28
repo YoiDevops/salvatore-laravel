@@ -4,6 +4,7 @@ namespace App\Models\Profesor;
 
 use App\Models\Usuarios\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Profesor extends Model
 {
@@ -31,5 +32,11 @@ class Profesor extends Model
     public function usuario()
     {
         return $this->belongsTo(User::class, 'id_usuario', 'id_users');
+    }
+
+    /** @return HasMany<\App\Models\Academico\Carga, $this> */
+    public function cargas(): HasMany
+    {
+        return $this->hasMany(\App\Models\Academico\Carga::class, 'id_profesor', 'id_profesor');
     }
 }

@@ -43,7 +43,7 @@
                     <div class="flex flex-wrap items-center gap-2">
                     <a href="{{ route('profesores.show', [$profesor->id_profesor ?? $profesor->id]) }}" class="crud-action-button">Ver</a>
                     <a href="{{ route('profesores.edit', [$profesor->id_profesor ?? $profesor->id]) }}" class="crud-action-button">Editar</a>
-                    <form action="{{ route('profesores.destroy', [$profesor->id_profesor ?? $profesor->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este profesor?');" class="inline-flex">
+                    <form action="{{ route('profesores.destroy', [$profesor->id_profesor ?? $profesor->id]) }}" method="POST" class="inline-flex" data-confirm-title="Eliminar docente" data-confirm-message="Se eliminará el registro de {{ $profesor->nombres_profesor }} {{ $profesor->apellidos_profesor }}. Esta acción no se puede deshacer." data-confirm-label="Eliminar" data-confirm-tone="danger">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="crud-action-button-danger">Eliminar</button>

@@ -218,10 +218,6 @@
                 </div>
             </section>
 
-            <x-action-help>
-                Elige una tarjeta para conocer tus materias, curso o progreso. Si falta información, consulta a tu acudiente o docente.
-            </x-action-help>
-
             <section class="student-panel bg-[#fffdf7] p-6 sm:p-8">
                 <div class="flex flex-wrap items-end justify-between gap-4 border-b-2 border-dashed border-[#d7c7f0] pb-5">
                     <div><p class="text-sm font-black uppercase tracking-[.18em] text-[#7959aa]">Lo que estoy aprendiendo</p><h2 class="mt-2 text-3xl font-black text-[#3e2f55] sm:text-4xl">Mis materias</h2></div>
@@ -246,7 +242,7 @@
                 <section class="student-panel bg-[#fff9df] p-8 text-center">
                     <div class="text-5xl">🧩</div>
                     <h2 class="mt-3 text-2xl font-black text-[#614900]">Falta una pieza</h2>
-                    <p class="mx-auto mt-2 max-w-lg font-semibold leading-6 text-[#806c2f]">Tu usuario est&aacute; listo, pero no hay una ficha de estudiante relacionada en la base de datos.</p>
+                    <p class="mx-auto mt-2 max-w-lg font-semibold leading-6 text-[#806c2f]">Tu cuenta est&aacute; activa. El equipo acad&eacute;mico a&uacute;n debe asignarte un curso y completar tu ficha; cuando lo haga, ver&aacute;s aqu&iacute; tu informaci&oacute;n.</p>
                 </section>
             @else
                 <section class="grid gap-10 lg:grid-cols-[1.25fr_.75fr]">

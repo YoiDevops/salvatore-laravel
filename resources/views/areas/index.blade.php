@@ -29,7 +29,7 @@
                 <td class="p-4">
                     <div class="flex flex-wrap items-center gap-2">
                     <a href="{{ route('areas.edit', [$area->id_area ?? $area->id]) }}" class="crud-action-button">Editar</a>
-                    <form action="{{ route('areas.destroy', [$area->id_area ?? $area->id]) }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar esta área?');" class="inline-flex">
+                    <form action="{{ route('areas.destroy', [$area->id_area ?? $area->id]) }}" method="POST" class="inline-flex" data-confirm-title="Eliminar área" data-confirm-message="Se eliminará el área {{ $area->nombre_area }}. Esta acción no se puede deshacer." data-confirm-label="Eliminar" data-confirm-tone="danger">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="crud-action-button-danger">Eliminar</button>

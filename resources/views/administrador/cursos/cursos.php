@@ -14,6 +14,12 @@ $sql = "SELECT id_curso, id_sede, id_grado, id_jornada, nombre_curso, cupo_maxim
         $where";
 
 $resultado = $mysqli->query($sql);
+$mensajesCurso = [
+    'creado' => 'El curso se registró correctamente.',
+    'actualizado' => 'Los cambios del curso se guardaron correctamente.',
+];
+$estadoCurso = $_GET['estado'] ?? '';
+$mensajeCurso = is_string($estadoCurso) ? ($mensajesCurso[$estadoCurso] ?? null) : null;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -21,9 +27,10 @@ $resultado = $mysqli->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/form.css">
+    <link rel="stylesheet" href="/css/confirmation-modal.css">
     <title>Dashboard Cursos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/confirmation-modal.js" defer></script>
 </head>
 <body>
 
@@ -127,7 +134,7 @@ $resultado = $mysqli->query($sql);
 <form id="formEditar" action="editar_curso.php" method="get" style="display:none;">
     <input type="hidden" name="id" id="idSeleccionado">
 </form>
-<form id="formEliminarCurso" method="get" action="eliminar_curso.php" onsubmit="return confirmarEliminar();">
+<form id="formEliminarCurso" method="get" action="eliminar_curso.php" data-confirm-title="Eliminar curso" data-confirm-message="Se eliminará este curso. Esta acción no se puede deshacer." data-confirm-label="Eliminar" data-confirm-tone="danger">
     <input type="hidden" name="id" id="idCursoEliminar">
 </form>
 
@@ -137,10 +144,7 @@ function editarCurso(){
     let seleccionado = document.querySelector('input[name="id"]:checked');
 
     if(!seleccionado){
-        Swal.fire({
-            title: "Debe seleccionar un Curso.",
-            icon: "error"
-        });
+        window.showAppNotice({ title: "Selecciona un curso", message: "Elige un curso de la lista antes de continuar." });
         return false;
     }
 
@@ -154,10 +158,7 @@ function eliminarCursoSeleccionado() {
     let seleccionado = document.querySelector('input[name="id"]:checked');
 
     if(!seleccionado){
-        Swal.fire({
-            title: "Debe seleccionar un Curso.",
-            icon: "error"
-        });
+        window.showAppNotice({ title: "Selecciona un curso", message: "Elige un curso de la lista antes de continuar." });
         return false;
     }
 
@@ -168,18 +169,17 @@ function eliminarCursoSeleccionado() {
     return false;
 }
 
-function confirmarEliminar() {
-
-    const id = document.getElementById('idCursoEliminar').value;
-
-    if(!id){
-        alert('Por favor selecciona un curso para borrar.');
-        return false;
-    }
-
-    return confirm('¿Seguro que deseas eliminar este curso?');
-}
 </script>
+<?php if ($mensajeCurso !== null): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            window.showAppNotice({
+                title: 'Curso guardado',
+                message: <?= json_encode($mensajeCurso, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>,
+            });
+        });
+    </script>
+<?php endif; ?>
 </body>
 </html>
 

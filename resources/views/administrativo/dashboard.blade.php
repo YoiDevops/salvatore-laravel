@@ -17,10 +17,6 @@
                 </div>
             </section>
 
-            <x-action-help>
-                Usa Ver cuentas para revisar los accesos existentes, o elige Registrar para abrir el formulario de profesor o estudiante.
-            </x-action-help>
-
             <div class="grid gap-5 sm:grid-cols-3">
                 @foreach ([['Usuarios registrados', $totalUsuarios, 'users'], ['Profesores', $totalProfesores, 'user-group'], ['Estudiantes', $totalEstudiantes, 'academic-cap']] as [$label, $total, $icon])
                     <div class="rounded-2xl border border-[#e5e7eb] bg-white p-6 shadow-sm dark:border-[#3c4043] dark:bg-[#1e1f20]">

@@ -4,11 +4,8 @@
             <div>
                 <h1 class="text-2xl font-bold text-zinc-800 dark:text-zinc-100">Gestión de Usuarios</h1>
                 <p class="text-sm text-zinc-500">Administración de cuentas registradas en la plataforma.</p>
-                <x-action-help class="mt-3 max-w-3xl">
-                    Busca una cuenta para revisar sus datos o cambiar su acceso.
-                </x-action-help>
             </div>
-            <flux:button class="w-full sm:w-auto" variant="primary" icon="plus" href="{{ route('usuarios.create') }}" aria-label="Agregar una cuenta de usuario" title="Crear una cuenta nueva">
+            <flux:button class="w-full sm:w-auto" variant="primary" icon="plus" href="{{ route('usuarios.create') }}" aria-label="Agregar una cuenta de usuario">
                 Agregar Usuario
             </flux:button>
         </div>
@@ -48,10 +45,10 @@
                                 <td class="p-3">
                                     <div class="flex flex-wrap items-center justify-end gap-2">
                                     <flux:button class="crud-action-button" size="sm" href="{{ route('usuarios.edit', $usuario->id_users) }}">Editar</flux:button>
-                                    <form action="{{ route('usuarios.destroy', $usuario->id_users) }}" method="POST" class="inline-flex">
+                                    <form action="{{ route('usuarios.destroy', $usuario->id_users) }}" method="POST" class="inline-flex" data-confirm-title="Eliminar usuario" data-confirm-message="Se eliminará la cuenta de {{ $usuario->name }}. Esta acción no se puede deshacer." data-confirm-label="Eliminar" data-confirm-tone="danger">
                                         @csrf
                                         @method('DELETE')
-                                        <flux:button class="crud-action-button-danger" size="sm" variant="danger" type="submit" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</flux:button>
+                                        <flux:button class="crud-action-button-danger" size="sm" variant="danger" type="submit">Eliminar</flux:button>
                                     </form>
                                     </div>
                                 </td>

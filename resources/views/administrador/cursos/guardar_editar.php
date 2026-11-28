@@ -19,7 +19,9 @@ $stmt = $mysqli->prepare(
 $stmt->bind_param('iiissi', $Sede, $Grado, $Jornada, $Nombrecur, $cupomax,$idcurso);
 
 if ($stmt->execute()) {
-    echo "<script>alert('Curso actualizado correctamente'); window.location='cursos.php';</script>";
+    $stmt->close();
+    header('Location: cursos.php?estado=actualizado');
+    exit();
 } else {
     echo "Error al actualizar: " . $stmt->error;
 }

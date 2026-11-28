@@ -5,6 +5,7 @@ namespace App\Models\Academico;
 use App\Models\Estudiante\Estudiante;
 use App\Models\Institucional\Sede;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Curso extends Model
 {
@@ -36,5 +37,11 @@ class Curso extends Model
     public function estudiantes()
     {
         return $this->hasMany(Estudiante::class, 'id_curso', 'id_curso');
+    }
+
+    /** @return HasMany<Carga, $this> */
+    public function cargas(): HasMany
+    {
+        return $this->hasMany(Carga::class, 'id_curso', 'id_curso');
     }
 }

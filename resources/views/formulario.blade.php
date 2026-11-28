@@ -208,7 +208,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
             'acudiente_parentesco' => ['required', 'string'],
             'acudiente_direccion' => ['required', 'string', 'max:150'],
             'acudiente_telefono' => ['required', 'regex:/^[0-9]+$/', 'max:10'],
-            'acudientecontacto_correo' => ['required', 'email', 'max:150'],
+            'acudientecontacto_correo' => ['required', 'email', 'max:100'],
             'acudiente_lugar_trabajo' => ['nullable', 'string', 'max:150'],
             'acudiente_ocupacion' => ['nullable', 'string', 'max:100'],
         ], [
@@ -262,7 +262,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
             'acudiente_parentesco' => ['required', 'string'],
             'acudiente_direccion' => ['required', 'string', 'max:150'],
             'acudiente_telefono' => ['required', 'regex:/^[0-9]+$/', 'max:10'],
-            'acudientecontacto_correo' => ['required', 'email', 'max:150'],
+            'acudientecontacto_correo' => ['required', 'email', 'max:100'],
             'acudiente_lugar_trabajo' => ['nullable', 'string', 'max:150'],
             'acudiente_ocupacion' => ['nullable', 'string', 'max:100'],
         ]);
@@ -387,7 +387,6 @@ new #[Layout('layouts.auth.card')] class extends Component {
                     type="button"
                     @click="toggleTheme()"
                     class="inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-stone-100 text-stone-600 transition-all hover:text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#D4A017]/50 dark:bg-stone-800 dark:text-stone-300 dark:hover:text-white"
-                    title="Cambiar tema"
                     aria-label="Cambiar entre tema claro y oscuro"
                 >
                 <svg x-show="darkMode" class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
@@ -411,7 +410,7 @@ new #[Layout('layouts.auth.card')] class extends Component {
         @else
         <!-- INDICADOR DE PASOS -->
         <x-action-help>
-            Completa primero los datos del estudiante y continúa con la información del padre o acudiente.
+            Primero registra los datos del estudiante; después continúa con la información de su padre, madre o acudiente.
         </x-action-help>
         <div class="grid grid-cols-2 gap-4">
             <!-- Indicador Paso 1 -->

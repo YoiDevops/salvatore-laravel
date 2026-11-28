@@ -20,9 +20,10 @@ $resultado = $mysqli->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/form.css">
+    <link rel="stylesheet" href="/css/confirmation-modal.css">
     <title>Dashboard Asignaturas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/confirmation-modal.js" defer></script>
 </head>
 <body>
 
@@ -123,7 +124,7 @@ $resultado = $mysqli->query($sql);
     <input type="hidden" name="id" id="idSeleccionado">
 </form>
 
-<form id="formEliminar" action="borrar_asignatura.php" method="POST" style="display:none;">
+<form id="formEliminar" action="borrar_asignatura.php" method="POST" style="display:none;" data-confirm-title="Eliminar asignatura" data-confirm-message="Se eliminará esta asignatura y su información de configuración. Esta acción no se puede deshacer." data-confirm-label="Eliminar" data-confirm-tone="danger">
     <input type="hidden" name="id" id="idEliminar">
 </form>
 
@@ -131,7 +132,7 @@ $resultado = $mysqli->query($sql);
 function editarAsignatura(){
     let seleccionado = document.querySelector('input[name="id"]:checked');
     if(!seleccionado){
-        Swal.fire({ title: "Debe seleccionar una Asignatura.", icon: "error" });
+        window.showAppNotice({ title: "Selecciona una asignatura", message: "Elige una asignatura de la lista antes de continuar." });
         return;
     }
     document.getElementById("idSeleccionado").value = seleccionado.value;
@@ -141,13 +142,11 @@ function editarAsignatura(){
 function eliminarAsignatura(){
     let seleccionado = document.querySelector('input[name="id"]:checked');
     if(!seleccionado){
-        Swal.fire({ title: "Debe seleccionar una Asignatura.", icon: "error" });
+        window.showAppNotice({ title: "Selecciona una asignatura", message: "Elige una asignatura de la lista antes de continuar." });
         return;
     }
-    if(confirm("¿Está seguro de eliminar esta asignatura?")){
-        document.getElementById("idEliminar").value = seleccionado.value;
-        document.getElementById("formEliminar").submit();
-    }
+    document.getElementById("idEliminar").value = seleccionado.value;
+    document.getElementById("formEliminar").requestSubmit();
 }
 </script>
 </body>

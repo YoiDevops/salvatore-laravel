@@ -1415,6 +1415,30 @@ button {
     }
 }
 
+.app-contextual-tooltip {
+    position: fixed;
+    z-index: 1000;
+    max-width: min(20rem, calc(100vw - 1rem));
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d8b85c;
+    border-radius: 0.625rem;
+    background: #27313a;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    text-align: left;
+    overflow-wrap: anywhere;
+    box-shadow: 0 8px 24px rgb(16 33 59 / 18%);
+    pointer-events: none;
+}
+
+.dark .app-contextual-tooltip {
+    border-color: #6f5a26;
+    background: #292a2c;
+    color: #f1f3f4;
+}
+
 :is(div, section, article, nav)[class*="rounded-"][class*="border"]:not([class*="rounded-full"]):not([class*="border-dashed"]):not([class*="border-red"]):not([class*="border-green"]):not([class*="border-emerald"]):not([class*="border-amber"]):not([class*="border-yellow"]),
 :is(div, section, article, nav)[class*="rounded-"][class*="shadow"]:not([class*="rounded-full"]):not([class*="border-red"]):not([class*="border-green"]):not([class*="border-emerald"]):not([class*="border-amber"]):not([class*="border-yellow"]),
 a[class*="rounded-"][class*="shadow"]:not([class*="rounded-full"]):not([class*="border-red"]):not([class*="border-green"]):not([class*="border-emerald"]):not([class*="border-amber"]):not([class*="border-yellow"]),
